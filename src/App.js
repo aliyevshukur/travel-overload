@@ -5,11 +5,19 @@ import "./App.scss";
 
 import { Login, Register } from "./Pages";
 
+import { Navigation } from "./navigation";
+
 function App() {
   return (
     <div className="App">
-      <Login />
+      {/* <Login /> */}
       {/* <Register /> */}
+      <Navigation />
+      <div className={"main-layout"}>
+        {
+          // Container for all layout
+        }
+      </div>
     </div>
   );
 }
