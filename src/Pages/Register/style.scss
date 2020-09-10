@@ -1,0 +1,67 @@
+@import "../../_theme";
+
+.container {
+  display: flex;
+  // justify-content: space-between;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 100px;
+
+    .login-form {
+      // width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .title {
+        align-self: flex-start;
+        margin-bottom: 52px;
+        color: $title-color;
+        text-align: left;
+        font-size: 50px;
+        font-weight: bold;
+        line-height: 61px;
+        &-span {
+          display: block;
+          color: $secondary;
+        }
+      }
+
+      .form-field {
+        margin-bottom: 50px;
+      }
+
+      .action-buttons {
+        // width: 100%;
+        // display: flex;
+        // justify-content: space-between;
+
+        .google-btn {
+          background-color: white;
+          color: black;
+          border: 2px solid black;
+          line-height: 22px;
+
+          img {
+            width: 24px;
+            height: 24px;
+          }
+        }
+      }
+    }
+  }
+  .cover-image-wrapper {
+    height: 100vh;
+
+    .cover-image {
+      width: 500px;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

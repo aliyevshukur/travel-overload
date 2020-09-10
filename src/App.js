@@ -1,13 +1,19 @@
-import React from 'react';
-import './App.css';
+import React from "react";
 
-import { Navigation } from './navigation';
+import "./reset.scss";
+import "./App.scss";
+
+import { Login, Register } from "./Pages";
+
+import { Navigation } from "./navigation";
 
 function App() {
   return (
     <div className="App">
+      {/* <Login /> */}
+      {/* <Register /> */}
       <Navigation />
-      <div className={'main-layout'}>
+      <div className={"main-layout"}>
         {
           // Container for all layout
         }
