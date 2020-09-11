@@ -1,6 +1,6 @@
-@import "../../_theme";
+@import "../../styles/_theme";
 
-.container {
+.register-container {
   display: flex;
   // justify-content: space-between;
 
@@ -37,9 +37,9 @@
       }
 
       .action-buttons {
-        // width: 100%;
-        // display: flex;
-        // justify-content: space-between;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
 
         .google-btn {
           background-color: white;

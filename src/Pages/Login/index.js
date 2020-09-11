@@ -8,7 +8,7 @@ import { InputField, CustomButton } from "../../components";
 
 export const Login = () => {
   return (
-    <div className="container">
+    <div className="login-container">
       <div className="content">
         <form className="login-form">
           <h1 className="title">
