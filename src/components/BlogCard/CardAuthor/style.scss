@@ -1,0 +1,30 @@
+.card-author {
+  display: flex;
+  // align-self: flex-end;
+  justify-self: end;
+
+  .author-image {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .author-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 8px;
+
+    .author-name {
+      font-size: 11px;
+      line-height: 13px;
+    }
+
+    .date {
+      font-size: 9px;
+      line-height: 11px;
+      color: #6b6b6b;
+    }
+  }
+}

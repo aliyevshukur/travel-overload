@@ -44,7 +44,7 @@ export const InputField = ({ fieldName, type, icon, className }) => {
         className={`field-label ${isFocused && "focused-field"}`}
         htmlFor={fieldName}
       >
-        {fieldName.toUpperCase()}
+        {fieldName}
       </label>
       {icon && (
         <div
