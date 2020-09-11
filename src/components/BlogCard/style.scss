@@ -1,0 +1,36 @@
+.blog-card {
+  display: flex;
+  background-color: white;
+  width: 561px;
+  height: 265px;
+  box-sizing: border-box;
+  padding: 15px;
+  border-radius: 30px;
+
+  &-image {
+    width: 236px;
+    height: 236px;
+    object-fit: cover;
+    border-radius: 30px;
+  }
+
+  &-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 37px;
+    justify-content: space-between;
+
+    .blog-card-title {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 24px;
+      margin-bottom: 24px;
+    }
+
+    .blog-card-preview {
+      font-size: 13px;
+      line-height: 18px;
+    }
+  }
+}
