@@ -10,10 +10,10 @@ import { Navigation } from "./navigation";
 function App() {
   return (
     <div className="App">
-      {/* <Login /> */}
       {/* <Register /> */}
       <Navigation />
       <div className={"main-layout"}>
+        <Login />
         {
           // Container for all layout
         }
