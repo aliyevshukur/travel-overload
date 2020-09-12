@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Route, Switch } from "react-router-dom";
 
-import { Login, Register } from "./Pages";
+import { Login, New, Register, Popular } from "./Pages";
 
 export const ROUTES = [
   {
@@ -20,6 +20,16 @@ export const ROUTES = [
     path: "/register",
     key: "REGISTER",
     component: Register,
+  },
+  {
+    path: "/new",
+    key: "NEW",
+    component: New,
+  },
+  {
+    path: "/popular",
+    key: "POPULAR",
+    component: Popular,
   },
 ];
 

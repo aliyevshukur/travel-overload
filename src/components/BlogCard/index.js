@@ -2,11 +2,11 @@ import React from "react";
 import { CardAuthor } from "./CardAuthor";
 import "./style.scss";
 
-export const BlogCard = ({ cardInfo }) => {
+export const BlogCard = ({ cardInfo, className = "" }) => {
   const { image, title, preview, date, author, authorImage } = cardInfo;
   console.log(cardInfo);
   return (
-    <div className="blog-card">
+    <div className={`blog-card ${className}`}>
       <img src={image} alt="card" className="blog-card-image" />
       <div className="blog-card-content">
         <div>
