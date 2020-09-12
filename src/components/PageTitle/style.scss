@@ -1,0 +1,17 @@
+@import "../../styles/theme";
+
+.page-title {
+  .line {
+    width: 45px;
+    height: 11px;
+    border-radius: 23px;
+    background-color: $secondary;
+    margin-bottom: 4px;
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 41px;
+  }
+}

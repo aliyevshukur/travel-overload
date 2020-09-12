@@ -1,0 +1,26 @@
+.blog-list {
+  padding: 40px 50px 0 50px;
+
+  .page-title {
+    margin-bottom: 30px;
+  }
+
+  .blog-cards {
+    display: flex;
+    flex-wrap: wrap;
+
+    @media (max-width: 1290px) {
+      flex-direction: column;
+    }
+
+    .card-wrapper {
+      box-sizing: border-box;
+      padding: 1em;
+      width: 50%;
+
+      @media (max-width: 1290px) {
+        width: 100%;
+      }
+    }
+  }
+}
