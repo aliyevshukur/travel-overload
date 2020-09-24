@@ -1,0 +1,16 @@
+@use '../../styles/mediaqueries';
+
+.hero-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 100;
+
+  //   @include medaiqueries.tabletL {
+  //     padding: 0 20px;
+  //   }
+
+  .button {
+    @include mediaqueries.rounded;
+    padding: 5px + mediaqueries.$radius;
+  }
+}

@@ -16,7 +16,7 @@ export const Login = () => {
           </h1>
           <InputField fieldName="email" className="form-field" />
           <InputField
-            fieldName="pasword"
+            fieldName="password"
             className="form-field"
             type="password"
             icon={Eye}

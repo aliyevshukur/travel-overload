@@ -18,7 +18,7 @@ export const Register = () => {
           <InputField fieldName="surname" className="form-field" />
           <InputField fieldName="email" className="form-field" />
           <InputField
-            fieldName="pasword"
+            fieldName="password"
             className="form-field"
             type="password"
             icon={Eye}

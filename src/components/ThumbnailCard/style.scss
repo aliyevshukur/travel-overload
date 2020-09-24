@@ -1,0 +1,44 @@
+@use 'node_modules/src/styles/mediaqueries';
+
+.thumbnail-card-container {
+  width: 33.3%;
+  height: 270px;
+  border-radius: 30px;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .card-button {
+    background-color: #383838;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    padding: 8px 13px;
+    width: auto;
+    height: auto;
+    font-size: 12px;
+  }
+
+  .card-title {
+    position: absolute;
+    left: 40px;
+    bottom: 43px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 41px;
+  }
+}
+
+.thumbnail-card-large {
+  width: 66%;
+  height: 270px;
+}
