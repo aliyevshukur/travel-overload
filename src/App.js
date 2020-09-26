@@ -1,23 +1,17 @@
 import React from "react";
-
-import "./reset.scss";
+import "./styles/reset.scss";
 import "./App.scss";
 
-import { Login, Register, Create } from "./Pages";
-
 import { Navigation } from "./navigation";
+import { RenderRoutes, ROUTES } from "./routes";
 
 function App() {
   return (
     <div className="App">
-      {/* <Login /> */}
-      {/* <Register /> */}
       <Navigation />
-      {/* <div className={"main-layout"}> */}
-        {
-          // Container for all layout
-        }
-      {/* </div> */}
+      <div className="app-container">
+        <RenderRoutes routes={ROUTES} />
+      </div>
     </div>
   );
 }

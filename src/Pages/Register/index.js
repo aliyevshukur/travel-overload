@@ -8,7 +8,7 @@ import { CustomButton, InputField } from "../../components";
 
 export const Register = () => {
   return (
-    <div className="container">
+    <div className="register-container">
       <div className="content">
         <form className="login-form">
           <h1 className="title">

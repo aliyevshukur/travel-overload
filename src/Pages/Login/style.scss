@@ -1,7 +1,8 @@
-@import "../../_theme";
+@import "../../styles/_theme";
 
-.container {
+.login-container {
   display: flex;
+  height: 100vh;
 
   .content {
     display: flex;
@@ -52,7 +53,7 @@
     }
   }
   .cover-image-wrapper {
-    height: 100vh;
+    height: 100%;
 
     .cover-image {
       width: 500px;

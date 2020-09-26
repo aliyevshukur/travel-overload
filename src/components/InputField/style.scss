@@ -1,4 +1,4 @@
-@import "../../theme";
+@import "../../styles/theme";
 
 .field-wrapper {
   width: 500px;
@@ -6,20 +6,24 @@
   position: relative;
 
   .field-label {
+    color: $title-color;
     position: absolute;
     left: 0;
     top: 50%;
     transform: translate(0, -50%);
     transition: 0.2s ease-in-out;
-    font-size: 13px;
+    font-size: 15px;
+    text-transform: capitalize;
   }
 
   .focused-field {
-    top: 0%;
-    font-size: 14px;
+    color: black;
+    top: -13%;
+    font-size: 17px;
   }
 
   .field {
+    background-color: $primary;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -39,8 +43,10 @@
     right: 2%;
     top: 50%;
     transform: translate(0, -50%);
+    cursor: pointer;
+
     &:hover {
-      background-color: $primary;
+      background-color: white;
     }
   }
 }
