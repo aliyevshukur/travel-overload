@@ -18,7 +18,7 @@
 }
 .logo-text {
     font-size: 22px;
-    font-family: Montserrat-SemiBold;
+    font-weight: 800;
     margin-left: 10px;
 }
 
@@ -74,7 +74,6 @@
 .nav-item-text {
     font-size: 18px;
     margin-left: 18px;
-    font-family: Montserrat-Regular;
     font-weight: 500;
     color: #000000;
     -moz-user-select: none;
@@ -90,7 +89,6 @@
 .nav-item-text-selected {
     font-size: 18px;
     margin-left: 18px;
-    font-family: Montserrat-Regular;
     font-weight: 500;
     color: #18A0FB;
     -moz-user-select: none;

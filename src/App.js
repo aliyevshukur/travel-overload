@@ -3,7 +3,7 @@ import React from "react";
 import "./reset.scss";
 import "./App.scss";
 
-import { Login, Register } from "./Pages";
+import { Login, Register, Create } from "./Pages";
 
 import { Navigation } from "./navigation";
 
@@ -13,11 +13,11 @@ function App() {
       {/* <Login /> */}
       {/* <Register /> */}
       <Navigation />
-      <div className={"main-layout"}>
+      {/* <div className={"main-layout"}> */}
         {
           // Container for all layout
         }
-      </div>
+      {/* </div> */}
     </div>
   );
 }

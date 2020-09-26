@@ -1,12 +1,11 @@
 body {
   font-family: "Montserrat", sans-serif;
 
+
   .main-layout {
-    margin-left: 200px;
-    width: 100vw - 200px;
-    /* height: 100vh; */
-    background-color: #f6f6f6;
+    // background-color: #f6f6f6;
   }
+
   @font-face {
     font-family: "Montserrat-Regular";
     src: local("Montserrat-Regular"),
@@ -23,3 +22,5 @@ body {
       url(./fonts/Montserrat-Bold.ttf) format("truetype");
   }
 }
+
+
