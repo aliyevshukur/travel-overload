@@ -1,4 +1,5 @@
-@import "./styles/theme";
+@use "src/styles/theme";
+@use "src/styles/mediaqueries";
 
 html,
 body,
@@ -12,7 +13,11 @@ body {
     height: 100%;
     .app-container {
       padding-left: 200px;
-      background-color: $primary;
+
+      @include mediaqueries.tabletL {
+        padding-left: 0;
+      }
+      background-color: theme.$primary;
     }
   }
 }

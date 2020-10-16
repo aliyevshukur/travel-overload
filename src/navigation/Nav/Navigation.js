@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import "./Navigation.css";
-import { CustomSvg } from "../../components";
+import "./Navigation.scss";
+import { CustomButton, CustomSvg } from "../../components";
 import * as userPic from "../../assets/sienna.jpg";
 import { Link } from "react-router-dom";
 
@@ -35,75 +35,94 @@ export const Navigation = () => {
   ];
 
   const [selected, setSelected] = useState("home");
+  const [navVisibility, setNavVisibilty] = useState(true);
 
   const navItemClickHandler = (id) => {
     setSelected(id);
   };
 
+  const toggleNav = () => {
+    setNavVisibilty(!navVisibility);
+  };
+
   return (
-    <div className={"navigation-container"}>
-      <div className="logo-holder">
-        <CustomSvg name={"fingerPrint"} width={"50"} height={"50"} />
-        <p className={"logo-text"}>Travel Overload</p>
-      </div>
-      <div className={"main"}>
-        {navItems.map((item) => (
-          <div className={"nav-item-holder"} key={item.id}>
-            <Link
-              to={item.id}
-              className={
-                selected == item.id
-                  ? "nav-item nav-item-selected"
-                  : item.id == "register"
-                  ? "nav-item nav-register"
-                  : "nav-item"
-              }
-              onClick={() => navItemClickHandler(item.id)}
-            >
-              <CustomSvg
-                name={item.icon}
-                width={"24"}
-                height={"24"}
-                color={
-                  selected == item.id
-                    ? "#18A0FB"
-                    : item.id == "register"
-                    ? "#ffffff"
-                    : "#000000"
-                }
-              />
-              <p
+    <>
+      {!navVisibility && (
+        <div className="burger-button" onClick={toggleNav}>
+          <p>Menu</p>
+        </div>
+      )}
+
+      <div
+        className={"navigation-container"}
+        style={navVisibility ? { display: "block" } : { display: "none" }}
+      >
+        <div className="logo-holder">
+          <CustomSvg name={"fingerPrint"} width={"50"} height={"50"} />
+          <p className={"logo-text"}>Travel Overload</p>
+        </div>
+        <div className={"main"}>
+          /
+          {navItems.map((item) => (
+            <div className={"nav-item-holder"} key={item.id}>
+              <Link
+                to={item.id}
                 className={
                   selected == item.id
-                    ? "nav-item-text nav-item-text-selected"
+                    ? "nav-item nav-item-selected"
                     : item.id == "register"
-                    ? "nav-item-text nav-register-text"
-                    : "nav-item-text"
+                    ? "nav-item nav-register"
+                    : "nav-item"
                 }
+                onClick={() => navItemClickHandler(item.id)}
               >
-                {item.name}
-              </p>
-            </Link>
-            {selected == item.id ? (
-              <div className={"nav-item-selected-connector"} />
-            ) : null}
-          </div>
-        ))}
-      </div>
-      <div className={"user-holder"}>
-        <div
-          onClick={() => setSelected("user")}
-          className={selected == "user" ? "user-item-selected" : "user-item"}
-        >
-          <div className={"image-holder"}>
-            <img src={userPic} className={"user-image"} />
-          </div>
-          <p className={"user-name"}>Sienna Miller</p>
+                <CustomSvg
+                  name={item.icon}
+                  width={"24"}
+                  height={"24"}
+                  color={
+                    selected == item.id
+                      ? "#18A0FB"
+                      : item.id == "register"
+                      ? "#ffffff"
+                      : "#000000"
+                  }
+                />
+                <p
+                  className={
+                    selected == item.id
+                      ? "nav-item-text nav-item-text-selected"
+                      : item.id == "register"
+                      ? "nav-item-text nav-register-text"
+                      : "nav-item-text"
+                  }
+                >
+                  {item.name}
+                </p>
+              </Link>
+              {selected == item.id ? (
+                <div className={"nav-item-selected-connector"} />
+              ) : null}
+            </div>
+          ))}
         </div>
-        {selected == "user" ? (
-          <div className={"nav-item-selected-connector"} />
-        ) : null}
+        <div className={"user-holder"}>
+          <div
+            onClick={() => setSelected("user")}
+            className={`user-item ${
+              selected === "user" && "user-item-selected"
+            }`}
+          >
+            <div className={"image-holder"}>
+              <img src={userPic} className={"user-image"} />
+            </div>
+            <p className={"user-name"}>Sienna Miller</p>
+          </div>
+          {selected == "user" ? (
+            <div className={"nav-item-selected-connector"} />
+          ) : null}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
