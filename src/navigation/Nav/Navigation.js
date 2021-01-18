@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "./Navigation.css";
+import "./Navigation.scss";
 import { CustomSvg } from "../../components";
 import * as userPic from "../../assets/sienna.jpg";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 export const Navigation = () => {
   const navItems = [
     {
-      id: "home",
+      id: "create",
       name: "Home",
       icon: "home",
     },
