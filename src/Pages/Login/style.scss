@@ -2,7 +2,8 @@
 
 .login-container {
   display: flex;
-  height: 100vh;
+  height: 100%;
+  overflow: hidden;
 
   .content {
     display: flex;

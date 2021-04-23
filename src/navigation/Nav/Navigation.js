@@ -6,6 +6,8 @@ import * as userPic from "../../assets/sienna.jpg";
 import { Link } from "react-router-dom";
 
 export const Navigation = () => {
+  const [selected, setSelected] = useState("home");
+
   const navItems = [
     {
       id: "create",
@@ -34,75 +36,78 @@ export const Navigation = () => {
     },
   ];
 
-  const [selected, setSelected] = useState("home");
-
   const navItemClickHandler = (id) => {
     setSelected(id);
   };
 
+  const pickNavItemClass = (id) => {
+    if (selected === id) {
+      return "nav-item nav-item-selected";
+    } else if (id === "register") {
+      return "nav-item nav-item-register";
+    } else {
+      return "nav-item";
+    }
+  };
+
+  const pickSVGColor = (id) => {
+    if (selected === id) {
+      return "#18A0FB";
+    } else if (id === "register") {
+      return "#ffffff";
+    } else {
+      return "#000000";
+    }
+  };
+
   return (
-    <div className={"navigation-container"}>
-      <div className="logo-holder">
-        <CustomSvg name={"fingerPrint"} width={"50"} height={"50"} />
-        <p className={"logo-text"}>Travel Overload</p>
-      </div>
-      <div className={"main"}>
+    <div className="navigation-container">
+      <Link className="logo-wrapper" to="/">
+        <CustomSvg name="fingerPrint" width="50" height="50" />
+        <div className="logo-text">
+          <p className="logo-text-first">Travel</p>
+          <p className="logo-text-second"> Overload</p>
+        </div>
+      </Link>
+
+      <div className="nav-items">
         {navItems.map((item) => (
-          <div className={"nav-item-holder"} key={item.id}>
+          <div className="nav-item-wrapper" key={item.id}>
             <Link
               to={item.id}
-              className={
-                selected == item.id
-                  ? "nav-item nav-item-selected"
-                  : item.id == "register"
-                  ? "nav-item nav-register"
-                  : "nav-item"
-              }
+              className={pickNavItemClass(item.id)}
               onClick={() => navItemClickHandler(item.id)}
             >
               <CustomSvg
                 name={item.icon}
                 width={"24"}
                 height={"24"}
-                color={
-                  selected == item.id
-                    ? "#18A0FB"
-                    : item.id == "register"
-                    ? "#ffffff"
-                    : "#000000"
-                }
+                color={pickSVGColor(item.id)}
+                className="nav-item-icon"
               />
-              <p
-                className={
-                  selected == item.id
-                    ? "nav-item-text nav-item-text-selected"
-                    : item.id == "register"
-                    ? "nav-item-text nav-register-text"
-                    : "nav-item-text"
-                }
-              >
-                {item.name}
-              </p>
+              {item.name}
             </Link>
-            {selected == item.id ? (
+
+            {selected === item.id && (
               <div className={"nav-item-selected-connector"} />
-            ) : null}
+            )}
           </div>
         ))}
       </div>
-      <div className={"user-holder"}>
+      <div className={"user-item-wrapper"}>
         <div
           onClick={() => setSelected("user")}
-          className={selected == "user" ? "user-item-selected" : "user-item"}
+          className={`user-item ${selected === "user" && "user-item-selected"}`}
         >
-          <div className={"image-holder"}>
-            <img src={userPic} className={"user-image"} />
+          <div className={"image-wrapper"}>
+            <img src={userPic} className={"user-image"} alt="user" />
           </div>
           <p className={"user-name"}>Sienna Miller</p>
         </div>
-        {selected == "user" ? (
+
+        {selected === "user" && (
           <div className={"nav-item-selected-connector"} />
-        ) : null}
+        )}
       </div>
     </div>
   );
