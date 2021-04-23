@@ -8,8 +8,8 @@ export const BlogList = ({ blogs, title }) => {
     <div className="blog-list">
       <PageTitle title={title} />
       <div className="blog-cards">
-        {blogs.map((blog) => (
-          <div className="card-wrapper">
+        {blogs.map((blog, ind) => (
+          <div className="card-wrapper" key={ind}>
             <BlogCard cardInfo={blog} className="blog-cards-item" />
           </div>
         ))}

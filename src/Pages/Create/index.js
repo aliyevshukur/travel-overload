@@ -238,7 +238,7 @@ export const Create = () => {
                 onMouseEnter={() => crossIconPosition(item.id)}
                 key={item.id}
               >
-                {item.type == "text" ? (
+                {item.type === "text" ? (
                   <p
                     id={`${item.id}`}
                     contentEditable={"true"}
@@ -252,9 +252,10 @@ export const Create = () => {
                   <img
                     src={item.imagePreviewUrl}
                     className={"editables-item-pic"}
+                    alt="editables"
                   />
                 )}
-                {imagePicker && item.id == fields[fields.length - 1].id ? (
+                {imagePicker && item.id === fields[fields.length - 1].id ? (
                   <div className={"editables-item-browse"}>
                     <input
                       type="file"
@@ -271,7 +272,7 @@ export const Create = () => {
                     </button>
                   </div>
                 ) : null}
-                {cross == item.id ? (
+                {cross === item.id ? (
                   <div
                     className={"editables-item-cross"}
                     onClick={() => setDeleteTarget(item.id)}
@@ -279,7 +280,7 @@ export const Create = () => {
                     <CustomSvg name={"cross"} width={"30"} height={"30"} />
                   </div>
                 ) : null}
-                {deleteTarget == item.id ? (
+                {deleteTarget === item.id ? (
                   <div className={"delete"}>
                     <p className={"delete-title"}>
                       Silmək istədiyinizdən əminsiniz?
@@ -300,7 +301,7 @@ export const Create = () => {
                     </div>
                   </div>
                 ) : null}
-                {!imagePicker && item.id == fields[fields.length - 1].id ? (
+                {!imagePicker && item.id === fields[fields.length - 1].id ? (
                   <div
                     className={"editables-item-add"}
                     onClick={() => setModalFields(!modalFields)}
@@ -308,7 +309,7 @@ export const Create = () => {
                     <CustomSvg name={"plusCircle"} width={"50"} height={"50"} />
                   </div>
                 ) : null}
-                {modalFields && item.id == fields[fields.length - 1].id ? (
+                {modalFields && item.id === fields[fields.length - 1].id ? (
                   <div className={"modal"}>
                     <div className={"modal-btn"}>
                       <div className={"modal-btn-field"} onClick={addTextField}>

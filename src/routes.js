@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import { Login, New, Register, Popular, Create } from "./Pages";
 
@@ -8,7 +8,7 @@ export const ROUTES = [
     path: "/",
     key: "ROOT",
     exact: true,
-    component: () => <Link to="login">Home</Link>,
+    component: () => <p>Soon</p>,
   },
   {
     path: "/login",
@@ -35,6 +35,11 @@ export const ROUTES = [
     path: "/create",
     key: "CREATE",
     component: Create,
+  },
+  {
+    path: "/user",
+    key: "USER",
+    component: () => <p>Soon</p>,
   },
 ];
 

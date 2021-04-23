@@ -3,14 +3,17 @@ import { BlogList } from "../../components";
 import { blogs } from "../../data";
 
 export const New = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   useEffect(() => {
-    fetch("http://travel-load.herokuapp.com/post").then((res) => {
-      console.log("Response", res);
-    });
-    // .then((result) => setData(result));
-    console.log("data", data);
+    fetch("http://travel-load.herokuapp.com/post")
+      .then((res) => {
+        console.log("Response", res);
+        return res.json();
+      })
+      .then((result) => {
+        console.log("data", result);
+        setData(result);
+      });
   }, []);
-
-  return <BlogList blogs={blogs} title="Latest Blogs" />;
+  return <BlogList blogs={data} title="Latest Blogs" />;
 };

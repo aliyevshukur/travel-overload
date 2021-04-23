@@ -10,7 +10,7 @@ export const Navigation = () => {
 
   const navItems = [
     {
-      id: "create",
+      id: "/",
       name: "Home",
       icon: "home",
     },
@@ -25,10 +25,16 @@ export const Navigation = () => {
       icon: "star",
     },
     {
+      id: "create",
+      name: "Create",
+      icon: "plus",
+    },
+    {
       id: "login",
       name: "Log In",
       icon: "signIn",
     },
+
     {
       id: "register",
       name: "Register",
@@ -95,7 +101,8 @@ export const Navigation = () => {
         ))}
       </div>
       <div className={"user-item-wrapper"}>
-        <div
+        <Link
+          to="user"
           onClick={() => setSelected("user")}
           className={`user-item ${selected === "user" && "user-item-selected"}`}
         >
@@ -103,7 +110,7 @@ export const Navigation = () => {
             <img src={userPic} className={"user-image"} alt="user" />
           </div>
           <p className={"user-name"}>Sienna Miller</p>
-        </div>
+        </Link>
 
         {selected === "user" && (
           <div className={"nav-item-selected-connector"} />
