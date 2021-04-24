@@ -3,12 +3,12 @@ import { CardAuthor } from "./CardAuthor";
 import "./style.scss";
 
 export const BlogCard = ({ cardInfo, className = "" }) => {
-  const { image, title, date, author, authorImage } = cardInfo;
+  const { image, title, postDate, author, authorImage } = cardInfo;
   let { context } = cardInfo;
-  let maxLenght = 90;
+  let maxLength = 90;
 
-  if (context.length > maxLenght) {
-    context = context.substr(0, maxLenght) + "...";
+  if (context.length > maxLength) {
+    context = context.substr(0, maxLength) + "...";
   }
 
   return (
@@ -20,7 +20,7 @@ export const BlogCard = ({ cardInfo, className = "" }) => {
           <h3 className="blog-card-context">{context}</h3>
         </div>
         <CardAuthor
-          authorInfo={{ date: date, author: author, authorImage: authorImage }}
+          authorInfo={{ postDate, author: author, authorImage: authorImage }}
         />
       </div>
     </div>

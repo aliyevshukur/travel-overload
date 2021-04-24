@@ -7,13 +7,12 @@ export const New = () => {
   useEffect(() => {
     fetch("http://travel-load.herokuapp.com/post")
       .then((res) => {
-        console.log("Response", res);
         return res.json();
       })
       .then((result) => {
-        console.log("data", result);
         setData(result);
-      });
+      })
+      .catch((e) => console.log("Error: ", e));
   }, []);
   return <BlogList blogs={data} title="Latest Blogs" />;
 };
