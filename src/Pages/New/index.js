@@ -5,7 +5,7 @@ import { blogs } from "../../data";
 export const New = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch("http://travel-load.herokuapp.com/post")
+    fetch("https://travel-load.herokuapp.com/post")
       .then((res) => {
         return res.json();
       })
