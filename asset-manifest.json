@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ab0eb041.chunk.css",
+    "main.js": "/static/js/main.482842f4.chunk.js",
+    "main.js.map": "/static/js/main.482842f4.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.20ba002d.js",
+    "runtime-main.js.map": "/static/js/runtime-main.20ba002d.js.map",
+    "static/js/2.7e3cbf09.chunk.js": "/static/js/2.7e3cbf09.chunk.js",
+    "static/js/2.7e3cbf09.chunk.js.map": "/static/js/2.7e3cbf09.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.e839c499d9c849b92076c9701a78eea7.js": "/precache-manifest.e839c499d9c849b92076c9701a78eea7.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.ab0eb041.chunk.css.map": "/static/css/main.ab0eb041.chunk.css.map",
+    "static/js/2.7e3cbf09.chunk.js.LICENSE.txt": "/static/js/2.7e3cbf09.chunk.js.LICENSE.txt",
+    "static/media/cover.jpg": "/static/media/cover.73879a5a.jpg",
+    "static/media/eye.svg": "/static/media/eye.f025cb99.svg",
+    "static/media/google.svg": "/static/media/google.1aa93be3.svg",
+    "static/media/register-cover.jpg": "/static/media/register-cover.b6b7a995.jpg",
+    "static/media/sienna.jpg": "/static/media/sienna.51915dbe.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.20ba002d.js",
+    "static/js/2.7e3cbf09.chunk.js",
+    "static/css/main.ab0eb041.chunk.css",
+    "static/js/main.482842f4.chunk.js"
+  ]
+}
