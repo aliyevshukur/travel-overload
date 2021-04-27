@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { BlogList } from "../../components";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 
-export const New = () => {
-  const [data, setData] = useState([]);
+import { BlogList } from "../../components";
+import { fetchBlogs, getBlogs, isLoading } from "../../store/blogs";
+
+const mapStateToProps = (state) => ({
+  blogs: getBlogs(state),
+  loading: isLoading(state),
+});
+
+const mapDispatchToProps = () => ({
+  fetchBlogs,
+});
+
+export const New = connect(mapStateToProps)(({ blogs, loading, dispatch }) => {
   useEffect(() => {
-    fetch("https://travel-load.herokuapp.com/post")
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setData(result);
-      })
-      .catch((e) => console.log("Error: ", e));
+    dispatch(fetchBlogs());
   }, []);
-  return <BlogList blogs={data} title="Latest Blogs" />;
-};
+  return <BlogList blogs={blogs} loading={loading} title="Latest Blogs" />;
+});
