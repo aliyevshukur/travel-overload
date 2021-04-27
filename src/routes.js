@@ -31,11 +31,11 @@ export const ROUTES = [
     key: "POPULAR",
     component: Popular,
   },
-  {
-    path: "/create",
-    key: "CREATE",
-    component: Create,
-  },
+  // {
+  //   path: "/create",
+  //   key: "CREATE",
+  //   component: <h1>broken</h1>,
+  // },
   {
     path: "/user",
     key: "USER",

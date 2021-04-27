@@ -1,3 +1,5 @@
+@import "../../styles/base";
+
 @mixin nav-item-connector {
   width: 30px;
   height: 100px;
@@ -40,17 +42,12 @@
   padding: 30px 0;
   position: fixed;
   box-sizing: border-box;
+  z-index: 1;
 
-  .logo-wrapper {
-    display: flex;
-    align-items: center;
-    color: #000000;
-    text-decoration: none;
-
-    .logo-text {
-      font-size: 22px;
-      margin-left: 10px;
-    }
+  @include tablet {
+    display: none;
+    top: 0;
+    left: 0;
   }
 
   .nav-items {

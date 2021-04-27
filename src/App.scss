@@ -1,9 +1,11 @@
 @import "./styles/theme";
+@import "./styles/base";
 
 html,
 body,
 #root {
   height: 100%;
+  box-sizing: border-box;
 }
 
 body {
@@ -14,6 +16,9 @@ body {
       height: 100%;
       padding-left: 200px;
       background-color: $primary;
+      @include tablet {
+        padding-left: 0;
+      }
     }
   }
 }

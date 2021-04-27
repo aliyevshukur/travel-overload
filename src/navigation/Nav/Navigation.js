@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import "./Navigation.scss";
 import { CustomSvg } from "../../components";
 import * as userPic from "../../assets/sienna.jpg";
 import { Link } from "react-router-dom";
+import { Logo } from "../../components/Logo";
 
-export const Navigation = () => {
+export const Navigation = ({ isNavVisible }) => {
   const [selected, setSelected] = useState("home");
+  const [isTabletMode, setIsTabletMode] = useState();
+  const { pathname } = useLocation();
 
   const navItems = [
     {
@@ -42,6 +46,21 @@ export const Navigation = () => {
     },
   ];
 
+  useEffect(() => {
+    setSelected(pathname.substr(1, pathname.length));
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [pathname]);
+
+  const handleResize = () => {
+    if (window.innerWidth < 850) {
+      setIsTabletMode(true);
+    } else {
+      setIsTabletMode(false);
+    }
+  };
+
   const navItemClickHandler = (id) => {
     setSelected(id);
   };
@@ -67,15 +86,11 @@ export const Navigation = () => {
   };
 
   return (
-    <div className="navigation-container">
-      <Link className="logo-wrapper" to="/">
-        <CustomSvg name="fingerPrint" width="50" height="50" />
-        <div className="logo-text">
-          <p className="logo-text-first">Travel</p>
-          <p className="logo-text-second"> Overload</p>
-        </div>
-      </Link>
-
+    <div
+      className="navigation-container"
+      style={isNavVisible ? { display: "flex" } : {}}
+    >
+      {!isTabletMode && <Logo />}
       <div className="nav-items">
         {navItems.map((item) => (
           <div className="nav-item-wrapper" key={item.id}>
@@ -95,7 +110,9 @@ export const Navigation = () => {
             </Link>
 
             {selected === item.id && (
-              <div className={"nav-item-selected-connector"} />
+              <div
+                className={!isTabletMode ? "nav-item-selected-connector" : ""}
+              />
             )}
           </div>
         ))}
@@ -113,7 +130,7 @@ export const Navigation = () => {
         </Link>
 
         {selected === "user" && (
-          <div className={"nav-item-selected-connector"} />
+          <div className={!isTabletMode ? "nav-item-selected-connector" : ""} />
         )}
       </div>
     </div>

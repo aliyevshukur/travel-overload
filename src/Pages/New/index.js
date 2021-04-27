@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { BlogList } from "../../components";
-import { blogs } from "../../data";
 
 export const New = () => {
   const [data, setData] = useState([]);
