@@ -1,37 +1,61 @@
 import React, { useState, useEffect } from "react";
-import { Provider } from "react-redux";
+import { connect } from "react-redux";
 import "./styles/reset.scss";
 import "./App.scss";
 
 import { Navigation } from "./navigation";
 import { RenderRoutes, ROUTES } from "./routes";
 import { Header } from "./components/Header";
-import store from "./store";
+import { isTabletMode, setIsTabletMode } from "./store/appState";
 
-function App() {
+const mapStateToProps = (store) => ({
+  isTabletMode: isTabletMode(store),
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setIsTabletMode: (value) => dispatch(setIsTabletMode(value)),
+  };
+};
+
+const App = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(({ isTabletMode, setIsTabletMode }) => {
   const [isNavVisible, setIsNavVisible] = useState();
-
   useEffect(() => {
-    if (window.innerWidth < 850) {
+    if (isTabletMode) {
       setIsNavVisible(false);
     }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleResize = () => {
+    if (window.innerWidth < 850) {
+      setIsTabletMode(true);
+    } else {
+      setIsTabletMode(false);
+    }
+  };
   const toggleNav = () => {
     setIsNavVisible(!isNavVisible);
   };
 
   return (
-    <Provider store={store}>
-      <div className="App">
-        <Header toggleNav={toggleNav} />
-        <Navigation isNavVisible={isNavVisible} />
-        <div className="app-container">
-          <RenderRoutes routes={ROUTES} />
-        </div>
+    <div className="App">
+      <Header toggleNav={toggleNav} />
+      <Navigation
+        isTabletMode={isTabletMode}
+        setIsTabletMode={setIsTabletMode}
+        isNavVisible={isNavVisible}
+        setIsNavVisible={setIsNavVisible}
+      />
+      <div className="app-container">
+        <RenderRoutes routes={ROUTES} />
       </div>
-    </Provider>
+    </div>
   );
-}
+});
 
 export default App;

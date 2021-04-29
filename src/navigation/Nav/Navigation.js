@@ -7,9 +7,13 @@ import * as userPic from "../../assets/sienna.jpg";
 import { Link } from "react-router-dom";
 import { Logo } from "../../components/Logo";
 
-export const Navigation = ({ isNavVisible }) => {
+export const Navigation = ({
+  isTabletMode,
+  setIsTabletMode,
+  isNavVisible,
+  setIsNavVisible,
+}) => {
   const [selected, setSelected] = useState("home");
-  const [isTabletMode, setIsTabletMode] = useState();
   const { pathname } = useLocation();
 
   const navItems = [
@@ -48,20 +52,10 @@ export const Navigation = ({ isNavVisible }) => {
 
   useEffect(() => {
     setSelected(pathname.substr(1, pathname.length));
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, [pathname]);
 
-  const handleResize = () => {
-    if (window.innerWidth < 850) {
-      setIsTabletMode(true);
-    } else {
-      setIsTabletMode(false);
-    }
-  };
-
   const navItemClickHandler = (id) => {
+    setIsNavVisible(false);
     setSelected(id);
   };
 
@@ -97,6 +91,7 @@ export const Navigation = ({ isNavVisible }) => {
             <Link
               to={item.id}
               className={pickNavItemClass(item.id)}
+              style={isTabletMode ? { borderRadius: "28px" } : {}}
               onClick={() => navItemClickHandler(item.id)}
             >
               <CustomSvg

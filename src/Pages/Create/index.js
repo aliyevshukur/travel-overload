@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+
 import "../Create/style.scss";
-import { CustomSvg } from "../../components";
+import { CustomSvg, Editor } from "../../components";
 import { DetailsInput } from "./components";
 
 export const Create = () => {
@@ -158,7 +159,8 @@ export const Create = () => {
 
   return (
     <div className={"create-container"} onClick={(e) => clickedAside(e)}>
-      <div className={"header"}>
+      <Editor />
+      {/* <div className={"header"}>
         <div className={isDetails ? "back" : "title"}>
           {!isDetails ? (
             <>
@@ -361,7 +363,7 @@ export const Create = () => {
             </div>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

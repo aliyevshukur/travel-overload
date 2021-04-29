@@ -1,10 +1,15 @@
+@import "../../styles/base";
+
 .blog-card {
   display: flex;
   background-color: white;
-  box-sizing: border-box;
   padding: 15px;
   border-radius: 30px;
   box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+
+  &:hover &-image {
+    filter: contrast(100%);
+  }
 
   &-image {
     width: 14vw;
@@ -13,10 +18,6 @@
     border-radius: 30px;
     filter: contrast(80%);
     transition: 300ms;
-
-    &:hover {
-      filter: contrast(100%);
-    }
   }
   &-content {
     width: 100%;
@@ -29,12 +30,13 @@
       font-weight: 600;
       font-size: 20px;
       line-height: 24px;
-      margin-bottom: 24px;
+      margin-bottom: 10px;
     }
 
     .blog-card-context {
       font-size: 13px;
       line-height: 18px;
+      margin-bottom: auto;
     }
   }
 }
