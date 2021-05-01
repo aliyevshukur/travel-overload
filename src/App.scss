@@ -1,24 +1,22 @@
 @import "./styles/theme";
 @import "./styles/base";
 
-html,
+#root,
 body,
-#root {
-  height: 100%;
+html {
+  font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
+  height: 100%;
 }
 
-body {
-  font-family: "Montserrat", sans-serif;
-  .App {
-    height: 100%;
-    .app-container {
-      height: 100%;
-      padding-left: 200px;
-      background-color: $primary;
-      @include tablet {
-        padding-left: 0;
-      }
+.App {
+  height: 100%;
+  .app-container {
+    min-height: 100%;
+    padding-left: 200px;
+    background-color: $primary;
+    @include tablet {
+      padding-left: 0;
     }
   }
 }

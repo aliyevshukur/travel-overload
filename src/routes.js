@@ -1,12 +1,19 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import { Login, New, Register, Popular, Create } from "./Pages";
+import { UserPage } from "./Pages/UserPage";
 
 export const ROUTES = [
   {
     path: "/",
     key: "ROOT",
+    exact: true,
+    component: () => <Redirect to="/home" />,
+  },
+  {
+    path: "/home",
+    key: "HOME",
     exact: true,
     component: () => <p>Soon</p>,
   },
@@ -39,7 +46,7 @@ export const ROUTES = [
   {
     path: "/user",
     key: "USER",
-    component: () => <p>Soon</p>,
+    component: UserPage,
   },
 ];
 

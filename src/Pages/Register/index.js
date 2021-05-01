@@ -23,18 +23,10 @@ export const Register = () => {
             type="password"
             icon={Eye}
           />
-          <div className="action-buttons">
-            <CustomButton
-              title="Google"
-              icon={Google}
-              onClick={() => console.log("login handle ")}
-              className="google-btn"
-            />
-            <CustomButton
-              title="Login"
-              onClick={() => console.log("login handle ")}
-            />
-          </div>
+          <CustomButton
+            title="Login"
+            onClick={() => console.log("login handle ")}
+          />
         </form>
       </div>
 

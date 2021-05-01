@@ -1,0 +1,38 @@
+@import "../../styles/theme";
+
+.user-page-wrapper {
+  height: 100vh;
+  overflow: hidden;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+
+  .user-page {
+    width: 100%;
+    background-color: $primary;
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 50px 50px 0;
+    overflow: scroll;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &-title {
+      margin-bottom: 30px;
+    }
+
+    &-blog-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      &-item {
+        max-width: 700px;
+        margin-bottom: 50px;
+      }
+    }
+  }
+}

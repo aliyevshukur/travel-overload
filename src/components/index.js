@@ -4,3 +4,4 @@ export { CustomSvg } from "./CustomSvg";
 export { BlogCard } from "./BlogCard";
 export { BlogList } from "./BlogList";
 export { Editor } from "./Editor";
+export { PageTitle } from "./PageTitle";

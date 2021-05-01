@@ -13,12 +13,12 @@ export const Navigation = ({
   isNavVisible,
   setIsNavVisible,
 }) => {
-  const [selected, setSelected] = useState("home");
+  const [selected, setSelected] = useState();
   const { pathname } = useLocation();
 
   const navItems = [
     {
-      id: "/",
+      id: "home",
       name: "Home",
       icon: "home",
     },
@@ -56,7 +56,6 @@ export const Navigation = ({
 
   const navItemClickHandler = (id) => {
     setIsNavVisible(false);
-    setSelected(id);
   };
 
   const pickNavItemClass = (id) => {

@@ -6,14 +6,15 @@
   padding: 15px;
   border-radius: 30px;
   box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 
   &:hover &-image {
     filter: contrast(100%);
   }
 
   &-image {
-    width: 14vw;
-    height: 14vw;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     border-radius: 30px;
     filter: contrast(80%);

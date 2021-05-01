@@ -10,10 +10,9 @@ const mapStateToProps = (store) => ({
 });
 
 export const BlogCard = connect(mapStateToProps)(
-  ({ cardInfo, className = "", isTabletMode }) => {
+  ({ cardInfo, className = "", isTabletMode, maxLength = 90 }) => {
     const { image, title, postDate, author, authorImage } = cardInfo;
     let { context } = cardInfo;
-    let maxLength = 90;
 
     if (isTabletMode) {
       maxLength = 50;

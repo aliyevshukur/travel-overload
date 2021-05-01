@@ -159,8 +159,7 @@ export const Create = () => {
 
   return (
     <div className={"create-container"} onClick={(e) => clickedAside(e)}>
-      <Editor />
-      {/* <div className={"header"}>
+      <div className={"header"}>
         <div className={isDetails ? "back" : "title"}>
           {!isDetails ? (
             <>
@@ -363,7 +362,7 @@ export const Create = () => {
             </div>
           </div>
         )}
-      </div> */}
+      </div>
     </div>
   );
 };
