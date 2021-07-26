@@ -2,7 +2,14 @@ import React, { useState, useRef } from "react";
 
 import "./style.scss";
 
-export const InputField = ({ fieldName, type, icon, className }) => {
+export const InputField = ({
+  fieldName,
+  type,
+  icon,
+  className,
+  name,
+  onChange,
+}) => {
   const [fieldType, setFieldType] = useState(type);
   const inputRef = useRef();
   const [isFocused, setIsFocused] = useState(false);
@@ -35,10 +42,12 @@ export const InputField = ({ fieldName, type, icon, className }) => {
       <input
         type={fieldType ? fieldType : "text"}
         className={`field ${isFocused && "focused-field"}`}
+        name={name}
         id={fieldName}
         onFocus={handleFocus}
         onBlur={handleBlur}
         ref={inputRef}
+        onChange={onChange}
       />
       <label
         className={`field-label ${isFocused && "focused-field"}`}

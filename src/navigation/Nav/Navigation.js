@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import "./Navigation.scss";
 import { CustomSvg } from "../../components";
-import * as userPic from "../../assets/sienna.jpg";
+import profile from "../../assets/profile.jpg";
 import { Link } from "react-router-dom";
 import { Logo } from "../../components/Logo";
 
@@ -17,11 +17,6 @@ export const Navigation = ({
   const { pathname } = useLocation();
 
   const navItems = [
-    {
-      id: "home",
-      name: "Home",
-      icon: "home",
-    },
     {
       id: "new",
       name: "New",
@@ -118,7 +113,7 @@ export const Navigation = ({
           className={`user-item ${selected === "user" && "user-item-selected"}`}
         >
           <div className={"image-wrapper"}>
-            <img src={userPic} className={"user-image"} alt="user" />
+            <img src={profile} className={"user-image"} alt="user" />
           </div>
           <p className={"user-name"}>Sienna Miller</p>
         </Link>

@@ -9,9 +9,6 @@ const mapStateToProps = (state) => ({
   loading: isLoading(state),
 });
 
-const mapDispatchToProps = () => ({
-  fetchBlogs,
-});
 
 export const Popular = connect(mapStateToProps)(
   ({ blogs, loading, dispatch }) => {

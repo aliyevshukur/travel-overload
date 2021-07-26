@@ -1,0 +1,11 @@
+@import "../../styles/theme";
+
+.error-box {
+  background: $error-color;
+  color: #ffffff;
+  width: 500px;
+  padding: 10px;
+  border-radius: 10px;
+  &-text {
+  }
+}

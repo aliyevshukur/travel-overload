@@ -159,7 +159,7 @@ export const Create = () => {
 
   return (
     <div className={"create-container"} onClick={(e) => clickedAside(e)}>
-      <div className={"header"}>
+      <div className={"create-header"}>
         <div className={isDetails ? "back" : "title"}>
           {!isDetails ? (
             <>

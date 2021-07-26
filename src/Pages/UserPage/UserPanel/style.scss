@@ -1,4 +1,5 @@
 @import "../../../styles/theme";
+@import "../../../styles/base";
 
 .user-panel {
   width: 350px;
@@ -9,6 +10,9 @@
   align-items: center;
   padding: 130px 15px 32px 15px;
   box-sizing: border-box;
+  @include desktopSmall {
+    display: none;
+  }
 
   .picture-wrapper {
     width: 160px;

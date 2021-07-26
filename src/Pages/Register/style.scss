@@ -1,4 +1,5 @@
 @import "../../styles/_theme";
+@import "../../styles/base";
 
 .register-container {
   display: flex;
@@ -10,7 +11,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding-top: 100px;
+    padding-top: 70px;
 
     .login-form {
       display: flex;
@@ -20,7 +21,7 @@
 
       .title {
         align-self: flex-start;
-        margin-bottom: 52px;
+        margin-bottom: 25px;
         color: $title-color;
         text-align: left;
         font-size: 50px;
@@ -34,6 +35,10 @@
 
       .form-field {
         margin-bottom: 50px;
+
+        &-first {
+          margin-top: 35px;
+        }
       }
 
       .action-buttons {
@@ -57,6 +62,10 @@
   }
   .cover-image-wrapper {
     height: 100vh;
+
+    @include desktop {
+      display: none;
+    }
 
     .cover-image {
       width: 500px;

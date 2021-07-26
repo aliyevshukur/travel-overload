@@ -9,13 +9,7 @@ export const ROUTES = [
     path: "/",
     key: "ROOT",
     exact: true,
-    component: () => <Redirect to="/home" />,
-  },
-  {
-    path: "/home",
-    key: "HOME",
-    exact: true,
-    component: () => <p>Soon</p>,
+    component: () => <Redirect to="/login" />,
   },
   {
     path: "/login",

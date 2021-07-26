@@ -1,4 +1,5 @@
 @import "../../styles/_theme";
+@import "../../styles/_base";
 
 .login-container {
   display: flex;
@@ -55,6 +56,9 @@
   }
   .cover-image-wrapper {
     height: 100%;
+    @include desktop {
+      display: none;
+    }
 
     .cover-image {
       width: 500px;

@@ -6,7 +6,11 @@ import "./App.scss";
 import { Navigation } from "./navigation";
 import { RenderRoutes, ROUTES } from "./routes";
 import { Header } from "./components/Header";
-import { isTabletMode, setIsTabletMode } from "./store/appState";
+import {
+  isTabletMode,
+  setIsTabletMode,
+  setWindowWidth,
+} from "./store/appState";
 
 const mapStateToProps = (store) => ({
   isTabletMode: isTabletMode(store),
@@ -15,13 +19,14 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     setIsTabletMode: (value) => dispatch(setIsTabletMode(value)),
+    setWindowWidth: (value) => dispatch(setWindowWidth(value)),
   };
 };
 
 const App = connect(
   mapStateToProps,
   mapDispatchToProps
-)(({ isTabletMode, setIsTabletMode }) => {
+)(({ isTabletMode, setIsTabletMode, setWindowWidth }) => {
   const [isNavVisible, setIsNavVisible] = useState();
   useEffect(() => {
     if (isTabletMode) {
@@ -32,6 +37,7 @@ const App = connect(
   }, []);
 
   const handleResize = () => {
+    setWindowWidth(window.innerWidth);
     if (window.innerWidth < 850) {
       setIsTabletMode(true);
     } else {

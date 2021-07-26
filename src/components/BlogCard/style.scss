@@ -19,6 +19,11 @@
     border-radius: 30px;
     filter: contrast(80%);
     transition: 300ms;
+
+    // @include desktopSmall {
+    //   width: 100px;
+    //   height: 100px;
+    // }
   }
   &-content {
     width: 100%;

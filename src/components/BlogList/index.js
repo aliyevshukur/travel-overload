@@ -15,7 +15,11 @@ export const BlogList = ({ blogs, title, loading }) => {
         <div className="blog-cards">
           {blogs.map((blog, ind) => (
             <div className="card-wrapper" key={ind}>
-              <BlogCard cardInfo={blog} className="blog-cards-item" />
+              <BlogCard
+                cardInfo={blog}
+                className="blog-cards-item"
+                maxLength={window.innerWidth < 1024 ? 50 : 85}
+              />
             </div>
           ))}
         </div>
