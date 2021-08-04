@@ -26,19 +26,19 @@ export const UserPage = connect(mapStateToProps)(
     const [maxLength, setMaxLength] = useState(windowWidth);
 
     useEffect(() => {
-      calculateMaxLength();
-    }, [windowWidth]);
+      const calculateMaxLength = () => {
+        if (windowWidth < breakpoints.desktopSmall) {
+          setMaxLength(70);
+          return;
+        }
+        if (windowWidth < breakpoints.desktop) {
+          setMaxLength(100);
+          return;
+        } else setMaxLength(220);
+      };
 
-    const calculateMaxLength = () => {
-      if (windowWidth < breakpoints.desktopSmall) {
-        setMaxLength(70);
-        return;
-      }
-      if (windowWidth < breakpoints.desktop) {
-        setMaxLength(100);
-        return;
-      } else setMaxLength(220);
-    };
+      calculateMaxLength();
+    }, [windowWidth, breakpoints.desktopSmall, breakpoints.desktop]);
 
     return (
       <div className="user-page-wrapper">

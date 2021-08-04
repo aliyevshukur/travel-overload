@@ -28,22 +28,26 @@ const App = connect(
   mapDispatchToProps
 )(({ isTabletMode, setIsTabletMode, setWindowWidth }) => {
   const [isNavVisible, setIsNavVisible] = useState();
+
   useEffect(() => {
     if (isTabletMode) {
       setIsNavVisible(false);
     }
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
-  const handleResize = () => {
-    setWindowWidth(window.innerWidth);
-    if (window.innerWidth < 850) {
-      setIsTabletMode(true);
-    } else {
-      setIsTabletMode(false);
-    }
-  };
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      if (window.innerWidth < 850) {
+        setIsTabletMode(true);
+      } else {
+        setIsTabletMode(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isTabletMode, setIsTabletMode, setWindowWidth]);
+
   const toggleNav = () => {
     setIsNavVisible(!isNavVisible);
   };

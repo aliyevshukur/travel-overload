@@ -25,12 +25,6 @@ export const Login = () => {
   };
 
   const onChange = (e) => {
-    const { name, value } = e.target;
-
-    switch (name) {
-      case "firstName":
-    }
-
     setUserInfo({
       ...userInfo,
       [e.target.name]: e.target.value,

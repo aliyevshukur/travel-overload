@@ -9,12 +9,11 @@ const mapStateToProps = (state) => ({
   loading: isLoading(state),
 });
 
-
 export const Popular = connect(mapStateToProps)(
   ({ blogs, loading, dispatch }) => {
     useEffect(() => {
       dispatch(fetchBlogs());
-    }, []);
+    }, [dispatch]);
     return <BlogList blogs={blogs} loading={loading} title="Popular Blogs" />;
   }
 );

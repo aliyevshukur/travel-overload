@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import "../Create/style.scss";
-import { CustomSvg, Editor } from "../../components";
+import { CustomSvg } from "../../components";
 import { DetailsInput } from "./components";
 
 export const Create = () => {
