@@ -56,19 +56,56 @@ export const fetchBlogsError = (payload) => ({
   payload: payload,
 });
 
+const fakeBlogData = [
+  {
+    context: " blajglkasjfkdsjfdkfjsdkfj",
+    image:
+      "https://images.unsplash.com/photo-1725576415790-a5b4009a7952?q=80&w=2672&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "bla bla",
+    postDate: "12-12-2002",
+    author: " Blaa BLaa",
+    authorImage:
+      "https://plus.unsplash.com/premium_photo-1725655699491-d69418b09381?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    context: " blajglkasjfkdsjfdkfjsdkfj",
+    image:
+      "https://images.unsplash.com/photo-1725576415790-a5b4009a7952?q=80&w=2672&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "bla bla",
+    postDate: "12-12-2002",
+    author: " Blaa BLaa",
+    authorImage:
+      "https://plus.unsplash.com/premium_photo-1725655699491-d69418b09381?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    context: " blajglkasjfkdsjfdkfjsdkfj",
+    image:
+      "https://images.unsplash.com/photo-1725576415790-a5b4009a7952?q=80&w=2672&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "bla bla",
+    postDate: "12-12-2002",
+    author: " Blaa BLaa",
+    authorImage:
+      "https://plus.unsplash.com/premium_photo-1725655699491-d69418b09381?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+];
+
 // Middlewares
 export const fetchBlogs = () => {
   return (dispatch) => {
-    dispatch(fetchBlogsStart());
-    const url = "https://travel-load.herokuapp.com/post";
-    fetch(url)
-      .then(handleErrors)
-      .then((res) => res.json())
-      .then((result) => {
-        dispatch(fetchBlogsSuccess(result));
-        return result;
-      })
-      .catch((e) => dispatch(fetchBlogsError(e)));
+    // dispatch(fetchBlogsStart());
+    // const url = "https://travel-load.herokuapp.com/post";
+    // fetch(url)
+    //   .then(handleErrors)
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     dispatch(fetchBlogsSuccess(result));
+    //     return result;
+    //   })
+    //   .catch((e) => dispatch(fetchBlogsError(e)));
+
+    //Return fake data
+    dispatch(fetchBlogsSuccess(fakeBlogData));
+    return fakeBlogData;
   };
 };
 
