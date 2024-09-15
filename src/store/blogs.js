@@ -109,9 +109,9 @@ export const fetchBlogs = () => {
   };
 };
 
-function handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-}
+// function handleErrors(response) {
+//   if (!response.ok) {
+//     throw Error(response.statusText);
+//   }
+//   return response;
+// }
