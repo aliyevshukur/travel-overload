@@ -1,173 +1,129 @@
 import React, { useState } from "react";
 
 import "../Create/style.scss";
-import { CustomSvg } from "../../components";
+import { CustomButton, CustomSvg } from "../../components";
 import { DetailsInput } from "./components";
+import ModalAdd from "./components/ModalAdd";
+import TextField from "./components/TextField";
+import ImageField from "./components/ImageField";
 
 export const Create = () => {
   const [isDetails, setDetails] = useState(false);
+  const [thumbnailImage, setThumbnailImage] = useState({});
   const [fields, setFields] = useState([{ id: 0, type: "text", text: "" }]);
-  const [cross, setCross] = useState(null);
-  const [deleteTarget, setDeleteTarget] = useState(null);
   const [modalFields, setModalFields] = useState(false);
-  const [imagePicker, setImagePicker] = useState(false);
-
-  const [tools, setTools] = useState({ visibility: false, x: 0, y: 0 });
-
-  const [selected, setSelected] = useState({
-    fieldId: null,
-    text: "",
-    start: null,
-    end: null,
-  });
 
   const addTextField = () => {
     setModalFields(false);
+    let id = 0;
+    if (fields.length > 0) {
+      id = fields.length;
+    }
     setFields([
       ...fields,
       {
-        id: Math.random(),
+        id: id,
         type: "text",
         text: "",
       },
     ]);
   };
 
-  const textChanged = (id) => {
-    let elem = document.getElementById(id);
-    var editedText = elem.textContent || elem.innerText;
-    const index = fields.findIndex((item) => item.id === id);
-    let edited = fields;
-    edited[index].text = editedText;
-    setFields([...edited]);
-  };
-
   const addImageField = () => {
     setModalFields(false);
-    setImagePicker(true);
-  };
-
-  function onChangeImageHandler(e) {
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    reader.onloadend = () => {
-      setFields([
-        ...fields,
-        {
-          id: Math.random(),
-          type: "image",
-          file: file,
-          imagePreviewUrl: reader.result,
-        },
-      ]);
-      console.log("Uploaded");
-    };
-    reader.readAsDataURL(file);
-    setImagePicker(false);
-    console.log(e.target.files[0]);
-  }
-
-  const crossIconPosition = (id) => {
-    const index = fields.findIndex((item) => item.id === id);
-    const textFields = fields.filter((item) => item.type === "text").length;
-    if (fields[index].type === "image") {
-      setCross(id);
-    } else if (textFields > 1) {
-      setCross(id);
-    } else {
-      setCross(null);
-    }
+    setFields([
+      ...fields,
+      {
+        id: fields[fields.length - 1].id + 1,
+        type: "image",
+        file: null,
+        imagePreviewUrl: null,
+      },
+    ]);
   };
 
   function deleteField(id) {
-    const index = fields.findIndex((item) => item.id === id);
+    const index = fields.findIndex((field) => field.id === id);
     const updatedFields = fields;
     updatedFields.splice(index, 1);
-    console.log(index);
     setFields([...updatedFields]);
   }
+
   function clickedAside(e) {
     if (e.target === e.currentTarget) {
       console.log("clicked aside");
       setModalFields(false);
-      setCross(null);
-      setDeleteTarget(null);
     }
   }
 
-  function textSelected(id) {
-    setTools({ visibility: false, x: 0, y: 0 });
-    if (window.getSelection().toString().trim().length > 0) {
-      let txt = window.getSelection(),
-        range = txt.getRangeAt(0),
-        boundary = range.getBoundingClientRect();
-      let scrollTop =
-        window.pageYOffset !== undefined
-          ? window.pageYOffset
-          : (
-              document.documentElement ||
-              document.body.parentNode ||
-              document.body
-            ).scrollTop;
-      const posX = (boundary.left + boundary.right) / 2 - 98;
-      const posY = boundary.top - 70 + scrollTop;
-      setTools({ visibility: true, x: posX, y: posY });
-
-      let start = txt.anchorOffset,
-        end = txt.focusOffset;
-      if (start > end) {
-        let swap = start;
-        start = end;
-        end = swap;
+  function handleImageChange(e, id, isThumbnail) {
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      //If loaded image is not thumbnail then update data in fields array
+      if (isThumbnail) {
+        setThumbnailImage({ file: file, imagePreviewUrl: reader.result });
+      } else {
+        const updatedFields = fields.map((field) => {
+          if (field.id === id) {
+            return {
+              ...field,
+              file: file,
+              imagePreviewUrl: reader.result,
+            };
+          } else {
+            return field;
+          }
+        });
+        setFields(updatedFields);
       }
-      setSelected({ fieldId: id, text: txt.toString().trim(), start, end });
-    }
+    };
+    reader.readAsDataURL(file);
+    console.log(e.target.files[0]);
   }
 
-  function makeBold() {
-    const index = fields.findIndex((item) => item.id === selected.fieldId);
-    let fieldText = fields[index].text;
+  function handleTextChange(id, value) {
+    const updatedFields = fields.map((field) => {
+      console.log(id);
+      if (field.id === id) {
+        const updatedField = {
+          ...field,
+          text: value,
+        };
+        console.log(JSON.stringify(updatedField));
+        return updatedField;
+      } else {
+        return field;
+      }
+    });
+    setFields(updatedFields);
+  }
 
-    let pStart = selected.start,
-      pEnd = selected.end;
+  function createBlog() {
+    console.log("first");
+  }
 
-    let left = "",
-      middle = "",
-      right = "";
-
-    let newFields = fields;
-
-    let startingStars = fieldText.substring(pStart - 2, pStart),
-      endingStars = fieldText.substring(pEnd, pEnd + 2);
-
-    if (startingStars === "**" && endingStars === "**") {
-      left = fieldText.substring(0, pStart - 2);
-      middle = fieldText.substring(pStart, pEnd);
-      right = fieldText.substring(pEnd + 2);
-    } else {
-      left = fieldText.substring(0, pStart);
-      middle = " **" + fieldText.substring(pStart, pEnd).trim() + "** ";
-      right = fieldText.substring(pEnd);
-    }
-
-    newFields[index].text = left + middle + right;
-    setFields([...newFields]);
-    console.log(fields[index].text);
-
-    document.getElementById(selected.fieldId).innerHTML = left + middle + right;
+  function formatBlogData(fields) {
+    const blog = {
+      title: fields[0].text,
+      context: fields,
+    };
   }
 
   return (
     <div className={"create-container"} onClick={(e) => clickedAside(e)}>
       <div className={"create-header"}>
+        {/* Load Title or Back button */}
         <div className={isDetails ? "back" : "title"}>
           {!isDetails ? (
             <>
-              <p className={"title-text"}>Başlıq</p>
-              <input
-                className={"title-input"}
-                type={"text"}
-                placeholder={"Başlığı daxil edin"}
+              {/* Input where title of a blog is entered */}
+              <p className={"title-text"}>Title</p>
+              <TextField field={fields[0]} isTitle={true} />
+              <ImageField
+                isThumbnail={true}
+                handleImageChange={handleImageChange}
+                field={thumbnailImage}
               />
             </>
           ) : (
@@ -182,161 +138,65 @@ export const Create = () => {
             </div>
           )}
         </div>
+
         <div className={"actions"}>
-          <div className={"actions-post"}>
-            <p className={"actions-post-text"}>Post</p>
-            <CustomSvg
-              name={"send"}
-              width={"25"}
-              height={"25"}
-              color={"#FFFFFF"}
-            />
-          </div>
+          {/* Post button */}
+          <CustomButton
+            title={"Post"}
+            className={"actions-post"}
+            onClick={() => createBlog()}
+          />
+          {/* Hide details button when details are shown */}
           {!isDetails ? (
-            <div className={"actions-details"} onClick={() => setDetails(true)}>
-              <p className={"actions-details-text"}>Detallar</p>
-            </div>
+            <CustomButton
+              title={"Details"}
+              className={"actions-details"}
+              onClick={() => setDetails(true)}
+            />
           ) : null}
         </div>
       </div>
       <div className={"content"} onClick={(e) => clickedAside(e)}>
-        {tools.visibility ? (
-          <div
-            className={"tools"}
-            style={{ top: `${tools.y}px`, left: `${tools.x}px` }}
-          >
-            <div className={"tools-btn"} onClick={makeBold}>
-              <b className={"tools-btn-text"}>B</b>
-            </div>
-            <div className={"tools-btn"}>
-              <i className={"tools-btn-text"} style={{ fontStyle: "italic" }}>
-                I
-              </i>
-            </div>
-            <div className={"tools-btn"}>
-              <u
-                className={"tools-btn-text"}
-                style={{ textDecoration: "underlined" }}
-              >
-                U
-              </u>
-            </div>
-            <div className={"tools-btn"}>
-              <CustomSvg
-                name={"link"}
-                color={"#ffffff"}
-                width={"30"}
-                height={"30"}
-              />
-            </div>
-          </div>
-        ) : null}
         {!isDetails ? (
-          <div className={"editables"}>
-            {fields.map((item) => (
-              <div
-                className={"editables-item"}
-                onMouseEnter={() => crossIconPosition(item.id)}
-                key={item.id}
-              >
-                {item.type === "text" ? (
-                  <p
-                    id={`${item.id}`}
-                    contentEditable={"true"}
-                    className={"editables-item-text"}
-                    onMouseUp={() => textSelected(item.id)}
-                    onInput={() => textChanged(item.id)}
-                  >
-                    {item.text}
-                  </p>
-                ) : (
-                  <img
-                    src={item.imagePreviewUrl}
-                    className={"editables-item-pic"}
-                    alt="editables"
-                  />
-                )}
-                {imagePicker && item.id === fields[fields.length - 1].id ? (
-                  <div className={"editables-item-browse"}>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      name="file"
-                      className={"editables-item-browse-input"}
-                      onChange={(e) => onChangeImageHandler(e)}
+          <div className={"fields"}>
+            {fields.map((field) => {
+              switch (field.type) {
+                case "text":
+                  return (
+                    <TextField
+                      field={field}
+                      deleteField={deleteField}
+                      handleTextChange={handleTextChange}
+                      key={field.id}
                     />
-                    <button
-                      onClick={() => setImagePicker(false)}
-                      title="cancel"
-                    >
-                      cancel file upload
-                    </button>
-                  </div>
-                ) : null}
-                {cross === item.id ? (
-                  <div
-                    className={"editables-item-cross"}
-                    onClick={() => setDeleteTarget(item.id)}
-                  >
-                    <CustomSvg name={"cross"} width={"30"} height={"30"} />
-                  </div>
-                ) : null}
-                {deleteTarget === item.id ? (
-                  <div className={"delete"}>
-                    <p className={"delete-title"}>
-                      Silmək istədiyinizdən əminsiniz?
-                    </p>
-                    <div className={"delete-actions"}>
-                      <button
-                        className={"delete-actions-btn"}
-                        onClick={() => deleteField(item.id)}
-                      >
-                        Hə
-                      </button>
-                      <button
-                        className={"delete-actions-btn"}
-                        onClick={() => setDeleteTarget(null)}
-                      >
-                        Yox
-                      </button>
-                    </div>
-                  </div>
-                ) : null}
-                {!imagePicker && item.id === fields[fields.length - 1].id ? (
-                  <div
-                    className={"editables-item-add"}
-                    onClick={() => setModalFields(!modalFields)}
-                  >
-                    <CustomSvg name={"plusCircle"} width={"50"} height={"50"} />
-                  </div>
-                ) : null}
-                {modalFields && item.id === fields[fields.length - 1].id ? (
-                  <div className={"modal"}>
-                    <div className={"modal-btn"}>
-                      <div className={"modal-btn-field"} onClick={addTextField}>
-                        <CustomSvg
-                          name={"text"}
-                          color={"#ffffff"}
-                          width={"30"}
-                          height={"30"}
-                        />
-                      </div>
-                      <div
-                        className={"modal-btn-image"}
-                        onClick={addImageField}
-                      >
-                        <CustomSvg
-                          name={"camera"}
-                          color={"#ffffff"}
-                          width={"30"}
-                          height={"30"}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ) : null}
+                  );
+                case "image":
+                  return (
+                    <ImageField
+                      field={field}
+                      handleImageChange={handleImageChange}
+                      deleteField={deleteField}
+                    />
+                  );
+                default:
+                  return null;
+              }
+            })}
+
+            {/* Add field button */}
+            <div className={"add-button"}>
+              {/* Add butotn */}
+              <div onClick={() => setModalFields(!modalFields)}>
+                <CustomSvg name={"plusCircle"} width={"50"} height={"50"} />
               </div>
-            ))}
+              {/* Add pop up */}
+              {modalFields ? (
+                <ModalAdd
+                  addTextField={addTextField}
+                  addImageField={addImageField}
+                />
+              ) : null}
+            </div>
           </div>
         ) : (
           <div className={"details"}>

@@ -2,6 +2,9 @@
 const FETCH_BLOGS_START = "FETCH_BLOGS_START";
 const FETCH_BLOGS_SUCCESS = "FETCH_BLOGS_SUCCESS";
 const FETCH_BLOGS_ERROR = "FETCH_BLOGS_ERROR";
+const POST_BLOG_START = "POST_BLOG_START";
+const POST_BLOG_SUCCESS = "POST_BLOG_SUCCESS";
+const POST_BLOG_ERROR = "POST_BLOG_ERROR";
 
 export const MODULE_NAME = "blogs";
 
@@ -36,6 +39,23 @@ export const reducer = (state = initialState, { type, payload }) => {
         loading: false,
         error: payload,
       };
+    case POST_BLOG_START:
+      return {
+        ...state,
+        error: null,
+      };
+    case POST_BLOG_SUCCESS:
+      return {
+        ...state,
+        posted: true,
+        error: null,
+      };
+    case POST_BLOG_ERROR:
+      return {
+        ...state,
+        posted: false,
+        error: payload,
+      };
     default:
       return state;
   }
@@ -53,6 +73,21 @@ export const fetchBlogsSuccess = (payload) => ({
 
 export const fetchBlogsError = (payload) => ({
   type: FETCH_BLOGS_ERROR,
+  payload: payload,
+});
+
+// Post blog
+export const postBlogStart = () => ({
+  type: POST_BLOG_START,
+});
+
+export const postBlogSuccess = (payload) => ({
+  type: POST_BLOG_SUCCESS,
+  payload: payload,
+});
+
+export const postBlogError = (payload) => ({
+  type: POST_BLOG_ERROR,
   payload: payload,
 });
 
@@ -92,26 +127,53 @@ const fakeBlogData = [
 // Middlewares
 export const fetchBlogs = () => {
   return (dispatch) => {
-    // dispatch(fetchBlogsStart());
-    // const url = "https://travel-load.herokuapp.com/post";
-    // fetch(url)
-    //   .then(handleErrors)
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     dispatch(fetchBlogsSuccess(result));
-    //     return result;
-    //   })
-    //   .catch((e) => dispatch(fetchBlogsError(e)));
+    dispatch(fetchBlogsStart());
+    const url = "https://travl-overload-server.vercel.app/blogs";
+    fetch(url)
+      .then(handleErrors)
+      .then((res) => res.json())
+      .then((result) => {
+        dispatch(fetchBlogsSuccess(result));
+        return result;
+      })
+      .catch((e) => dispatch(fetchBlogsError(e)));
 
     //Return fake data
-    dispatch(fetchBlogsSuccess(fakeBlogData));
-    return fakeBlogData;
+    // dispatch(fetchBlogsSuccess(fakeBlogData));
+    // return fakeBlogData;
   };
 };
 
-// function handleErrors(response) {
-//   if (!response.ok) {
-//     throw Error(response.statusText);
-//   }
-//   return response;
-// }
+export const postBlog = (blog) => {
+  return (dispatch) => {
+    dispatch(postBlogStart());
+    const url = "https://travl-overload-server.vercel.app/blogs";
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(blog),
+    })
+      .then(handleErrors)
+      .then((result) => {
+        dispatch(postBlogSuccess(result));
+        return result;
+      })
+      .catch((e) => dispatch(fetchBlogsError(e)));
+
+    //Return fake data
+    // dispatch(fetchBlogsSuccess(fakeBlogData));
+    // return fakeBlogData;
+  };
+};
+
+function handleErrors(response) {
+  console.log(`Response: ${response}`);
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+}

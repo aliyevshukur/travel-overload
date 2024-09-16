@@ -1,0 +1,52 @@
+
+.modal {
+    position: absolute;
+    right: 0px;
+    top: -18%;
+
+    &-btn {
+      background-color: #000000;
+      border-radius: 15px;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      bottom: -65px;
+      left: 10px;
+
+      &:before {
+        content: "";
+        border: 10px solid rgba(0, 0, 0, 0);
+        border-right: 10px solid black;
+        position: absolute;
+        left: -20px;
+      }
+
+      &-field {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000000;
+        padding: 5px;
+        border-radius: 4px;
+        margin-right: 10px;
+
+        &:hover {
+          background-color: #1a1a1a;
+        }
+      }
+      &-image {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        background-color: #000000;
+        padding: 5px;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: #1a1a1a;
+        }
+      }
+    }
+  }

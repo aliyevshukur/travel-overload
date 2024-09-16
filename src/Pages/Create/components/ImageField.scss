@@ -1,0 +1,27 @@
+@import "../../../styles/theme";
+
+.image-field{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    img{
+        max-width: 70%;
+        height: auto;
+    }
+
+    &-label{
+        margin-bottom: 15px;
+    }
+
+    &-input::file-selector-button{
+        background-color: $secondary;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        align-self: flex-start;
+        margin-bottom: 10px;
+    }
+}
