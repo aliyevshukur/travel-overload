@@ -6,12 +6,21 @@ import { DetailsInput } from "./components";
 import ModalAdd from "./components/ModalAdd";
 import TextField from "./components/TextField";
 import ImageField from "./components/ImageField";
+import { connect } from "react-redux";
+import { postBlog } from "../../store/blogs";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-export const Create = () => {
+const mapStateToProps = (state) => ({});
+
+export const Create = connect(mapStateToProps)(({ dispatch }) => {
   const [isDetails, setDetails] = useState(false);
-  const [thumbnailImage, setThumbnailImage] = useState({});
-  const [fields, setFields] = useState([{ id: 0, type: "text", text: "" }]);
+  const [fields, setFields] = useState([
+    { id: 0, type: "text", text: "" }, // Title field
+    { id: 1, type: "image", url: "" }, // Thumbnail field
+    { id: 2, type: "text", text: "" }, // First context field
+  ]);
   const [modalFields, setModalFields] = useState(false);
+  const history = useHistory();
 
   const addTextField = () => {
     setModalFields(false);
@@ -36,8 +45,7 @@ export const Create = () => {
       {
         id: fields[fields.length - 1].id + 1,
         type: "image",
-        file: null,
-        imagePreviewUrl: null,
+        url: "",
       },
     ]);
   };
@@ -51,46 +59,37 @@ export const Create = () => {
 
   function clickedAside(e) {
     if (e.target === e.currentTarget) {
-      console.log("clicked aside");
       setModalFields(false);
     }
   }
 
   function handleImageChange(e, id, isThumbnail) {
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    reader.onloadend = () => {
-      //If loaded image is not thumbnail then update data in fields array
-      if (isThumbnail) {
-        setThumbnailImage({ file: file, imagePreviewUrl: reader.result });
+    e.preventDefault();
+    const url = e.target.value;
+
+    const updatedFields = fields.map((field) => {
+      if (field.id === id) {
+        const updatedField = {
+          ...field,
+          url: url,
+        };
+        return updatedField;
       } else {
-        const updatedFields = fields.map((field) => {
-          if (field.id === id) {
-            return {
-              ...field,
-              file: file,
-              imagePreviewUrl: reader.result,
-            };
-          } else {
-            return field;
-          }
-        });
-        setFields(updatedFields);
+        return field;
       }
-    };
-    reader.readAsDataURL(file);
-    console.log(e.target.files[0]);
+    });
+    console.log(`URL on change : ${JSON.stringify(updatedFields)}`);
+
+    setFields(updatedFields);
   }
 
   function handleTextChange(id, value) {
     const updatedFields = fields.map((field) => {
-      console.log(id);
       if (field.id === id) {
         const updatedField = {
           ...field,
           text: value,
         };
-        console.log(JSON.stringify(updatedField));
         return updatedField;
       } else {
         return field;
@@ -99,43 +98,54 @@ export const Create = () => {
     setFields(updatedFields);
   }
 
-  function createBlog() {
-    console.log("first");
+  function createBlog(e) {
+    e.preventDefault();
+    const blog = formatBlogData();
+    dispatch(postBlog(blog));
+    history.push("/new");
   }
 
-  function formatBlogData(fields) {
+  function formatBlogData() {
+    const date = new Date();
+    const formattedDate = `${date.getDate()}-${
+      date.getMonth() + 1
+    }-${date.getFullYear()}`;
+
     const blog = {
       title: fields[0].text,
       context: fields,
+      thumbnailImage: fields[1].url,
+      postDate: formattedDate,
+      author: "Henry Roberts",
+      authorImage:
+        "https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     };
+
+    return blog;
   }
 
   return (
     <div className={"create-container"} onClick={(e) => clickedAside(e)}>
-      <div className={"create-header"}>
+      <form className={"create-header"} onSubmit={createBlog}>
         {/* Load Title or Back button */}
         <div className={isDetails ? "back" : "title"}>
           {!isDetails ? (
             <>
               {/* Input where title of a blog is entered */}
               <p className={"title-text"}>Title</p>
-              <TextField field={fields[0]} isTitle={true} />
+              <TextField
+                field={fields[0]}
+                isTitle={true}
+                handleTextChange={handleTextChange}
+              />
               <ImageField
                 isThumbnail={true}
                 handleImageChange={handleImageChange}
-                field={thumbnailImage}
+                field={fields[1]}
               />
             </>
           ) : (
-            <div className={"back-btn"} onClick={() => setDetails(false)}>
-              <CustomSvg
-                name={"chervonLeft"}
-                width={"12"}
-                height={"22"}
-                color={"#18A0FB"}
-              />
-              <p className={"back-btn-text"}>Geri</p>
-            </div>
+            <CustomButton onClick={() => setDetails(false)} title={"Back"} />
           )}
         </div>
 
@@ -144,7 +154,7 @@ export const Create = () => {
           <CustomButton
             title={"Post"}
             className={"actions-post"}
-            onClick={() => createBlog()}
+            type={"submit"}
           />
           {/* Hide details button when details are shown */}
           {!isDetails ? (
@@ -155,11 +165,14 @@ export const Create = () => {
             />
           ) : null}
         </div>
-      </div>
+      </form>
       <div className={"content"} onClick={(e) => clickedAside(e)}>
         {!isDetails ? (
           <div className={"fields"}>
-            {fields.map((field) => {
+            {fields.slice(2).map((field) => {
+              if (field.id === 0) {
+                return field;
+              }
               switch (field.type) {
                 case "text":
                   return (
@@ -225,4 +238,4 @@ export const Create = () => {
       </div>
     </div>
   );
-};
+});

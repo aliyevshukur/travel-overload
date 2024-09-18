@@ -10,19 +10,6 @@ export default function TextField({
   isTitle = false,
 }) {
   const { id, text } = field;
-  console.log(`Textfiled ${JSON.stringify(field)}`);
-
-  // function handleOnChange(e) {
-  //   if (isThumbnail) {
-  //     const thumbnail = {
-  //       file: e.target.value.file,
-  //       imagePreviewUrl: e.target.result,
-  //     };
-  //     setThumbnailImage(e.target.value);
-  //   } else {
-  //     ;
-  //   }
-  // }
 
   return (
     <div className={"textfield"} key={id}>
@@ -31,6 +18,7 @@ export default function TextField({
         value={text}
         onChange={(e) => handleTextChange(id, e.target.value)}
         className={"textfield-input"}
+        required
       />
 
       {!isTitle && <DeleteFieldButton id={field.id} onDelete={deleteField} />}

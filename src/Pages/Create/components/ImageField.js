@@ -3,32 +3,34 @@ import DeleteFieldButton from "./DeleteFieldButton";
 import "./ImageField.scss";
 
 export default function ImageField({
-  field = { id: null, imagePreviewUrl: null },
+  field,
   handleImageChange,
   deleteField,
   isThumbnail = false,
 }) {
+  const { id, url } = field;
+  let label = "";
+
+  if (isThumbnail) {
+    label = "Please choose thumbnail url for your post:";
+  } else {
+    label = "Please choose image url for your post:";
+  }
+
   return (
     <div className={"image-field"}>
-      {isThumbnail && (
-        <label className={"image-field-label"}>
-          Please choose thumbnail for your post
-        </label>
-      )}
-      <input
-        type='file'
-        accept='image/*'
-        name='file'
-        className={"image-field-input"}
-        onChange={(e) => handleImageChange(e, field.id, isThumbnail)}
-      />
-      {isThumbnail && (
-        <DeleteFieldButton id={field.id} onDelete={deleteField} />
-      )}
+      <label className={"image-field-label"}>{label}</label>
 
-      {field.imagePreviewUrl && (
-        <img src={field.imagePreviewUrl} alt='editables' />
-      )}
+      <input
+        type='input'
+        className={"image-field-input"}
+        onChange={(e) => handleImageChange(e, id, isThumbnail)}
+        value={url}
+        required
+      />
+      {isThumbnail && <DeleteFieldButton id={id} onDelete={deleteField} />}
+
+      {url && <img src={url} alt='editables' />}
     </div>
   );
 }

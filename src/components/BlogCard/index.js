@@ -1,32 +1,57 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import { CardAuthor } from "./CardAuthor";
 import "./style.scss";
 import { isTabletMode } from "../../store/appState";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const mapStateToProps = (store) => ({
   isTabletMode: isTabletMode(store),
 });
 
 export const BlogCard = connect(mapStateToProps)(
-  ({ cardInfo, className = "", isTabletMode, maxLength = 90 }) => {
-    const { image, title, postDate, author, authorImage } = cardInfo;
-    let { context } = cardInfo;
+  ({ cardInfo, className = "", isTabletMode, mini = false }) => {
+    const { thumbnailImage, title, postDate, author, authorImage } = cardInfo;
+    const { context: contextRaw } = cardInfo;
+    let context = contextRaw[2].text;
 
-    if (isTabletMode) {
-      maxLength = 50;
-    }
+    const history = useHistory();
+    let maxLength = 110;
+
+    if (isTabletMode) maxLength = 200;
     if (context.length > maxLength) {
       context = context.substr(0, maxLength) + "...";
     }
 
+    let style = {};
+    if (mini) {
+      style = {
+        backgroundImage: `url(${thumbnailImage})`,
+        backgroundSize: "cover", // Adjusts the size of the image
+        backgroundPosition: "center", // Centers the image
+      };
+    }
+
     return (
-      <div className={`blog-card ${className}`}>
-        <img src={image} alt="card" className="blog-card-image" />
-        <div className="blog-card-content">
-          <h2 className="blog-card-title">{title}</h2>
-          <h3 className="blog-card-context">{context}</h3>
+      <div
+        className={"blog-card " + (mini && "blog-card-mini")}
+        onClick={() => {
+          history.push(`/blogs/${cardInfo._id}`);
+        }}
+        style={style}
+      >
+        <img
+          src={thumbnailImage}
+          alt='card'
+          className={"blog-card-image " + (mini && "blog-card-image-mini")}
+        />
+        <div
+          className={"blog-card-content " + (mini && "blog-card-content-mini")}
+        >
+          <h2 className={"blog-card-title " + (mini && "blog-card-title-mini")}>
+            {title}
+          </h2>
+          {!mini && <p className='blog-card-context'>{context}</p>}
           <CardAuthor
             authorInfo={{
               postDate,
@@ -37,5 +62,5 @@ export const BlogCard = connect(mapStateToProps)(
         </div>
       </div>
     );
-  }
+  },
 );

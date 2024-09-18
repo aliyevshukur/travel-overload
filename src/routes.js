@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import { Login, New, Register, Popular, Create } from "./Pages";
+import { Login, New, Register, Popular, Create, Blog } from "./Pages";
 import { UserPage } from "./Pages/UserPage";
 
 export const ROUTES = [
@@ -9,7 +9,7 @@ export const ROUTES = [
     path: "/",
     key: "ROOT",
     exact: true,
-    component: () => <Redirect to="/login" />,
+    component: () => <Redirect to='/login' />,
   },
   {
     path: "/login",
@@ -41,6 +41,11 @@ export const ROUTES = [
     path: "/user",
     key: "USER",
     component: UserPage,
+  },
+  {
+    path: "/blogs/:id",
+    key: "BLOGS:ID",
+    component: Blog,
   },
 ];
 

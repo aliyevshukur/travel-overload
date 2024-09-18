@@ -18,28 +18,28 @@ export const Navigation = ({
 
   const navItems = [
     {
-      id: "new",
+      id: "/new",
       name: "New",
       icon: "timer",
     },
     {
-      id: "popular",
+      id: "/popular",
       name: "Popular",
       icon: "star",
     },
     {
-      id: "create",
+      id: "/create",
       name: "Create",
       icon: "plus",
     },
     {
-      id: "login",
+      id: "/login",
       name: "Log In",
       icon: "signIn",
     },
 
     {
-      id: "register",
+      id: "/register",
       name: "Register",
       icon: "register",
     },
@@ -75,13 +75,13 @@ export const Navigation = ({
 
   return (
     <div
-      className="navigation-container"
+      className='navigation-container'
       style={isNavVisible ? { display: "flex" } : {}}
     >
       {!isTabletMode && <Logo />}
-      <div className="nav-items">
+      <div className='nav-items'>
         {navItems.map((item) => (
-          <div className="nav-item-wrapper" key={item.id}>
+          <div className='nav-item-wrapper' key={item.id}>
             <Link
               to={item.id}
               className={pickNavItemClass(item.id)}
@@ -93,7 +93,7 @@ export const Navigation = ({
                 width={"24"}
                 height={"24"}
                 color={pickSVGColor(item.id)}
-                className="nav-item-icon"
+                className='nav-item-icon'
               />
               {item.name}
             </Link>
@@ -108,12 +108,12 @@ export const Navigation = ({
       </div>
       <div className={"user-item-wrapper"}>
         <Link
-          to="user"
+          to='user'
           onClick={() => setSelected("user")}
           className={`user-item ${selected === "user" && "user-item-selected"}`}
         >
           <div className={"image-wrapper"}>
-            <img src={profile} className={"user-image"} alt="user" />
+            <img src={profile} className={"user-image"} alt='user' />
           </div>
           <p className={"user-name"}>Sienna Miller</p>
         </Link>
