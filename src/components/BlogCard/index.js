@@ -34,7 +34,7 @@ export const BlogCard = connect(mapStateToProps)(
 
     return (
       <div
-        className={"blog-card " + (mini && "blog-card-mini")}
+        className={"blog-card " + (mini ? "blog-card-mini " : "") + className}
         onClick={() => {
           history.push(`/blogs/${cardInfo._id}`);
         }}
