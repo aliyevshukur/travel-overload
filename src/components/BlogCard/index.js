@@ -18,7 +18,7 @@ export const BlogCard = connect(mapStateToProps)(
     const history = useHistory();
     let maxLength = 110;
 
-    if (isTabletMode) maxLength = 200;
+    if (isTabletMode) maxLength = 130;
     if (context.length > maxLength) {
       context = context.substr(0, maxLength) + "...";
     }

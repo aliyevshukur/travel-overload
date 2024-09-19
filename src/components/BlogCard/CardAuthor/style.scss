@@ -4,8 +4,8 @@
   justify-self: end;
 
   .author-image {
-    width: 32px;
-    height: 32px;
+    width: 20%;
+    aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 50%;
   }
@@ -17,14 +17,14 @@
     padding-left: 8px;
 
     .author-name {
-      font-size: 11px;
+      font-size: 12px;
       line-height: 13px;
     }
 
     .date {
-      font-size: 9px;
+      font-size: 10px;
       line-height: 11px;
-      color: #ffffff;
+      // color: #ffffff;
     }
   }
 }

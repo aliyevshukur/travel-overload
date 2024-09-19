@@ -41,19 +41,30 @@ export const Blog = connect(mapStateToProps)(
       <div className='wrapper'>
         <div className='blog'>
           <div className='blog-header'>
-            <img src={context[1].url} alt='' className='image' />
-            <div className='info'>
-              <h1 className='title'>{title}</h1>
-              <p className='description'>{context[2].text}</p>
+            <img src={context[1].url} alt='' className={"blog-header-image"} />
+            <div className='blog-header-info'>
+              <h1 className='blog-header-info-title'>{title}</h1>
+              <p className='blog-header-info-description'>{context[2].text}</p>
             </div>
           </div>
-          <div className='blog-content'>Content</div>
+          <div className='blog-content'>
+            {context.slice(2).map((field) => {
+              if (field.type === "text") {
+                return <div className='blog-content-text'>{field.text}</div>;
+              } else if (field.type === "image") {
+                return (
+                  <img src={field.url} alt='' className='blog-content-image' />
+                );
+              }
+            })}
+          </div>
           <CardAuthor
             authorInfo={{
-              postDate,
+              postDate: postDate,
               author: author,
               authorImage: authorImage,
             }}
+            className={"blog-card-author"}
           />
         </div>
         <div className='side-panel'>

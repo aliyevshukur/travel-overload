@@ -14,14 +14,10 @@
         margin-bottom: 15px;
     }
 
-    &-input::file-selector-button{
-        background-color: $secondary;
-        color: white;
+    &-input {
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
-        cursor: pointer;
         align-self: flex-start;
-        margin-bottom: 10px;
     }
 }

@@ -18,13 +18,19 @@
     height: 260px;
   }
 
+  @include tablet {
+    width: 430px;
+    height: 200px;
+  }
+
   &-mini {
     color: white;
     position: relative;
     padding: 10px;
     width: 200px;
-    height: 140px;
-
+    height: 120px;
+    margin-bottom: 15px;
+    flex-shrink: 0;
 
     &::before {
       content: '';
@@ -33,7 +39,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.6);
       border-radius: 30px;
     }
   }
@@ -69,20 +75,20 @@
     .blog-card-title {
       font-weight: 600;
       font-size: 15px;
-      line-height: 24px;
+      line-height: 18px;
       margin-bottom: 10px;
       position: relative;
       text-wrap: wrap;
 
       &-mini {
-        font-size: 12px;
-
+        font-size: 11px;
+        height: 30px;
       }
     }
 
     .blog-card-context {
       font-size: 10px;
-      line-height: 18px;
+      line-height: 13px;
       margin-bottom: auto;
       position: relative;
       flex-grow: 1;
