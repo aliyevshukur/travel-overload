@@ -38,7 +38,6 @@
     }
 
     .blog {
-        // flex-grow:1;
         width: 80%;
         border-radius: 0px 50px 50px 0px;
         background-color: $primary;
@@ -93,7 +92,6 @@
 
             &-image {
                 width: 70%;
-                aspect-ratio: 1/1;
                 margin-top: 40px;
                 align-self: center;
             }

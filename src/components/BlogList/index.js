@@ -15,7 +15,7 @@ export const BlogList = ({ blogs, title, loading }) => {
         <div className='blog-cards'>
           {blogs.map((blog, ind) => {
             return (
-              <div className='card-wrapper' key={ind}>
+              <div className='blog-cards-card-wrapper' key={ind}>
                 <BlogCard
                   cardInfo={blog}
                   className={"blog-cards-item"}

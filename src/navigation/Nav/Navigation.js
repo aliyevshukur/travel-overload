@@ -15,7 +15,6 @@ export const Navigation = ({
 }) => {
   const [selected, setSelected] = useState();
   const { pathname } = useLocation();
-
   const navItems = [
     {
       id: "/new",
@@ -98,7 +97,8 @@ export const Navigation = ({
               {item.name}
             </Link>
 
-            {selected === item.id && (
+            {/* Add round border to selected Nav item */}
+            {selected === item.id.slice(1, item.id.length) && (
               <div
                 className={!isTabletMode ? "nav-item-selected-connector" : ""}
               />
@@ -113,9 +113,13 @@ export const Navigation = ({
           className={`user-item ${selected === "user" && "user-item-selected"}`}
         >
           <div className={"image-wrapper"}>
-            <img src={profile} className={"user-image"} alt='user' />
+            <img
+              src='https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+              className={"user-image"}
+              alt='user'
+            />
           </div>
-          <p className={"user-name"}>Sienna Miller</p>
+          <p className={"user-name"}>Henry Roberts</p>
         </Link>
 
         {selected === "user" && (

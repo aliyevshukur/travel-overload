@@ -1,9 +1,8 @@
 .blog-list {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 40px 50px 0 50px;
+  padding: 40px 7vw 0 7vw;
 
   .page-title {
     margin-bottom: 30px;
@@ -13,12 +12,8 @@
   .blog-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: flex-start;
     gap: 30px;
-
-    @media (max-width: 1290px) {
-      flex-direction: column;
-    }
   }
 }
