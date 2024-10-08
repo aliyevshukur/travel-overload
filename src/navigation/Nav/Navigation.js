@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import "./Navigation.scss";
-import { CustomSvg } from "../../components";
-import profile from "../../assets/profile.jpg";
 import { Link } from "react-router-dom";
+import profile from "../../assets/profile.jpg";
+import { CustomSvg } from "../../components";
 import { Logo } from "../../components/Logo";
+import "./Navigation.scss";
 
 export const Navigation = ({
   isTabletMode,
@@ -17,28 +17,28 @@ export const Navigation = ({
   const { pathname } = useLocation();
   const navItems = [
     {
-      id: "/new",
+      id: "new",
       name: "New",
       icon: "timer",
     },
     {
-      id: "/popular",
+      id: "popular",
       name: "Popular",
       icon: "star",
     },
     {
-      id: "/create",
+      id: "create",
       name: "Create",
       icon: "plus",
     },
     {
-      id: "/login",
+      id: "login",
       name: "Log In",
       icon: "signIn",
     },
 
     {
-      id: "/register",
+      id: "register",
       name: "Register",
       icon: "register",
     },
@@ -50,34 +50,39 @@ export const Navigation = ({
 
   const navItemClickHandler = (id) => {
     setIsNavVisible(false);
+    setSelected(id);
   };
 
   const pickNavItemClass = (id) => {
+    let className = "nav-item";
+
     if (selected === id) {
-      return "nav-item nav-item-selected";
-    } else if (id === "register") {
-      return "nav-item nav-item-register";
-    } else {
-      return "nav-item";
+      className = `${className} nav-item-selected`;
     }
+
+    if (id === "register" && selected !== "register") {
+      className = `${className} nav-item-register`;
+    }
+
+    return className;
   };
 
   const pickSVGColor = (id) => {
-    if (selected === id) {
-      return "#18A0FB";
-    } else if (id === "register") {
+    if (id === "register" && selected !== "register") {
       return "#ffffff";
     } else {
-      return "#000000";
+      return "#18A0FB";
     }
   };
-
+  console.log(isTabletMode);
   return (
     <div
-      className='navigation-container'
+      className={`navigation ${isNavVisible ? "active" : ""}`}
       style={isNavVisible ? { display: "flex" } : {}}
     >
-      {!isTabletMode && <Logo />}
+      <Logo />
+
+      {/* NAV ITEMS */}
       <div className='nav-items'>
         {navItems.map((item) => (
           <div className='nav-item-wrapper' key={item.id}>
@@ -98,18 +103,18 @@ export const Navigation = ({
             </Link>
 
             {/* Add round border to selected Nav item */}
-            {selected === item.id.slice(1, item.id.length) && (
-              <div
-                className={!isTabletMode ? "nav-item-selected-connector" : ""}
-              />
+            {selected === item.id && (
+              <div className={"selected-border-radius"} />
             )}
           </div>
         ))}
       </div>
+
+      {/* USER ITEM */}
       <div className={"user-item-wrapper"}>
         <Link
           to='user'
-          onClick={() => setSelected("user")}
+          onClick={() => navItemClickHandler("/user")}
           className={`user-item ${selected === "user" && "user-item-selected"}`}
         >
           <div className={"image-wrapper"}>
@@ -122,9 +127,7 @@ export const Navigation = ({
           <p className={"user-name"}>Henry Roberts</p>
         </Link>
 
-        {selected === "user" && (
-          <div className={!isTabletMode ? "nav-item-selected-connector" : ""} />
-        )}
+        {selected === "user" && <div className={"selected-border-radius"} />}
       </div>
     </div>
   );

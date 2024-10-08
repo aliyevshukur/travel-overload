@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { CustomButton, CustomSvg, CustomUploadWidget } from "../../components";
+import CloudinaryImage from "../../components/CloudinaryImage";
+import { isTabletMode } from "../../store/appState";
+import { postBlog } from "../../store/blogs";
 import "../Create/style.scss";
-import { CustomButton, CustomSvg } from "../../components";
 import { DetailsInput } from "./components";
+import ImageField from "./components/ImageField";
 import ModalAdd from "./components/ModalAdd";
 import TextField from "./components/TextField";
-import ImageField from "./components/ImageField";
-import { connect } from "react-redux";
-import { postBlog } from "../../store/blogs";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  isTabletMode: isTabletMode(state),
+});
 
-export const Create = connect(mapStateToProps)(({ dispatch }) => {
+export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
   const [isDetails, setDetails] = useState(false);
   const [fields, setFields] = useState([
     { id: 0, type: "text", text: "" }, // Title field
@@ -63,10 +67,8 @@ export const Create = connect(mapStateToProps)(({ dispatch }) => {
     }
   }
 
-  function handleImageChange(e, id, isThumbnail) {
-    e.preventDefault();
-    const url = e.target.value;
-
+  function handleImageChange(url, isThumbnail, id) {
+    console.log(`URL ${url}`);
     const updatedFields = fields.map((field) => {
       if (field.id === id) {
         const updatedField = {
@@ -101,6 +103,7 @@ export const Create = connect(mapStateToProps)(({ dispatch }) => {
   function createBlog(e) {
     e.preventDefault();
     const blog = formatBlogData();
+    console.log(`bLOG ${JSON.stringify(blog)}`);
     dispatch(postBlog(blog));
     history.push("/new");
   }
@@ -123,118 +126,88 @@ export const Create = connect(mapStateToProps)(({ dispatch }) => {
 
     return blog;
   }
-
+  console.log("is tablet " + isTabletMode);
   return (
-    <div className={"create-container"} onClick={(e) => clickedAside(e)}>
+    <div className={"create"} onClick={(e) => clickedAside(e)}>
       <form className={"create-header"} onSubmit={createBlog}>
-        {/* Load Title or Back button */}
-        <div className={isDetails ? "back" : "title"}>
-          {!isDetails ? (
-            <>
-              {/* Input where title of a blog is entered */}
-              <p className={"title-text"}>Title</p>
-              <TextField
-                field={fields[0]}
-                isTitle={true}
-                handleTextChange={handleTextChange}
-              />
-              <ImageField
-                isThumbnail={true}
-                handleImageChange={handleImageChange}
-                field={fields[1]}
-              />
-            </>
-          ) : (
-            <CustomButton onClick={() => setDetails(false)} title={"Back"} />
-          )}
-        </div>
-
-        <div className={"actions"}>
-          {/* Post button */}
+        {isTabletMode && (
           <CustomButton
             title={"Post"}
             className={"actions-post"}
             type={"submit"}
           />
-          {/* Hide details button when details are shown */}
-          {!isDetails ? (
-            <CustomButton
-              title={"Details"}
-              className={"actions-details"}
-              onClick={() => setDetails(true)}
+        )}
+        <h1 className={"title-text"}>Title</h1>
+        <div className='row-wrapper'>
+          <div className={"title"}>
+            <TextField
+              field={fields[0]}
+              isTitle={true}
+              handleTextChange={handleTextChange}
+              className={"title-input"}
             />
-          ) : null}
+          </div>
+          {!isTabletMode && (
+            <CustomButton
+              title={"Post"}
+              className={"actions-post"}
+              type={"submit"}
+            />
+          )}
         </div>
       </form>
-      <div className={"content"} onClick={(e) => clickedAside(e)}>
-        {!isDetails ? (
-          <div className={"fields"}>
-            {fields.slice(2).map((field) => {
-              if (field.id === 0) {
-                return field;
-              }
-              switch (field.type) {
-                case "text":
-                  return (
-                    <TextField
-                      field={field}
-                      deleteField={deleteField}
-                      handleTextChange={handleTextChange}
-                      key={field.id}
-                    />
-                  );
-                case "image":
-                  return (
-                    <ImageField
-                      field={field}
-                      handleImageChange={handleImageChange}
-                      deleteField={deleteField}
-                    />
-                  );
-                default:
-                  return null;
-              }
-            })}
+      <h4 className='thumbnail-title'>Please upload thumbnail image</h4>
+      <CustomUploadWidget
+        handleImageChange={handleImageChange}
+        isThumbnail={true}
+        id={1}
+      />
 
-            {/* Add field button */}
-            <div className={"add-button"}>
-              {/* Add butotn */}
-              <div onClick={() => setModalFields(!modalFields)}>
-                <CustomSvg name={"plusCircle"} width={"50"} height={"50"} />
-              </div>
-              {/* Add pop up */}
-              {modalFields ? (
-                <ModalAdd
-                  addTextField={addTextField}
-                  addImageField={addImageField}
-                />
-              ) : null}
+      <div className='seperator' />
+
+      <div className={"content"} onClick={(e) => clickedAside(e)}>
+        <div className={"fields"}>
+          {fields.slice(2).map((field) => {
+            if (field.id === 0) {
+              return field;
+            }
+            switch (field.type) {
+              case "text":
+                return (
+                  <TextField
+                    field={field}
+                    deleteField={deleteField}
+                    handleTextChange={handleTextChange}
+                    key={field.id}
+                  />
+                );
+              case "image":
+                return (
+                  <CustomUploadWidget
+                    handleImageChange={handleImageChange}
+                    id={field.id}
+                  />
+                );
+              default:
+                return null;
+            }
+          })}
+
+          {/* Add field button */}
+          <div className={"add-button"}>
+            {/* Add butotn */}
+            <div onClick={() => setModalFields(!modalFields)}>
+              <CustomSvg name={"plusCircle"} width={"50"} height={"50"} />
             </div>
+            {/* Add pop up */}
+            {modalFields ? (
+              <ModalAdd
+                addTextField={addTextField}
+                addImageField={addImageField}
+              />
+            ) : null}
           </div>
-        ) : (
-          <div className={"details"}>
-            <div className={"details-one"}>
-              <DetailsInput type={"notSmall"} />
-              <DetailsInput type={"notSmall"} />
-              <DetailsInput type={"notSmall"} />
-              <DetailsInput type={"notSmall"} />
-            </div>
-            <div className={"details-two"}>
-              <div className={"details-two-item"}>
-                <DetailsInput type={"notSmall"} />
-                <DetailsInput />
-              </div>
-              <div className={"details-two-item"}>
-                <DetailsInput type={"notSmall"} />
-                <DetailsInput />
-              </div>
-              <div className={"details-two-item"}>
-                <DetailsInput type={"notSmall"} />
-                <DetailsInput />
-              </div>
-            </div>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

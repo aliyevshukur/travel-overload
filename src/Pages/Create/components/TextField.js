@@ -1,6 +1,6 @@
 import React from "react";
-import DeleteFieldButton from "./DeleteFieldButton";
 import TextareaAutosize from "react-textarea-autosize";
+import DeleteFieldButton from "./DeleteFieldButton";
 import "./TextField.scss";
 
 export default function TextField({
@@ -8,16 +8,19 @@ export default function TextField({
   deleteField,
   handleTextChange,
   isTitle = false,
+  className,
 }) {
   const { id, text } = field;
 
   return (
-    <div className={"textfield"} key={id}>
+    <div className={`textfield ${className}`} key={id}>
       <TextareaAutosize
         id={`${id}`}
         value={text}
         onChange={(e) => handleTextChange(id, e.target.value)}
-        className={"textfield-input"}
+        className={`textfield-input`}
+        minRows={1}
+        maxRows={2}
         required
       />
 

@@ -1,5 +1,5 @@
 @import "./styles/theme";
-@import "./styles/base";
+@import "./styles/media-queries.scss";
 
 #root,
 body,
@@ -7,10 +7,16 @@ html {
   font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
   height: 100%;
+  font-size: 100%;
+
+  @include mobileL {
+    font-size: 80%;
+  }
 }
 
 .App {
   height: 100%;
+  position: relative;
   .app-container {
     min-height: 100%;
     padding-left: 200px;

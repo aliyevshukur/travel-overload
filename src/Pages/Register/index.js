@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import "./style.scss";
 import Eye from "../../assets/eye.svg";
 import Cover from "../../assets/register-cover.jpg";
 import { CustomButton, InputField } from "../../components";
 import { ErrorBox } from "../../components/ErrorBox";
+import "./style.scss";
 
 export const Register = () => {
   const [userInfo, setUserInfo] = useState({
@@ -29,7 +29,8 @@ export const Register = () => {
     console.log("userInfo", userInfo);
 
     const nameRegex = /^[a-z]+$/i;
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const passwordRegex = /^[a-z0-9]+$/i;
 
     if (firstName.length <= 2 || !nameRegex.test(firstName)) {
@@ -81,45 +82,45 @@ export const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <div className="content">
-        <form className="login-form">
-          <h1 className="title">
-            Welcome to <span className="title-span">Travel Overload</span>
+    <div className='register'>
+      <div className='form-wrapper'>
+        <form className='form'>
+          <h1 className='title'>
+            Welcome to <span className='title-span'>Travel Overload</span>
           </h1>
           {userInfo.error && <ErrorBox text={userInfo.error} />}
           <InputField
-            fieldName="name"
-            name="firstName"
-            className="form-field form-field-first"
+            fieldName='name'
+            name='firstName'
+            className='form-field form-field-first'
             onChange={(e) => onChange(e)}
           />
           <InputField
-            fieldName="surname"
-            name="lastName"
-            className="form-field"
+            fieldName='surname'
+            name='lastName'
+            className='form-field'
             onChange={(e) => onChange(e)}
           />
           <InputField
-            fieldName="email"
-            name="email"
-            className="form-field"
+            fieldName='email'
+            name='email'
+            className='form-field'
             onChange={(e) => onChange(e)}
           />
           <InputField
-            fieldName="pasword"
-            className="form-field"
-            name="password"
-            type="password"
+            fieldName='pasword'
+            className='form-field'
+            name='password'
+            type='password'
             icon={Eye}
             onChange={(e) => onChange(e)}
           />
-          <CustomButton title="Login" onClick={(e) => onFormSubmit(e)} />
+          <CustomButton title='Login' onClick={(e) => onFormSubmit(e)} />
         </form>
       </div>
 
-      <div className="cover-image-wrapper">
-        <img src={Cover} alt="cover" className="cover-image" />
+      <div className='cover-image-wrapper'>
+        <img src={Cover} alt='cover' className='cover-image' />
       </div>
     </div>
   );

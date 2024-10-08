@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import "./styles/reset.scss";
 import "./App.scss";
+import "./styles/reset.scss";
 
+import { Header } from "./components/Header";
 import { Navigation } from "./navigation";
 import { RenderRoutes, ROUTES } from "./routes";
-import { Header } from "./components/Header";
 import {
   isTabletMode,
   setIsTabletMode,
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const App = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(({ isTabletMode, setIsTabletMode, setWindowWidth }) => {
   const [isNavVisible, setIsNavVisible] = useState();
 
@@ -36,7 +36,7 @@ const App = connect(
 
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
-      if (window.innerWidth < 850) {
+      if (window.innerWidth < 768) {
         setIsTabletMode(true);
       } else {
         setIsTabletMode(false);
@@ -53,15 +53,20 @@ const App = connect(
   };
 
   return (
-    <div className="App">
-      <Header toggleNav={toggleNav} />
+    <div className='App'>
+      <Header
+        toggleNav={toggleNav}
+        isTabletMode={isTabletMode}
+        isNavVisible={isNavVisible}
+        setIsNavVisible={setIsNavVisible}
+      />
       <Navigation
         isTabletMode={isTabletMode}
         setIsTabletMode={setIsTabletMode}
         isNavVisible={isNavVisible}
         setIsNavVisible={setIsNavVisible}
       />
-      <div className="app-container">
+      <div className='app-container'>
         <RenderRoutes routes={ROUTES} />
       </div>
     </div>

@@ -1,6 +1,6 @@
-@import "../../styles/base";
+@import "../../styles/media-queries.scss";
 
-@mixin nav-item-connector {
+@mixin selected-border-radius {
   width: 30px;
   height: 100px;
   background-color: #f6f6f6;
@@ -31,23 +31,34 @@
   }
 }
 
-.navigation-container {
+.navigation {
   width: 200px;
   height: 100%;
+  padding: 30px 0;
   background-color: #ffffff;
+  box-sizing: border-box;
+  z-index: 1;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 0;
+
   position: fixed;
-  box-sizing: border-box;
-  z-index: 1;
+  top: 0;
+  height: 100vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+  &.active {
+    left: 0;
+  }
 
   @include tablet {
-    display: none;
-    top: 0;
-    left: 0;
+    left: -300px;
   }
 
   .nav-items {
@@ -85,10 +96,7 @@
         &-selected {
           color: #18a0fb;
           border-radius: 28px 0 0 28px;
-
-          &:hover {
-            transform: none;
-          }
+          transform: translate(10px);
         }
 
         &-register {
@@ -97,8 +105,8 @@
         }
       }
 
-      .nav-item-selected-connector {
-        @include nav-item-connector();
+      .selected-border-radius {
+        @include selected-border-radius();
       }
     }
   }
@@ -121,6 +129,7 @@
       &-selected {
         background-color: #f6f6f6;
         border-radius: 50px 0 0 50px;
+        transform: translate(10px);
       }
 
       .image-wrapper {
@@ -130,8 +139,9 @@
         overflow: hidden;
 
         .user-image {
-          width: 50px;
-          height: auto;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
       }
 
@@ -146,8 +156,8 @@
       }
     }
 
-    .nav-item-selected-connector {
-      @include nav-item-connector();
+    .selected-border-radius {
+      @include selected-border-radius();
       right: -18px;
     }
   }

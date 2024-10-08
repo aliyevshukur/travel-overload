@@ -1,16 +1,16 @@
 @import "../../styles/theme";
+@import "../../styles/media-queries.scss";
 
 body * {
   box-sizing: border-box;
-
 }
 
 b {
   font-weight: bolder;
 }
 
-.create-container {
-  padding: 40px 60px;
+.create {
+  padding: 40px 60px 0px 60px;
   background-color: $primary;
   width: 100%;
   box-sizing: border-box;
@@ -18,99 +18,55 @@ b {
   .create-header {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 50px;
-    .title {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      width: 70%;
-      &-text {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 20px;
-      }
-      &-input {
-        background-color: #fff;
-        border: none;
-        border-left: 5px solid $secondary;
-        min-height: 40px;
-        font-size: 22px;
-        font-weight: bold;
-        padding-left: 30px;
+    flex-direction: column;
+
+    .title-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+
+      @include tablet {
+        margin-top: 40px;
       }
     }
 
-    .back {
-      &-btn {
-        background-color: #ffffff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 14px 30px;
-        border: 3px solid $secondary;
-        border-radius: 28px;
-        cursor: pointer;
-        &-text {
-          font-size: 18px;
-          font-family: Montserrat-SemiBold, sans-serif;
-          font-weight: 500;
-          color: $secondary;
-          margin-left: 20px;
-          user-select: none;
-        }
-      }
-    }
-
-    .actions {
+    .row-wrapper {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
 
-      &-post {
-        background-color: $secondary;
-        width: 100px;
+      .title {
         display: flex;
-        align-items: center;
-        border-radius: 28px;
-        margin-right: 15px;
-
-        &-text {
-          font-size: 18px;
-          font-family: Montserrat-SemiBold, sans-serif;
-          font-weight: 500;
-          color: #ffffff;
-          margin-right: 20px;
-          line-height: 22px;
-        }
-      }
-      &-details {
-        background-color: #ffffff;
-        width: 100px;
-        color: $secondary;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 3px solid $secondary;
-        border-radius: 28px;
-        cursor: pointer;
-
-        &-text {
-          font-size: 18px;
-          font-family: Montserrat-SemiBold, sans-serif;
-          font-weight: 500;
-          color: $secondary;
-          user-select: none;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 70%;
+        &-input {
+          margin: 0;
+          font-size: 1.5rem;
         }
       }
     }
   }
 
+  .thumbnail-title {
+    margin-bottom: 15px;
+  }
+
+  .seperator {
+    width: 100%;
+    height: 1px;
+    margin-bottom: 30px;
+    background-color: $secondary;
+  }
+
   .content {
-    display:flex;
+    display: flex;
     flex-direction: column;
     width: 100%;
 
     .fields {
-      display:flex;
+      display: flex;
       flex-direction: column;
       .add-button {
         position: relative;
@@ -156,27 +112,26 @@ b {
         }
       }
     }
-   }
-    .details {
-      width: 80%;
-      margin-top: 20px;
+  }
+  .details {
+    width: 80%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .details-one {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      .details-one {
+      flex-direction: column;
+    }
+    .details-two {
+      display: flex;
+      flex-direction: column;
+      &-item {
         display: flex;
-        flex-direction: column;
-      }
-      .details-two {
-        display: flex;
-        flex-direction: column;
-        &-item {
-          display: flex;
-          flex-direction: row;
-          align-items: flex-end;
-          justify-content: space-between;
-        }
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
       }
     }
   }
-
+}

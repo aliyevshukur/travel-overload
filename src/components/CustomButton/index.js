@@ -7,12 +7,14 @@ export const CustomButton = ({
   onClick,
   icon,
   type = "button",
+  style = {},
 }) => {
   return (
     <button
       className={`button-container ${className}`}
       onClick={onClick}
       type={type}
+      style={{ ...style }}
     >
       {icon}
       {title}

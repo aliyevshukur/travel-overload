@@ -1,30 +1,30 @@
 @import "../../styles/_theme";
 @import "../../styles/base";
 
-.register-container {
+.register {
   display: flex;
   height: 100%;
   overflow: hidden;
 
-  .content {
+  .form-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding-top: 70px;
+    padding-top: 100px;
 
-    .login-form {
+    .form {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-end;
+      max-width: 600px;
 
       .title {
         align-self: flex-start;
         margin-bottom: 25px;
         color: $title-color;
         text-align: left;
-        font-size: 50px;
+        font-size: 3rem;
         font-weight: bold;
         line-height: 61px;
         &-span {

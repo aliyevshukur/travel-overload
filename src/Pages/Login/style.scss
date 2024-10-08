@@ -1,5 +1,5 @@
 @import "../../styles/_theme";
-@import "../../styles/_base";
+@import "../../styles/media-queries.scss";
 
 .login-container {
   display: flex;
@@ -11,20 +11,21 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding-top: 120px;
+    padding: 120px 30px 0px 30px;
+    flex-shrink: 0.5;
 
     .login-form {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-end;
+      max-width: 600px;
+      flex-shrink: 1;
 
       .title {
-        align-self: flex-start;
         margin-bottom: 128px;
         color: $secondary;
         text-align: left;
-        font-size: 50px;
+        font-size: 3.1rem;
         font-weight: bold;
         &-span {
           display: block;
@@ -56,12 +57,14 @@
   }
   .cover-image-wrapper {
     height: 100%;
-    @include desktop {
+    margin-left: auto;
+
+    @include laptop {
       display: none;
     }
 
     .cover-image {
-      width: 500px;
+      width: 100%;
       height: 100%;
       object-fit: cover;
     }

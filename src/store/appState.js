@@ -8,12 +8,14 @@ export const getBreakpoints = (store) => store[MODULE_NAME].breakpoints;
 export const getWindowWidth = (store) => store[MODULE_NAME].windowWidth;
 
 const initalState = {
-  isTabletMode: window.innerWidth < 850,
+  isTabletMode: window.innerWidth < 768,
   windowWidth: window.innerWidth,
   breakpoints: {
-    tablet: 850,
-    desktopSmall: 1024,
-    desktop: 1300,
+    tablet: 768,
+    laptop: 1024,
+    laptopL: 1440,
+    desktopM: 1920,
+    desktopL: 2560,
   },
 };
 
