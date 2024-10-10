@@ -9,8 +9,12 @@ html {
   height: 100%;
   font-size: 100%;
 
+  @include tablet {
+    font-size: 90%;
+  }
+
   @include mobileL {
-    font-size: 80%;
+    font-size: 70%;
   }
 }
 

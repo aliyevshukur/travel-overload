@@ -12,6 +12,7 @@ export function CustomUploadWidget({
   handleImageChange,
   isThumbnail = false,
   id,
+  required = false,
 }) {
   //CLOUDINARY
   const cld = initCloudinary();

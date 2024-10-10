@@ -7,6 +7,8 @@ const POST_BLOG_SUCCESS = "POST_BLOG_SUCCESS";
 const POST_BLOG_ERROR = "POST_BLOG_ERROR";
 
 export const MODULE_NAME = "blogs";
+const API_URL = process.env.REACT_APP_API_URL;
+console.log(`CURRENT API URL ${API_URL}`);
 
 export const getBlogs = (state) => state[MODULE_NAME].blogs;
 export const isLoading = (state) => state[MODULE_NAME].loading;
@@ -95,8 +97,7 @@ export const postBlogError = (payload) => ({
 export const fetchBlogs = () => {
   return (dispatch) => {
     dispatch(fetchBlogsStart());
-    const url = "https://travl-overload-server.vercel.app/blogs";
-    fetch(url)
+    fetch(`${API_URL}/blogs`)
       .then(handleErrors)
       .then((res) => res.json())
       .then((result) => {
@@ -104,19 +105,13 @@ export const fetchBlogs = () => {
         return result;
       })
       .catch((e) => dispatch(fetchBlogsError(e)));
-
-    //Return fake data
-    // dispatch(fetchBlogsSuccess(fakeBlogData));
-    // return fakeBlogData;
   };
 };
 
 export const postBlog = (blog) => {
   return (dispatch) => {
     dispatch(postBlogStart());
-    const url = "https://travl-overload-server.vercel.app/blogs";
-
-    fetch(url, {
+    fetch(`${API_URL}/blogs`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -135,7 +130,6 @@ export const postBlog = (blog) => {
 };
 
 function handleErrors(response) {
-  // console.log(`Response: ${JSON.stringify(response)}`);
   if (!response.ok) {
     throw Error(response.statusText);
   }

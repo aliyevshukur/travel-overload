@@ -1,9 +1,10 @@
 @import "../../styles/media-queries.scss";
+@import "../../styles/_theme";
 
 @mixin selected-border-radius {
   width: 30px;
   height: 100px;
-  background-color: #f6f6f6;
+  background-color: $primary-darker;
   position: absolute;
   right: 0px;
   top: -25px;
@@ -47,9 +48,7 @@
   position: fixed;
   top: 0;
   height: 100vh;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
 
@@ -83,7 +82,7 @@
         cursor: pointer;
         text-decoration: none;
         text-indent: 10px;
-        font-size: 18px;
+        font-size: 1.2rem;
         font-weight: 500;
         transition: 0.2s;
         user-select: none;
@@ -97,6 +96,7 @@
           color: #18a0fb;
           border-radius: 28px 0 0 28px;
           transform: translate(10px);
+          background-color: $primary-darker;
         }
 
         &-register {
@@ -127,7 +127,7 @@
       z-index: 1;
 
       &-selected {
-        background-color: #f6f6f6;
+        background-color: $primary-darker;
         border-radius: 50px 0 0 50px;
         transform: translate(10px);
       }
@@ -146,7 +146,7 @@
       }
 
       .user-name {
-        font-size: 15px;
+        font-size: 1rem;
         font-weight: 600;
         margin-left: 8px;
       }

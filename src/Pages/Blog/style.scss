@@ -1,106 +1,130 @@
 @import "../../styles/theme";
 @import "../../styles/_base";
+@import "../../styles/media-queries.scss";
 
 .wrapper-loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
-    background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: white;
 }
 
-.wrapper {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.blog-wrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100%;
+  background-color: white;
+  line-height: 1.5rem;
+
+  .side-panel {
+    width: 20%;
     height: 100vh;
-    width: 100%;
+    padding: 10px 20px;
     background-color: white;
-    line-height: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
 
+    @include desktop {
+      display: none;
+    }
+  }
 
+  .blog {
+    width: 80%;
+    border-radius: 0px 50px 50px 0px;
+    background-color: $primary-darker;
+    padding: 55px 120px 55px 70px;
+    overflow: auto;
+    font-family: "Roboto", "sans-serif";
+    scrollbar-width: none;
 
-    .side-panel {
-        width: 20%;
-        height: 100vh;
-        padding: 10px 20px;
-        background-color: white;
+    &:-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
+
+    @include desktop {
+      width: 100%;
+    }
+
+    @include tablet {
+      padding: 55px 70px;
+    }
+
+    &-header {
+      display: flex;
+
+      @include laptop {
+        flex-direction: column;
+      }
+
+      &-image {
+        width: 250px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 30px;
+        align-self: center;
+
+        @include laptop {
+          width: 70%;
+          height: auto;
+          margin-bottom: 40px;
+        }
+      }
+
+      &-info {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        overflow-y: auto;
+        align-items: flex-start;
+        margin-left: 20px;
 
-        @include desktop {
-            display: none;
+        &-title {
+          font-size: 30px;
+          font-weight: bold;
         }
+
+        &-description {
+          font-size: 17px;
+          padding: 30px 40px 0px 30px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          color: rgb(82, 82, 82);
+
+          @include laptop {
+            padding: 30px 0px;
+          }
+        }
+      }
     }
 
-    .blog {
-        width: 80%;
-        border-radius: 0px 50px 50px 0px;
-        background-color: $primary;
-        padding: 55px 120px 55px 70px;
-        overflow:auto;
-        font-family: "Roboto", "sans-serif";
+    &-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
 
-        @include desktop {
-                   width: 100%;
-        }
+      &-text {
+        font-size: 17px;
+        margin-top: 40px;
+      }
 
-        &-header {
-            display: flex;
-
-            &-image {
-                width: 250px;
-                aspect-ratio: 1/1;
-                border-radius: 30px;
-                align-self: center;
-
-            }
-
-            &-info{
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                margin-left: 20px;
-
-                &-title{
-                    font-size: 30px;
-                    font-weight: bold;
-                }
-
-                &-description {
-                    font-size: 17px;
-                    padding: 30px 40px 0px 30px;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-            }
-        }
-
-        &-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-
-            &-text {
-                font-size: 17px;
-                margin-top: 40px;
-            }
-
-            &-image {
-                width: 70%;
-                margin-top: 40px;
-                align-self: center;
-            }
-        }
-
-        &-card-author {
-            margin-top: 40px;
-            width: 200px;
-            padding: 30px 0px
-        }
+      &-image {
+        width: 100%;
+        margin-top: 40px;
+        align-self: center;
+      }
     }
+
+    &-card-author {
+      margin-top: 40px;
+      width: 200px;
+      padding: 30px 0px;
+    }
+  }
 }

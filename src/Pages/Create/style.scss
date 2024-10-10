@@ -11,8 +11,9 @@ b {
 
 .create {
   padding: 40px 60px 0px 60px;
-  background-color: $primary;
+  background-color: $primary-darker;
   width: 100%;
+  min-height: 100vh;
   box-sizing: border-box;
 
   .create-header {
@@ -51,6 +52,7 @@ b {
 
   .thumbnail-title {
     margin-bottom: 15px;
+    font-size: 1rem;
   }
 
   .seperator {

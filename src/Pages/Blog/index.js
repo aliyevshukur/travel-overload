@@ -1,13 +1,12 @@
-import React from "react";
-import "./style.scss";
-import { CardAuthor } from "../../components/BlogCard/CardAuthor";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { useEffect } from "react";
-import { getBlogs, fetchBlogs } from "../../store/blogs";
-import { fetchBlog, getBlog, isLoading } from "../../store/single-blog";
-import { BlogCard, BlogList } from "../../components";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { BlogCard, BlogList } from "../../components";
+import { CardAuthor } from "../../components/BlogCard/CardAuthor";
 import { Loader } from "../../components/Loader";
+import { fetchBlogs, getBlogs } from "../../store/blogs";
+import { fetchBlog, getBlog, isLoading } from "../../store/single-blog";
+import "./style.scss";
 
 const mapStateToProps = (state) => ({
   blog: getBlog(state),
@@ -38,7 +37,7 @@ export const Blog = connect(mapStateToProps)(
     }
 
     return (
-      <div className='wrapper'>
+      <div className='blog-wrapper'>
         <div className='blog'>
           <div className='blog-header'>
             <img src={context[1].url} alt='' className={"blog-header-image"} />

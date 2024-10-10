@@ -1,4 +1,4 @@
-@import "../../styles/base";
+@import "../../styles/media-queries.scss";
 
 .header {
   height: 50px;
@@ -23,6 +23,11 @@
     border: none;
     padding: 0;
     cursor: pointer;
+
+    @include mobileL {
+      width: 30px;
+      height: 30px;
+    }
 
     div {
       width: 100%;

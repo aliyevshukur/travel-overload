@@ -13,7 +13,6 @@ export const Navigation = ({
   isNavVisible,
   setIsNavVisible,
 }) => {
-  const [selected, setSelected] = useState();
   const { pathname } = useLocation();
   const navItems = [
     {
@@ -44,18 +43,15 @@ export const Navigation = ({
     },
   ];
 
-  useEffect(() => {
-    setSelected(pathname.substr(1, pathname.length));
-  }, [pathname]);
-
   const navItemClickHandler = (id) => {
     setIsNavVisible(false);
-    setSelected(id);
   };
 
   const pickNavItemClass = (id) => {
-    let className = "nav-item";
+    const selected = pathname.split("/")[1];
 
+    let className = "nav-item";
+    console.log(`ID ${selected}`);
     if (selected === id) {
       className = `${className} nav-item-selected`;
     }
@@ -68,6 +64,8 @@ export const Navigation = ({
   };
 
   const pickSVGColor = (id) => {
+    const selected = pathname.split("/")[1];
+
     if (id === "register" && selected !== "register") {
       return "#ffffff";
     } else {
@@ -87,7 +85,7 @@ export const Navigation = ({
         {navItems.map((item) => (
           <div className='nav-item-wrapper' key={item.id}>
             <Link
-              to={item.id}
+              to={`/${item.id}`}
               className={pickNavItemClass(item.id)}
               style={isTabletMode ? { borderRadius: "28px" } : {}}
               onClick={() => navItemClickHandler(item.id)}
@@ -103,7 +101,7 @@ export const Navigation = ({
             </Link>
 
             {/* Add round border to selected Nav item */}
-            {selected === item.id && (
+            {pathname.split("/")[1] === item.id && (
               <div className={"selected-border-radius"} />
             )}
           </div>
@@ -113,9 +111,11 @@ export const Navigation = ({
       {/* USER ITEM */}
       <div className={"user-item-wrapper"}>
         <Link
-          to='user'
-          onClick={() => navItemClickHandler("/user")}
-          className={`user-item ${selected === "user" && "user-item-selected"}`}
+          to='/user'
+          onClick={() => navItemClickHandler("user")}
+          className={`user-item ${
+            pathname.split("/")[1] === "user" && "user-item-selected"
+          }`}
         >
           <div className={"image-wrapper"}>
             <img
@@ -127,7 +127,9 @@ export const Navigation = ({
           <p className={"user-name"}>Henry Roberts</p>
         </Link>
 
-        {selected === "user" && <div className={"selected-border-radius"} />}
+        {pathname.split("/")[1] === "user" && (
+          <div className={"selected-border-radius"} />
+        )}
       </div>
     </div>
   );

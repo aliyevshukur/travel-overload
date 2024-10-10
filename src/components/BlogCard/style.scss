@@ -1,4 +1,5 @@
 @import "../../styles/base";
+@import "../../styles/media-queries.scss";
 
 .blog-card {
   display: flex;
@@ -19,8 +20,14 @@
   }
 
   @include tablet {
-    width: 430px;
+    width: 390px;
     height: 200px;
+  }
+
+  @include mobileL {
+    width: 300px;
+    height: 150px;
+    padding: 7px;
   }
 
   &-mini {
@@ -33,7 +40,7 @@
     flex-shrink: 0;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
@@ -56,7 +63,7 @@
     transition: 300ms;
 
     &-mini {
-     display: none;
+      display: none;
     }
   }
 
@@ -64,7 +71,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 10px 20px;
+    padding: 10px 0px 10px 20px;
     justify-content: space-between;
     position: relative;
 
@@ -72,23 +79,27 @@
       padding: 5px;
     }
 
+    @include mobileL {
+      padding: 7px;
+    }
+
     .blog-card-title {
       font-weight: 600;
-      font-size: 15px;
-      line-height: 18px;
+      font-size: 0.9rem;
+      line-height: 1.2rem;
       margin-bottom: 10px;
       position: relative;
       text-wrap: wrap;
 
       &-mini {
-        font-size: 11px;
+        font-size: 0.65rem;
         height: 30px;
       }
     }
 
     .blog-card-context {
-      font-size: 10px;
-      line-height: 13px;
+      font-size: 0.6rem;
+      line-height: 0.7rem;
       margin-bottom: auto;
       position: relative;
       flex-grow: 1;

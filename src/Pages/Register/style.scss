@@ -1,23 +1,33 @@
 @import "../../styles/_theme";
 @import "../../styles/base";
+@import "../../styles/media-queries.scss";
 
 .register {
   display: flex;
   height: 100%;
   overflow: hidden;
+  background-color: $primary-darker;
+  min-height: 100vh;
 
   .form-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding-top: 100px;
-
+    flex-shrink: 0.5;
+    padding: 100px 0px;
     .form {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      max-width: 600px;
+      width: 370px;
+
+      @include mobileL {
+        width: 330px;
+      }
+      @include mobileM {
+        width: 300px;
+      }
 
       .title {
         align-self: flex-start;
@@ -61,14 +71,16 @@
     }
   }
   .cover-image-wrapper {
+    width: 100%;
     height: 100vh;
+    flex-grow: 2;
 
-    @include desktop {
+    @include laptop {
       display: none;
     }
 
     .cover-image {
-      width: 500px;
+      width: 100%;
       height: 100%;
       object-fit: cover;
     }

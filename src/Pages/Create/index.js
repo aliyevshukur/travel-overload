@@ -68,7 +68,6 @@ export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
   }
 
   function handleImageChange(url, isThumbnail, id) {
-    console.log(`URL ${url}`);
     const updatedFields = fields.map((field) => {
       if (field.id === id) {
         const updatedField = {
@@ -80,7 +79,6 @@ export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
         return field;
       }
     });
-    console.log(`URL on change : ${JSON.stringify(updatedFields)}`);
 
     setFields(updatedFields);
   }
@@ -102,8 +100,13 @@ export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
 
   function createBlog(e) {
     e.preventDefault();
+
+    if (fields[1].url === "") {
+      alert("Please choose thumbnail url for your post");
+      return;
+    }
+
     const blog = formatBlogData();
-    console.log(`bLOG ${JSON.stringify(blog)}`);
     dispatch(postBlog(blog));
     history.push("/new");
   }
@@ -126,10 +129,13 @@ export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
 
     return blog;
   }
-  console.log("is tablet " + isTabletMode);
   return (
-    <div className={"create"} onClick={(e) => clickedAside(e)}>
-      <form className={"create-header"} onSubmit={createBlog}>
+    <form
+      className={"create"}
+      onClick={(e) => clickedAside(e)}
+      onSubmit={createBlog}
+    >
+      <div className={"create-header"}>
         {isTabletMode && (
           <CustomButton
             title={"Post"}
@@ -145,6 +151,7 @@ export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
               isTitle={true}
               handleTextChange={handleTextChange}
               className={"title-input"}
+              required={true}
             />
           </div>
           {!isTabletMode && (
@@ -155,12 +162,13 @@ export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
             />
           )}
         </div>
-      </form>
+      </div>
       <h4 className='thumbnail-title'>Please upload thumbnail image</h4>
       <CustomUploadWidget
         handleImageChange={handleImageChange}
         isThumbnail={true}
         id={1}
+        required={true}
       />
 
       <div className='seperator' />
@@ -179,12 +187,14 @@ export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
                     deleteField={deleteField}
                     handleTextChange={handleTextChange}
                     key={field.id}
+                    required={field.id === 2}
                   />
                 );
               case "image":
                 return (
                   <CustomUploadWidget
                     handleImageChange={handleImageChange}
+                    key={field.id}
                     id={field.id}
                   />
                 );
@@ -209,6 +219,6 @@ export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 });

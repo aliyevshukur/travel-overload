@@ -1,11 +1,18 @@
 @import "../../styles/theme";
+@import "../../styles/media-queries.scss";
 
 .error-box {
   background: $error-color;
   color: #ffffff;
-  width: 500px;
+  max-width: 600px;
   padding: 10px;
   border-radius: 10px;
+  text-align: center;
   &-text {
+    font-size: 1.1rem;
+  }
+
+  @include mobileL {
+    padding: 5px;
   }
 }

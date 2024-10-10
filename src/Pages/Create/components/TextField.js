@@ -9,6 +9,7 @@ export default function TextField({
   handleTextChange,
   isTitle = false,
   className,
+  required = false,
 }) {
   const { id, text } = field;
 
@@ -21,7 +22,7 @@ export default function TextField({
         className={`textfield-input`}
         minRows={1}
         maxRows={2}
-        required
+        required={required}
       />
 
       {!isTitle && <DeleteFieldButton id={field.id} onDelete={deleteField} />}
