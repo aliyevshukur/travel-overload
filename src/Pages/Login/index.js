@@ -4,11 +4,13 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Cover from "../../assets/cover.jpg";
 import Eye from "../../assets/eye.svg";
 import { CustomButton, InputField } from "../../components";
+import { FormMessage } from "../../components/FormMessage";
 import "./style.scss";
 
 export const Login = () => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const history = useHistory();
+  const [serverMessage, setServerMessage] = useState("");
 
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -27,6 +29,8 @@ export const Login = () => {
         if (result.message === "success") {
           localStorage.setItem("token", result.token);
           history.push("/user");
+        } else {
+          setServerMessage(result.message);
         }
       });
   };
@@ -43,10 +47,11 @@ export const Login = () => {
   return (
     <div className='login'>
       <div className='form-wrapper'>
-        <form className='form'>
+        <form className='form' onSubmit={(e) => onFormSubmit(e)}>
           <h1 className='title'>
             Hello, <span className='title-span'>Welcome back</span>
           </h1>
+          {serverMessage && <FormMessage text={serverMessage} />}
           <InputField
             fieldName='email'
             name='email'
@@ -56,13 +61,13 @@ export const Login = () => {
           <InputField
             fieldName='password'
             name='password'
-            className='form-field'
+            className='field-last'
             type='password'
             icon={Eye}
             onChange={(e) => onChange(e)}
           />
 
-          <CustomButton title='Login' onClick={(e) => onFormSubmit(e)} />
+          <CustomButton title='Login' type='submit' />
         </form>
       </div>
 

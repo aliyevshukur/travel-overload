@@ -2,7 +2,8 @@ $primary: #f6f6f6;
 $primary-darker: #e6e6e6;
 $secondary: #18a0fb;
 $title-color: #4f4f4f;
-$error-color: #eb5757;
+$error-color: #f86f6f;
+$success-color: #8fcb88;
 
 @mixin colorPrimary {
   color: $primary;

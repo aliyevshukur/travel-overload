@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 
+import { name } from "@cloudinary/url-gen/actions/namedTransformation";
+import { set } from "@cloudinary/url-gen/actions/variable";
 import Eye from "../../assets/eye.svg";
 import Cover from "../../assets/register-cover.jpg";
 import { CustomButton, InputField } from "../../components";
-import { ErrorBox } from "../../components/ErrorBox";
+import { FormMessage } from "../../components/FormMessage";
+import { validateInputs } from "../../utils/checkInputs";
 import "./style.scss";
 
 export const Register = () => {
@@ -12,148 +15,111 @@ export const Register = () => {
     surname: "",
     email: "",
     password: "",
-    error: "",
   });
   const [isSuccess, setIsSuccess] = useState(null);
+  const [serverMessage, setServerMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [inputErrors, setInputErrors] = useState({
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+  });
 
   const onChange = (e) => {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value, error: "" });
+
+    // Reset error message of changed input
+    setInputErrors({ ...inputErrors, [name]: false });
+
+    // Check if input is valid
+    const error = validateInputs({ [name]: value });
+    setInputErrors({ ...inputErrors, [error.input]: error.message });
+    console.log(`Error: ${JSON.stringify(inputErrors)}`);
   };
 
-  const checkInputs = (firstName, lastName, email, password) => {
-    const nameRegex = /^[a-z]+$/i;
-    const emailRegex =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const passwordRegex = /^[a-z0-9]+$/i;
-
-    if (firstName.length <= 2) {
-      setUserInfo({
-        ...userInfo,
-        error: "Length of the first name must be greater than 2.",
-      });
-      return;
-    }
-
-    if (!nameRegex.test(firstName)) {
-      setUserInfo({
-        ...userInfo,
-        error: "Name must consist of only letters.",
-      });
-      return;
-    }
-
-    if (lastName.length <= 2) {
-      setUserInfo({
-        ...userInfo,
-        error: "Length of the surname must be greater than 2 .",
-      });
-      return;
-    }
-
-    if (!nameRegex.test(lastName)) {
-      setUserInfo({
-        ...userInfo,
-        error: "Surname must consist of only letters.",
-      });
-      return;
-    }
-
-    if (!email.toLowerCase().match(emailRegex)) {
-      setUserInfo({
-        ...userInfo,
-        error: "Email structure is wrong!",
-      });
-      return;
-    }
-
-    if (password.length <= 5 || !passwordRegex.test(password)) {
-      setUserInfo({
-        ...userInfo,
-        error: "Length of password must be greater than 5.",
-      });
-      return;
-    }
-
-    if (!passwordRegex.test(password)) {
-      setUserInfo({
-        ...userInfo,
-        error: "Password must consist of only numbers and letters.",
-      });
-      return;
-    }
-  };
   const onFormSubmit = (e) => {
     e.preventDefault();
 
-    const { name, surname, email, password } = userInfo;
-    checkInputs(name, surname, email, password);
-    console.log("userInfo", userInfo);
+    const noError = Object.values(inputErrors).some((value) => value === "");
+    //If form fields is valid and no error from server register user
+    if (noError) {
+      const url = `${process.env.REACT_APP_API_URL}/auth/register`;
 
-    if (userInfo.error) return;
-
-    const url = `${process.env.REACT_APP_API_URL}/auth/register`;
-
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, surname, email, password }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.message === "success") {
-          setIsSuccess(true);
-        } else {
-          setUserInfo({ ...userInfo, error: result.message });
-          setIsSuccess(false);
-        }
-        console.log(result);
-      });
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.message === "success") {
+            setIsSuccess(true);
+            setServerMessage(
+              "User created successfully, please go to login page",
+            );
+          } else {
+            setIsSuccess(false);
+            setUserInfo({ ...userInfo, error: result.message });
+            setServerMessage(result.message);
+          }
+        });
+    }
   };
 
   return (
     <div className='register'>
       <div className='form-wrapper'>
-        <form className='form'>
+        <form className='form' onSubmit={(e) => onFormSubmit(e)}>
           <h1 className='title'>
             Welcome to <span className='title-span'>Travel Overload</span>
           </h1>
-          {userInfo.error && <ErrorBox text={userInfo.error} />}
-          {isSuccess && (
-            <ErrorBox
-              text={"User created successfully, please go to login page"}
-              type='success'
+          {serverMessage && (
+            <FormMessage
+              text={serverMessage}
+              type={isSuccess ? "success" : "error"}
             />
+          )}
+          {Object.values(inputErrors).map(
+            (message) =>
+              message && (
+                <FormMessage text={message} type='error' key={message} />
+              ),
           )}
           <InputField
             fieldName='name'
             name='name'
-            className='form-field form-field-first'
+            className='form-field'
             onChange={(e) => onChange(e)}
+            error={inputErrors.name}
           />
           <InputField
             fieldName='surname'
             name='surname'
             className='form-field'
             onChange={(e) => onChange(e)}
+            error={inputErrors.surname}
           />
           <InputField
             fieldName='email'
             name='email'
             className='form-field'
             onChange={(e) => onChange(e)}
+            error={inputErrors.email}
           />
           <InputField
             fieldName='pasword'
-            className='form-field'
+            className='form-field field-last'
             name='password'
             type='password'
             icon={Eye}
             onChange={(e) => onChange(e)}
+            error={inputErrors.password}
           />
-          <CustomButton title='Login' onClick={(e) => onFormSubmit(e)} />
+          <CustomButton title='Login' type='submit' />
         </form>
       </div>
 

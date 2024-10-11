@@ -1,18 +1,24 @@
 @import "../../styles/theme";
 @import "../../styles/media-queries.scss";
 
-.error-box {
-  background: $error-color;
+.message {
   color: #ffffff;
   max-width: 600px;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 5px;
   text-align: center;
   &-text {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
 
   @include mobileL {
     padding: 5px;
   }
+}
+
+.success {
+  background-color: $success-color;
+}
+
+.error {
+  background-color: $error-color;
 }

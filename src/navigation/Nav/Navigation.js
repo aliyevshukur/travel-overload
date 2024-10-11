@@ -51,7 +51,6 @@ export const Navigation = ({
     const selected = pathname.split("/")[1];
 
     let className = "nav-item";
-    console.log(`ID ${selected}`);
     if (selected === id) {
       className = `${className} nav-item-selected`;
     }
@@ -72,7 +71,6 @@ export const Navigation = ({
       return "#18A0FB";
     }
   };
-  console.log(isTabletMode);
   return (
     <div
       className={`navigation ${isNavVisible ? "active" : ""}`}

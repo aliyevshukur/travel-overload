@@ -1,10 +1,15 @@
 @import "../../styles/theme";
 
+.field-last {
+  margin-bottom: 40px;
+}
+
 .field-wrapper {
   height: 45px;
   position: relative;
+  margin-top: 50px;
 
-  .field-label {
+  .label {
     color: $title-color;
     position: absolute;
     left: 0;
@@ -15,9 +20,9 @@
     text-transform: capitalize;
   }
 
-  .focused-field {
+  .label-focus {
     color: black;
-    top: -13%;
+    top: -5%;
     font-size: 17px;
   }
 
@@ -33,6 +38,10 @@
     &:focus {
       outline: none;
     }
+  }
+
+  .field-error {
+    border-bottom: 2px solid $error-color;
   }
 
   .field-icon-wrapper {

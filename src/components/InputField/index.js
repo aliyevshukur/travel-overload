@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import "./style.scss";
 
@@ -9,6 +9,7 @@ export const InputField = ({
   className,
   name,
   onChange,
+  error = false,
 }) => {
   const [fieldType, setFieldType] = useState(type);
   const inputRef = useRef();
@@ -38,32 +39,34 @@ export const InputField = ({
   };
 
   return (
-    <div className={`field-wrapper ${className}`}>
-      <input
-        type={fieldType ? fieldType : "text"}
-        className={`field ${isFocused && "focused-field"}`}
-        name={name}
-        id={fieldName}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        ref={inputRef}
-        onChange={onChange}
-      />
-      <label
-        className={`field-label ${isFocused && "focused-field"}`}
-        htmlFor={fieldName}
-      >
-        {fieldName}
-      </label>
-      {icon && (
-        <div
-          onClick={togglePassword}
-          className="field-icon-wrapper"
-          id={fieldName}
+    <>
+      <div className={`field-wrapper ${className}`}>
+        <label
+          className={`label ${isFocused && "label-focus"}`}
+          htmlFor={fieldName}
         >
-          <img src={icon} alt="input icon" />
-        </div>
-      )}{" "}
-    </div>
+          {fieldName}
+        </label>
+        <input
+          type={fieldType ? fieldType : "text"}
+          className={`field ${error && "field-error"}`}
+          name={name}
+          id={fieldName}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          ref={inputRef}
+          onChange={onChange}
+        />
+        {icon && (
+          <div
+            onClick={togglePassword}
+            className='field-icon-wrapper'
+            id={fieldName}
+          >
+            <img src={icon} alt='input icon' />
+          </div>
+        )}{" "}
+      </div>
+    </>
   );
 };
