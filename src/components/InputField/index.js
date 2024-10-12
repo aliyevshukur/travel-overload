@@ -10,6 +10,7 @@ export const InputField = ({
   name,
   onChange,
   error = false,
+  required = false,
 }) => {
   const [fieldType, setFieldType] = useState(type);
   const inputRef = useRef();
@@ -56,6 +57,7 @@ export const InputField = ({
           onBlur={handleBlur}
           ref={inputRef}
           onChange={onChange}
+          required={required}
         />
         {icon && (
           <div

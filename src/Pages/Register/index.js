@@ -78,8 +78,10 @@ export const Register = connect(mapStateToProps)(
       });
 
       console.log(JSON.stringify(userInfo));
-      const noError = Object.values(inputErrors).some((value) => value === "");
-      if (noError) {
+      const hasInputError = Object.values(inputErrors).some(
+        (value) => value !== "",
+      );
+      if (!hasInputError) {
         dispatch(register(userInfo));
       }
     };
@@ -113,6 +115,7 @@ export const Register = connect(mapStateToProps)(
               className='form-field'
               onChange={(e) => onChange(e)}
               error={inputErrors.name}
+              required={true}
             />
             <InputField
               fieldName='surname'
@@ -120,6 +123,7 @@ export const Register = connect(mapStateToProps)(
               className='form-field'
               onChange={(e) => onChange(e)}
               error={inputErrors.surname}
+              required={true}
             />
             <InputField
               fieldName='email'
@@ -127,6 +131,7 @@ export const Register = connect(mapStateToProps)(
               className='form-field'
               onChange={(e) => onChange(e)}
               error={inputErrors.email}
+              required={true}
             />
             <InputField
               fieldName='pasword'
@@ -136,6 +141,7 @@ export const Register = connect(mapStateToProps)(
               icon={Eye}
               onChange={(e) => onChange(e)}
               error={inputErrors.password}
+              required={true}
             />
             <CustomButton
               title='Login'
