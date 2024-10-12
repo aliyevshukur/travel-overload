@@ -4,7 +4,7 @@ import "./App.scss";
 import "./styles/reset.scss";
 
 import { Header } from "./components/Header";
-import { Navigation } from "./navigation";
+import Navigation from "./Navigation";
 import { RenderRoutes, ROUTES } from "./routes";
 import {
   isTabletMode,
@@ -12,6 +12,8 @@ import {
   setWindowWidth,
 } from "./store/appState";
 
+/*************  ✨ Codeium Command ⭐  *************/
+/******  f87dd438-09c3-4dd0-af2b-ce49281d503b  *******/
 const mapStateToProps = (store) => ({
   isTabletMode: isTabletMode(store),
 });

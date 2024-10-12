@@ -1,58 +1,27 @@
-// Actions
-const LOGIN_START = "LOGIN_START";
-const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-const LOGIN_ERROR = "LOGIN_FAILURE";
-
-const LOGOUT_START = "LOGOUT_START";
-const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
-const LOGOUT_ERROR = "LOGOUT_ERROR";
+const SET_TOKEN = "SET_TOKEN";
+const SET_USER = "SET_USER";
 
 export const MODULE_NAME = "auth";
 
+export const getToken = (state) => state[MODULE_NAME].token;
+export const getUser = (state) => state[MODULE_NAME].user;
+
 const initialState = {
-  authenticated: false,
   token: null,
   user: null,
-  error: null,
 };
 
 export const reducer = (store = initialState, { type, payload }) => {
   switch (type) {
-    case LOGIN_START:
+    case SET_TOKEN:
       return {
         ...store,
-        loading: true,
-        error: null,
+        token: payload,
       };
-    case LOGIN_SUCCESS:
+    case SET_USER:
       return {
         ...store,
-        loading: false,
-        error: null,
-      };
-    case LOGIN_ERROR:
-      return {
-        ...store,
-        loading: false,
-        error: null,
-      };
-    case LOGOUT_START:
-      return {
-        ...store,
-        loading: true,
-        error: null,
-      };
-    case LOGOUT_SUCCESS:
-      return {
-        ...store,
-        loading: false,
-        error: null,
-      };
-    case LOGOUT_ERROR:
-      return {
-        ...store,
-        loading: false,
-        error: null,
+        user: payload,
       };
     default:
       return store;
@@ -60,42 +29,38 @@ export const reducer = (store = initialState, { type, payload }) => {
 };
 
 // Actions
-
-export const loginStart = () => {
+export const setToken = (payload) => {
   return {
-    type: LOGIN_START,
+    type: SET_TOKEN,
+    payload: payload,
   };
 };
-export const loginSuccess = (payload) => {
+export const setUser = (payload) => {
   return {
-    type: LOGIN_SUCCESS,
+    type: SET_USER,
     payload: payload,
   };
 };
 
-export const loginError = (payload) => {
+export const logout = () => {
   return {
-    type: LOGIN_ERROR,
-    payload: payload,
+    type: SET_TOKEN,
+    payload: null,
   };
 };
 
-export const logoutStart = () => {
-  return {
-    type: LOGOUT_START,
+//Middlewares
+export const login = ({ token, user }) => {
+  return (dispatch) => {
+    // console.log(`Token in redux ${token}`);
+    // console.log(`User in redux ${user}`);
+    dispatch(setToken(token));
+    dispatch(setUser(user));
   };
 };
 
-export const logoutSuccess = (payload) => {
-  return {
-    type: LOGOUT_SUCCESS,
-    payload: payload,
-  };
-};
-
-export const logoutError = (payload) => {
-  return {
-    type: LOGOUT_ERROR,
-    payload: payload,
+export const logoutUser = () => {
+  return (dispatch) => {
+    dispatch(logout());
   };
 };

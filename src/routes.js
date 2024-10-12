@@ -1,7 +1,8 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 
-import { Login, New, Register, Popular, Create, Blog } from "./Pages";
+import { Blog, Create, Login, New, Popular, Register } from "./Pages";
+import ProtectedRoute from "./Pages/ProtectedRoute";
 import { UserPage } from "./Pages/UserPage";
 
 export const ROUTES = [
@@ -36,11 +37,13 @@ export const ROUTES = [
     path: "/create",
     key: "CREATE",
     component: Create,
+    protected: true,
   },
   {
     path: "/user",
     key: "USER",
     component: UserPage,
+    protected: true,
   },
   {
     path: "/blogs/:id",
@@ -50,13 +53,23 @@ export const ROUTES = [
 ];
 
 const RouteWithSubRoutes = (route) => {
-  return (
-    <Route
-      path={route.path}
-      exact={route.exact}
-      render={(props) => <route.component {...props} routes={route.routes} />}
-    />
-  );
+  if (route.protected) {
+    return (
+      <ProtectedRoute
+        path={route.path}
+        exact={route.exact}
+        component={route.component}
+      />
+    );
+  } else {
+    return (
+      <Route
+        path={route.path}
+        exact={route.exact}
+        render={(props) => <route.component {...props} routes={route.routes} />}
+      />
+    );
+  }
 };
 
 export const RenderRoutes = ({ routes }) => {
