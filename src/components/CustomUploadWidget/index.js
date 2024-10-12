@@ -1,6 +1,6 @@
 import { AdvancedImage } from "@cloudinary/react";
 import { set } from "@cloudinary/url-gen/actions/variable";
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { getCloudinaryConfig, initCloudinary } from "../../API/Cloudinary/init";
 import { CustomButton } from "../CustomButton";
 import "./style.scss";

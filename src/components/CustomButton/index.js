@@ -1,4 +1,5 @@
 import React from "react";
+import { Loader } from "../Loader";
 import "./style.scss";
 
 export const CustomButton = ({
@@ -8,16 +9,18 @@ export const CustomButton = ({
   icon,
   type = "button",
   style = {},
+  loading = false,
+  disabled = false,
 }) => {
   return (
     <button
-      className={`button-container ${className}`}
+      className={`button ${className}`}
       onClick={onClick}
       type={type}
       style={{ ...style }}
+      disabled={loading || disabled}
     >
-      {icon}
-      {title}
+      {loading ? <span className='button-loader' /> : (icon, title)}
     </button>
   );
 };

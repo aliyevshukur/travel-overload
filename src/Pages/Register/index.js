@@ -1,131 +1,155 @@
 import React, { useEffect, useState } from "react";
-
-import { name } from "@cloudinary/url-gen/actions/namedTransformation";
-import { set } from "@cloudinary/url-gen/actions/variable";
+import { connect } from "react-redux";
 import Eye from "../../assets/eye.svg";
 import Cover from "../../assets/register-cover.jpg";
 import { CustomButton, InputField } from "../../components";
 import { FormMessage } from "../../components/FormMessage";
-import { validateInputs } from "../../utils/checkInputs";
+import {
+  getError,
+  getLoading,
+  getIsSuccess,
+  register,
+} from "../../store/register";
+import { validateInput } from "../../utils/validateInput";
 import "./style.scss";
 
-export const Register = () => {
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    surname: "",
-    email: "",
-    password: "",
-  });
-  const [isSuccess, setIsSuccess] = useState(null);
-  const [serverMessage, setServerMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [inputErrors, setInputErrors] = useState({
-    name: "",
-    surname: "",
-    email: "",
-    password: "",
-  });
+const mapStateToProps = (state) => ({
+  serverError: getError(state),
+  loading: getLoading(state),
+  isSuccess: getIsSuccess(state),
+});
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setUserInfo({ ...userInfo, [name]: value, error: "" });
+export const Register = connect(mapStateToProps)(
+  ({ isSuccess, serverError, loading, dispatch }) => {
+    const [userInfo, setUserInfo] = useState({
+      name: "",
+      surname: "",
+      email: "",
+      password: "",
+    });
+    const [inputErrors, setInputErrors] = useState({
+      name: "",
+      surname: "",
+      email: "",
+      password: "",
+    });
 
-    // Reset error message of changed input
-    setInputErrors({ ...inputErrors, [name]: false });
+    const [isModified, setIsModified] = useState(false);
+    console.log(`server message ${isSuccess}`);
+    const onChange = (e) => {
+      setIsModified(true);
+      const { name, value } = e.target;
 
-    // Check if input is valid
-    const error = validateInputs({ [name]: value });
-    setInputErrors({ ...inputErrors, [error.input]: error.message });
-    console.log(`Error: ${JSON.stringify(inputErrors)}`);
-  };
+      // Update user info
+      if (value === null || value === undefined) {
+        setUserInfo({ ...userInfo, [name]: "", error: "" });
+      } else {
+        setUserInfo({ ...userInfo, [name]: value, error: "" });
+      }
 
-  const onFormSubmit = (e) => {
-    e.preventDefault();
+      // Reset error message of changed input
+      // setInputErrors({ ...inputErrors, [name]: false });
 
-    const noError = Object.values(inputErrors).some((value) => value === "");
-    //If form fields is valid and no error from server register user
-    if (noError) {
-      const url = `${process.env.REACT_APP_API_URL}/auth/register`;
+      // Check if input is valid
+      const inputError = validateInput(name, value);
+      setInputErrors({
+        ...inputErrors,
+        [inputError.input]: inputError.message,
+      });
 
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userInfo),
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          if (result.message === "success") {
-            setIsSuccess(true);
-            setServerMessage(
-              "User created successfully, please go to login page",
-            );
-          } else {
-            setIsSuccess(false);
-            setUserInfo({ ...userInfo, error: result.message });
-            setServerMessage(result.message);
-          }
-        });
-    }
-  };
+      console.log(`Error: ${JSON.stringify(inputErrors)}`);
+      console.log(`Server Error: ${JSON.stringify(serverError)}`);
+      console.log(`User Info: ${JSON.stringify(userInfo)}`);
+    };
 
-  return (
-    <div className='register'>
-      <div className='form-wrapper'>
-        <form className='form' onSubmit={(e) => onFormSubmit(e)}>
-          <h1 className='title'>
-            Welcome to <span className='title-span'>Travel Overload</span>
-          </h1>
-          {serverMessage && (
-            <FormMessage
-              text={serverMessage}
-              type={isSuccess ? "success" : "error"}
+    const onFormSubmit = (e) => {
+      e.preventDefault();
+      setIsModified(false);
+      const nameError = validateInput("name", userInfo.name);
+      const surnameError = validateInput("surname", userInfo.surname);
+      const emailError = validateInput("email", userInfo.email);
+      const passwordError = validateInput("password", userInfo.password);
+      setInputErrors({
+        ...inputErrors,
+        name: nameError.message,
+        surname: surnameError.message,
+        email: emailError.message,
+        password: passwordError.message,
+      });
+
+      console.log(JSON.stringify(userInfo));
+      const noError = Object.values(inputErrors).some((value) => value === "");
+      if (noError) {
+        dispatch(register(userInfo));
+      }
+    };
+
+    return (
+      <div className='register'>
+        <div className='form-wrapper'>
+          <form className='form' onSubmit={(e) => onFormSubmit(e)}>
+            <h1 className='title'>
+              Welcome to <span className='title-span'>Travel Overload</span>
+            </h1>
+            {isSuccess && (
+              <FormMessage
+                text={"Successfully registered, please go to login page"}
+                type={"success"}
+              />
+            )}
+
+            {serverError && (
+              <FormMessage text={serverError.message} type={"error"} />
+            )}
+
+            {Object.values(inputErrors).map((message, index) => {
+              if (message) {
+                return <FormMessage text={message} type='error' key={index} />;
+              } else return null;
+            })}
+            <InputField
+              fieldName='name'
+              name='name'
+              className='form-field'
+              onChange={(e) => onChange(e)}
+              error={inputErrors.name}
             />
-          )}
-          {Object.values(inputErrors).map(
-            (message) =>
-              message && (
-                <FormMessage text={message} type='error' key={message} />
-              ),
-          )}
-          <InputField
-            fieldName='name'
-            name='name'
-            className='form-field'
-            onChange={(e) => onChange(e)}
-            error={inputErrors.name}
-          />
-          <InputField
-            fieldName='surname'
-            name='surname'
-            className='form-field'
-            onChange={(e) => onChange(e)}
-            error={inputErrors.surname}
-          />
-          <InputField
-            fieldName='email'
-            name='email'
-            className='form-field'
-            onChange={(e) => onChange(e)}
-            error={inputErrors.email}
-          />
-          <InputField
-            fieldName='pasword'
-            className='form-field field-last'
-            name='password'
-            type='password'
-            icon={Eye}
-            onChange={(e) => onChange(e)}
-            error={inputErrors.password}
-          />
-          <CustomButton title='Login' type='submit' />
-        </form>
-      </div>
+            <InputField
+              fieldName='surname'
+              name='surname'
+              className='form-field'
+              onChange={(e) => onChange(e)}
+              error={inputErrors.surname}
+            />
+            <InputField
+              fieldName='email'
+              name='email'
+              className='form-field'
+              onChange={(e) => onChange(e)}
+              error={inputErrors.email}
+            />
+            <InputField
+              fieldName='pasword'
+              className='form-field field-last'
+              name='password'
+              type='password'
+              icon={Eye}
+              onChange={(e) => onChange(e)}
+              error={inputErrors.password}
+            />
+            <CustomButton
+              title='Login'
+              type='submit'
+              loading={loading}
+              disabled={!isModified}
+            />
+          </form>
+        </div>
 
-      <div className='cover-image-wrapper'>
-        <img src={Cover} alt='cover' className='cover-image' />
+        <div className='cover-image-wrapper'>
+          <img src={Cover} alt='cover' className='cover-image' />
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);

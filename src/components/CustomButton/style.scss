@@ -1,7 +1,8 @@
 @import "../../styles/theme";
 @import "../../styles/media-queries.scss";
+@import "../../styles/_base";
 
-.button-container {
+.button {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -33,5 +34,15 @@
   &:hover {
     // background-color: rgba($secondary, 0.5);
     filter: brightness(70%);
+  }
+
+  &-loader {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid $secondary;
+    border-top: 2px solid white;
+    animation: spin 2s linear infinite;
+    @include spin;
   }
 }

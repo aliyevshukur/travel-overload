@@ -1,4 +1,5 @@
 @import "../../styles/theme";
+@import "../../styles/_base";
 
 .loader {
   border: 5px solid $primary;
@@ -13,11 +14,4 @@
   transform: translate(-50%, -50%);
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+@include spin;
