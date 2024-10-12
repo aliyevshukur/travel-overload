@@ -20,7 +20,14 @@ export const CustomButton = ({
       style={{ ...style }}
       disabled={loading || disabled}
     >
-      {loading ? <span className='button-loader' /> : (icon, title)}
+      {loading ? (
+        <span className='button-loader' />
+      ) : (
+        <>
+          {icon}
+          {title}
+        </>
+      )}
     </button>
   );
 };

@@ -42,13 +42,6 @@ export const setUser = (payload) => {
   };
 };
 
-export const logout = () => {
-  return {
-    type: SET_TOKEN,
-    payload: null,
-  };
-};
-
 //Middlewares
 export const login = ({ token, user }) => {
   return (dispatch) => {
@@ -61,6 +54,7 @@ export const login = ({ token, user }) => {
 
 export const logoutUser = () => {
   return (dispatch) => {
-    dispatch(logout());
+    dispatch(setToken(null));
+    dispatch(setUser(null));
   };
 };

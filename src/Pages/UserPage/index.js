@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import "./style.scss";
 import { BlogCard, PageTitle } from "../../components";
-import { UserPanel } from "./UserPanel";
+import { Loader } from "../../components/Loader";
 import { getBreakpoints, getWindowWidth } from "../../store/appState";
 import { fetchBlogs, getBlogs, isLoading } from "../../store/blogs";
-import { Loader } from "../../components/Loader";
+import "./style.scss";
+import UserPanel from "./UserPanel";
 
 const mapStateToProps = (store) => {
   return {
