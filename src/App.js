@@ -6,65 +6,25 @@ import "./styles/reset.scss";
 import { Header } from "./components/Header";
 import Navigation from "./Navigation";
 import { RenderRoutes, ROUTES } from "./routes";
-import {
-  isTabletMode,
-  setIsTabletMode,
-  setWindowWidth,
-} from "./store/appState";
+import { isTabletMode } from "./store/appState";
+import { login } from "./store/auth";
 
-/*************  ✨ Codeium Command ⭐  *************/
-/******  f87dd438-09c3-4dd0-af2b-ce49281d503b  *******/
-const mapStateToProps = (store) => ({
-  isTabletMode: isTabletMode(store),
-});
+const App = ({ dispatch }) => {
+  const [isNavVisible, setIsNavVisible] = useState(false);
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setIsTabletMode: (value) => dispatch(setIsTabletMode(value)),
-    setWindowWidth: (value) => dispatch(setWindowWidth(value)),
-  };
-};
-
-const App = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(({ isTabletMode, setIsTabletMode, setWindowWidth }) => {
-  const [isNavVisible, setIsNavVisible] = useState();
-
+  // Login user if token exists in localstorage
   useEffect(() => {
-    if (isTabletMode) {
-      setIsNavVisible(false);
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+    if (token) {
+      dispatch(login({ token: token, user: user }));
     }
-
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-      if (window.innerWidth < 768) {
-        setIsTabletMode(true);
-      } else {
-        setIsTabletMode(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isTabletMode, setIsTabletMode, setWindowWidth]);
-
-  const toggleNav = () => {
-    setIsNavVisible(!isNavVisible);
-  };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className='App'>
-      <Header
-        toggleNav={toggleNav}
-        isTabletMode={isTabletMode}
-        isNavVisible={isNavVisible}
-        setIsNavVisible={setIsNavVisible}
-      />
+      <Header isNavVisible={isNavVisible} setIsNavVisible={setIsNavVisible} />
       <Navigation
-        isTabletMode={isTabletMode}
-        setIsTabletMode={setIsTabletMode}
         isNavVisible={isNavVisible}
         setIsNavVisible={setIsNavVisible}
       />
@@ -73,6 +33,8 @@ const App = connect(
       </div>
     </div>
   );
-});
+};
 
-export default App;
+const mapStateToProps = (store) => ({});
+
+export default connect(mapStateToProps)(App);

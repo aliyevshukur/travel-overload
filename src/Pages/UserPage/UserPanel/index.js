@@ -8,11 +8,17 @@ import "./style.scss";
 const UserPanel = ({ fullName, email, profilePicture, dispatch }) => {
   return (
     <div className='user-panel'>
-      <div className='picture-wrapper'>
-        <img src={profilePicture} alt='' className='user-picture' />
+      <div className='user-panel-picture-wrapper'>
+        <img
+          src={profilePicture}
+          alt='User profile'
+          className='user-panel-picture'
+        />
       </div>
+
       <h3 className='full-name'>{fullName}</h3>
       <h4 className='email'>{email}</h4>
+
       <CustomButton
         title='Change Password'
         className='change-btn'

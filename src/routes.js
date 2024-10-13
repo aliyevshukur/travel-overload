@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import { Blog, Create, Login, New, Popular, Register } from "./Pages";
+import Notfound from "./Pages/Notfound";
 import ProtectedRoute from "./Pages/ProtectedRoute";
 import { UserPage } from "./Pages/UserPage";
 
@@ -10,7 +11,7 @@ export const ROUTES = [
     path: "/",
     key: "ROOT",
     exact: true,
-    component: () => <Redirect to='/login' />,
+    component: () => <Redirect to='/new' />,
   },
   {
     path: "/login",
@@ -78,7 +79,7 @@ export const RenderRoutes = ({ routes }) => {
       {routes.map((route, i) => {
         return <RouteWithSubRoutes key={route.key} {...route} />;
       })}
-      <Route component={() => <h1>Not Found!</h1>} />
+      <Route component={() => <Notfound />} />
     </Switch>
   );
 };

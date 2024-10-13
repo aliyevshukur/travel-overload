@@ -2,31 +2,52 @@
 @import "../../styles/media-queries.scss";
 
 .blog-card {
+  width: 560px;
+  height: 260px;
+  padding: 10px;
+
   display: flex;
   background-color: white;
-  padding: 15px;
   border-radius: 30px;
   box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  width: 450px;
-  height: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  @include desktop {
+  @include laptopL {
+    width: 450px;
+    height: 200px;
+  }
+
+  @include laptopM {
     width: 560px;
     height: 260px;
   }
 
-  @include tablet {
-    width: 390px;
+  @include laptop {
+    width: 450px;
     height: 200px;
+  }
+
+  @include tablet {
   }
 
   @include mobileL {
     width: 300px;
     height: 150px;
+    padding: 7px;
+  }
+
+  @include mobileL {
+    width: 300px;
+    height: 150px;
+    padding: 7px;
+  }
+
+  @include mobileS {
+    width: 250px;
+    height: 120px;
     padding: 7px;
   }
 
@@ -98,6 +119,7 @@
     }
 
     .blog-card-context {
+      max-width: 150ch;
       font-size: 0.6rem;
       line-height: 0.7rem;
       margin-bottom: auto;

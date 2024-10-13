@@ -53,6 +53,8 @@ export const login = ({ token, user }) => {
 };
 
 export const logoutUser = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
   return (dispatch) => {
     dispatch(setToken(null));
     dispatch(setUser(null));

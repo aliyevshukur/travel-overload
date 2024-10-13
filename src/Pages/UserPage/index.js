@@ -3,45 +3,21 @@ import { connect } from "react-redux";
 import { BlogCard, PageTitle } from "../../components";
 import { Loader } from "../../components/Loader";
 import { getBreakpoints, getWindowWidth } from "../../store/appState";
+import { getUser } from "../../store/auth";
 import { fetchBlogs, getBlogs, isLoading } from "../../store/blogs";
 import "./style.scss";
 import UserPanel from "./UserPanel";
 
-const mapStateToProps = (store) => {
-  return {
-    breakpoints: getBreakpoints(store),
-    windowWidth: getWindowWidth(store),
-    blogs: getBlogs(store),
-    isLoading: isLoading(store),
-  };
-};
+const mapStateToProps = (store) => ({
+  breakpoints: getBreakpoints(store),
+  windowWidth: getWindowWidth(store),
+  blogs: getBlogs(store),
+  isLoading: isLoading(store),
+  user: getUser(store),
+});
 
 export const UserPage = connect(mapStateToProps)(
-  ({ breakpoints, windowWidth, blogs, isLoading, dispatch }) => {
-    const userData = {
-      profilePicture:
-        "https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dile",
-      fullName: "Henry Roberts",
-      email: "henryroberts@mail.com",
-    };
-
-    const [maxLength, setMaxLength] = useState(windowWidth);
-
-    useEffect(() => {
-      const calculateMaxLength = () => {
-        if (windowWidth < breakpoints.desktopSmall) {
-          setMaxLength(70);
-          return;
-        }
-        if (windowWidth < breakpoints.desktop) {
-          setMaxLength(100);
-          return;
-        } else setMaxLength(220);
-      };
-
-      calculateMaxLength();
-    }, [windowWidth, breakpoints.desktopSmall, breakpoints.desktop]);
-
+  ({ blogs, isLoading, dispatch, user }) => {
     useEffect(() => {
       dispatch(fetchBlogs());
     }, [dispatch]);
@@ -64,11 +40,7 @@ export const UserPage = connect(mapStateToProps)(
           <div className='user-page-header'>
             <PageTitle title='Your posts' />
             <div className='picture-wrapper'>
-              <img
-                src={userData.profilePicture}
-                alt=''
-                className='user-picture'
-              />
+              <img src={user.image} alt='' className='user-picture' />
             </div>
           </div>
           <div className='user-page-blog-list'>
@@ -78,16 +50,15 @@ export const UserPage = connect(mapStateToProps)(
                   key={ind}
                   cardInfo={item}
                   className='user-page-blog-list-item'
-                  maxLength={maxLength}
                 />
               );
             })}
           </div>
         </div>
         <UserPanel
-          profilePicture={userData.profilePicture}
-          fullName={userData.fullName}
-          email={userData.email}
+          profilePicture={user.image}
+          fullName={user.name + " " + user.surname}
+          email={user.email}
         />
       </div>
     );

@@ -9,18 +9,10 @@ import { Logo } from "../components/Logo";
 import { getToken, getUser } from "../store/auth";
 import "./style.scss";
 
-const Navigation = ({
-  dispatch,
-  token,
-  user,
-  isTabletMode,
-  isNavVisible,
-  setIsNavVisible,
-}) => {
+const Navigation = ({ token, user, isNavVisible, setIsNavVisible }) => {
   const { pathname } = useLocation();
   const [navItems, setNavItems] = useState([]);
 
-  console.log(`TOken in nav: ${JSON.stringify(token)}`);
   useEffect(() => {
     if (token) {
       setNavItems([
@@ -69,7 +61,7 @@ const Navigation = ({
   const navItemClickHandler = (id) => {
     setIsNavVisible(false);
   };
-
+  console.log(token);
   const pickNavItemClass = (id) => {
     const selected = pathname.split("/")[1];
 
@@ -117,7 +109,6 @@ const Navigation = ({
             <Link
               to={`/${item.id}`}
               className={pickNavItemClass(item.id)}
-              style={isTabletMode ? { borderRadius: "28px" } : {}}
               onClick={() => navItemClickHandler(item.id)}
             >
               <CustomSvg

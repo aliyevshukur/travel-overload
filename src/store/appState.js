@@ -13,7 +13,9 @@ const initalState = {
   breakpoints: {
     tablet: 768,
     laptop: 1024,
+    laptopM: 1200,
     laptopL: 1440,
+    desktop: 1440,
     desktopM: 1920,
     desktopL: 2560,
   },

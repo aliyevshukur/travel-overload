@@ -1,9 +1,9 @@
 import React from "react";
 
-import "./style.scss";
 import { BlogCard } from "../BlogCard";
-import { PageTitle } from "../PageTitle";
 import { Loader } from "../Loader";
+import { PageTitle } from "../PageTitle";
+import "./style.scss";
 
 export const BlogList = ({ blogs, title, loading }) => {
   return (
@@ -15,13 +15,12 @@ export const BlogList = ({ blogs, title, loading }) => {
         <div className='blog-cards'>
           {blogs.map((blog, ind) => {
             return (
-              <div className='blog-cards-card-wrapper' key={ind}>
-                <BlogCard
-                  cardInfo={blog}
-                  className={"blog-cards-item"}
-                  maxLength={window.innerWidth < 1024 ? 50 : 85}
-                />
-              </div>
+              <BlogCard
+                cardInfo={blog}
+                className={"blog-cards-item"}
+                maxLength={window.innerWidth < 1024 ? 50 : 85}
+                key={ind}
+              />
             );
           })}
         </div>

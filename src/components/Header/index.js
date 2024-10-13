@@ -3,20 +3,10 @@ import React, { useState } from "react";
 import { Logo } from "../Logo";
 import "./style.scss";
 
-export const Header = ({
-  isNavVisible,
-  setIsNavVisible,
-  toggleNav,
-  isTabletMode,
-}) => {
+export const Header = ({ isNavVisible, setIsNavVisible }) => {
   const handleBurgerClick = () => {
     setIsNavVisible(!isNavVisible);
-    toggleNav();
   };
-
-  if (!isTabletMode) {
-    return null;
-  }
 
   return (
     <header className='header'>

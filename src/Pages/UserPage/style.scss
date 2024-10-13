@@ -1,5 +1,6 @@
 @import "../../styles/theme";
 @import "../../styles/base";
+@import "../../styles/media-queries.scss";
 
 .user-page-wrapper {
   height: 100vh;
@@ -18,7 +19,7 @@
     overflow: scroll;
     scrollbar-width: none;
 
-    @include desktopSmall {
+    @include laptop {
       border-radius: 0;
     }
 
@@ -38,7 +39,7 @@
         cursor: pointer;
         overflow: hidden;
 
-        @include desktopSmall {
+        @include laptop {
           display: block;
         }
 
