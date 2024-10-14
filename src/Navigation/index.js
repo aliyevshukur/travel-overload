@@ -58,10 +58,11 @@ const Navigation = ({ token, user, isNavVisible, setIsNavVisible }) => {
     }
   }, [token]); //eslint-disable-line react-hooks/exhaustive-deps
 
+  console.log("User in navigation", user);
+
   const navItemClickHandler = (id) => {
     setIsNavVisible(false);
   };
-  console.log(token);
   const pickNavItemClass = (id) => {
     const selected = pathname.split("/")[1];
 
@@ -89,8 +90,7 @@ const Navigation = ({ token, user, isNavVisible, setIsNavVisible }) => {
 
   const getUserImage = () => {
     if (user) {
-      return user.image;
-      // return user.image;
+      return user.profilePicture || user.image;
     } else {
       return GuestImage;
     }

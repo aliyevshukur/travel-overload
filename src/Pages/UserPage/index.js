@@ -5,23 +5,43 @@ import { Loader } from "../../components/Loader";
 import { getBreakpoints, getWindowWidth } from "../../store/appState";
 import { getUser } from "../../store/auth";
 import { fetchBlogs, getBlogs, isLoading } from "../../store/blogs";
+import {
+  getProfilePictureUploadError,
+  getProfilePictureUploadLoading,
+  uploadProfilePicture,
+} from "../../store/user";
 import "./style.scss";
 import UserPanel from "./UserPanel";
-
 const mapStateToProps = (store) => ({
   breakpoints: getBreakpoints(store),
   windowWidth: getWindowWidth(store),
   blogs: getBlogs(store),
   isLoading: isLoading(store),
   user: getUser(store),
+  profilePictureUploadLoading: getProfilePictureUploadLoading(store),
+  profilePictureUploadError: getProfilePictureUploadError(store),
 });
 
 export const UserPage = connect(mapStateToProps)(
-  ({ blogs, isLoading, dispatch, user }) => {
+  ({
+    blogs,
+    isLoading,
+    dispatch,
+    user,
+    profilePictureUploadLoading,
+    profilePictureUploadError,
+  }) => {
     useEffect(() => {
       dispatch(fetchBlogs());
     }, [dispatch]);
 
+    function handleImageChange(imageUrl) {
+      dispatch(uploadProfilePicture(imageUrl, user.userId));
+    }
+
+    if (profilePictureUploadError) {
+      console.log(`Profile picture upload error :${profilePictureUploadError}`);
+    }
     if (isLoading) {
       return (
         <div className='user-page-wrapper'>
@@ -40,7 +60,11 @@ export const UserPage = connect(mapStateToProps)(
           <div className='user-page-header'>
             <PageTitle title='Your posts' />
             <div className='picture-wrapper'>
-              <img src={user.image} alt='' className='user-picture' />
+              <img
+                src={user.profilePicture || user.image}
+                alt=''
+                className='user-picture'
+              />
             </div>
           </div>
           <div className='user-page-blog-list'>
@@ -56,9 +80,11 @@ export const UserPage = connect(mapStateToProps)(
           </div>
         </div>
         <UserPanel
-          profilePicture={user.image}
+          profilePicture={user.profilePicture || user.image}
           fullName={user.name + " " + user.surname}
           email={user.email}
+          userId={user.userId}
+          handleImageChange={handleImageChange}
         />
       </div>
     );

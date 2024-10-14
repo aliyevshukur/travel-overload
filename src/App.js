@@ -6,7 +6,6 @@ import "./styles/reset.scss";
 import { Header } from "./components/Header";
 import Navigation from "./Navigation";
 import { RenderRoutes, ROUTES } from "./routes";
-import { isTabletMode } from "./store/appState";
 import { login } from "./store/auth";
 
 const App = ({ dispatch }) => {
@@ -15,7 +14,8 @@ const App = ({ dispatch }) => {
   // Login user if token exists in localstorage
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log("User exists", user);
     if (token) {
       dispatch(login({ token: token, user: user }));
     }

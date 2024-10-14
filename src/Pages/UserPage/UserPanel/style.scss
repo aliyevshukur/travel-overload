@@ -26,9 +26,14 @@
     border: 3px solid $secondary;
     overflow: hidden;
     cursor: pointer;
+    position: relative;
 
     &:hover .user-panel-picture {
       filter: contrast(100%);
+    }
+
+    &:hover .profile-upload-btn {
+      opacity: 1;
     }
 
     .user-panel-picture {
@@ -36,11 +41,19 @@
       width: 100%;
       aspect-ratio: 1/1;
       object-fit: cover;
-      transition: filter 1s;
+      transition: filter 0.5s ease-in-out;
 
       &:hover {
         filter: contrast(50%);
       }
+    }
+
+    .profile-upload-btn {
+      opacity: 0;
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      transition: all 0.5s ease-in-out;
     }
   }
 

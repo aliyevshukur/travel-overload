@@ -5,6 +5,7 @@ import {
   MODULE_NAME as appStateModuleName,
   reducer as appStateReducer,
 } from "./appState.js";
+import { MODULE_NAME as authModuleName, reducer as authReducer } from "./auth";
 import {
   MODULE_NAME as blogsModuleName,
   reducer as blogsRecuder,
@@ -17,8 +18,10 @@ import {
   MODULE_NAME as blogModuleName,
   reducer as blogRecuder,
 } from "./single-blog.js";
-
-import { MODULE_NAME as authModuleName, reducer as authReducer } from "./auth";
+import {
+  MODULE_NAME as userModleName,
+  reducer as userReducer,
+} from "./user.js";
 
 const rootReducer = combineReducers({
   [blogsModuleName]: blogsRecuder,
@@ -26,6 +29,7 @@ const rootReducer = combineReducers({
   [blogModuleName]: blogRecuder,
   [authModuleName]: authReducer,
   [registerModuleName]: registeReducer,
+  [userModleName]: userReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

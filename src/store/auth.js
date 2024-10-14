@@ -6,9 +6,18 @@ export const MODULE_NAME = "auth";
 export const getToken = (state) => state[MODULE_NAME].token;
 export const getUser = (state) => state[MODULE_NAME].user;
 
+const guest = {
+  userId: null,
+  name: "Guest",
+  surname: null,
+  email: null,
+  password: null,
+  profilePicture: null,
+};
+
 const initialState = {
   token: null,
-  user: null,
+  user: guest,
 };
 
 export const reducer = (store = initialState, { type, payload }) => {
@@ -45,8 +54,7 @@ export const setUser = (payload) => {
 //Middlewares
 export const login = ({ token, user }) => {
   return (dispatch) => {
-    // console.log(`Token in redux ${token}`);
-    // console.log(`User in redux ${user}`);
+    console.log(`User in redux ${user}`);
     dispatch(setToken(token));
     dispatch(setUser(user));
   };
@@ -57,6 +65,6 @@ export const logoutUser = () => {
   localStorage.removeItem("user");
   return (dispatch) => {
     dispatch(setToken(null));
-    dispatch(setUser(null));
+    dispatch(setUser(guest));
   };
 };

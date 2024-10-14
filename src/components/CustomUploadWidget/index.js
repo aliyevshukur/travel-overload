@@ -13,6 +13,8 @@ export function CustomUploadWidget({
   isThumbnail = false,
   id,
   required = false,
+  className,
+  showPreview = true,
 }) {
   //CLOUDINARY
   const cld = initCloudinary();
@@ -67,14 +69,16 @@ export function CustomUploadWidget({
     <CloudinaryScriptContext.Provider value={{ loaded }}>
       <CustomButton
         id='upload_widget'
-        className='button'
+        className={`button ${className}`}
         onClick={initializeCloudinaryWidget}
         disabled={isLoading}
         title={isLoading ? "Loading..." : "Upload image"}
         style={{ fontSize: "0.8em" }}
       />
 
-      {myImage && <AdvancedImage cldImg={myImage} className='image' />}
+      {myImage && showPreview && (
+        <AdvancedImage cldImg={myImage} className='image' />
+      )}
     </CloudinaryScriptContext.Provider>
   );
 }

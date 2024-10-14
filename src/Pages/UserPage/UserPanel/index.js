@@ -1,11 +1,22 @@
 import React from "react";
 
 import connect from "react-redux/es/connect/connect";
-import { CustomButton, CustomSvg } from "../../../components";
+import {
+  CustomButton,
+  CustomSvg,
+  CustomUploadWidget,
+} from "../../../components";
 import { logoutUser } from "../../../store/auth";
+import { uploadProfilePicture } from "../../../store/user";
 import "./style.scss";
 
-const UserPanel = ({ fullName, email, profilePicture, dispatch }) => {
+const UserPanel = ({
+  fullName,
+  email,
+  profilePicture,
+  handleImageChange,
+  dispatch,
+}) => {
   return (
     <div className='user-panel'>
       <div className='user-panel-picture-wrapper'>
@@ -13,6 +24,11 @@ const UserPanel = ({ fullName, email, profilePicture, dispatch }) => {
           src={profilePicture}
           alt='User profile'
           className='user-panel-picture'
+        />
+        <CustomUploadWidget
+          handleImageChange={handleImageChange}
+          className='profile-upload-btn'
+          showPreview={false}
         />
       </div>
 
