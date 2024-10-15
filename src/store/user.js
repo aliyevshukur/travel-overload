@@ -1,3 +1,5 @@
+import { updateUserProfilePicture } from "./auth";
+
 const UPLOAD_PROFILE_PICTURE_START = "UPLOAD_PROFILE_PICTURE_START";
 const UPLOAD_PROFILE_PICTURE_SUCCESS = "SET_USER_IMAGE_SUCCESS";
 const UPLOAD_PROFILE_PICTURE_ERROR = "UPLOAD_PROFILE_PICTURE_ERROR";
@@ -8,10 +10,10 @@ const API_URL = process.env.REACT_APP_API_URL;
 const initialState = {
   loading: false,
   error: null,
-  image: null,
+  profilePicture: null,
 };
 
-export const getUserImage = (store) => store[MODULE_NAME].image;
+export const getProfilePicture = (store) => store[MODULE_NAME].profilePicture;
 export const getProfilePictureUploadLoading = (store) =>
   store[MODULE_NAME].loading;
 export const getProfilePictureUploadError = (store) => store[MODULE_NAME].error;
@@ -31,7 +33,7 @@ export const reducer = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         error: null,
-        image: payload,
+        profilePicture: payload,
       };
     case UPLOAD_PROFILE_PICTURE_ERROR:
       return {
@@ -64,24 +66,43 @@ export const setUserImageError = (payload) => ({
 export const uploadProfilePicture = (profilePictureUrl, userId) => {
   return (dispatch) => {
     dispatch(setUserImageStart());
-    fetch(`${API_URL}/user/${userId}`, {
+    fetch(`${API_URL}/user/profile`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify(profilePictureUrl),
+      body: JSON.stringify({ url: profilePictureUrl }),
     })
       .then(handleErrors)
       .then((res) => res.json())
       .then((result) => {
-        if (result.message === "success") {
-          dispatch(setUserImageSuccess(result.message));
+        if (result.ok) {
+          dispatch(setUserImageSuccess(result.url));
+          dispatch(updateUserProfilePicture(result.url));
+          console.log("New profile picture: ", result.url);
         }
-        return result.message;
       })
       .catch((message) => dispatch(setUserImageError(message)));
+  };
+};
+
+export const getUserInfo = () => {
+  return (dispatch) => {
+    fetch(`${API_URL}/user`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        mode: "no-cors",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {})
+      .catch((e) => console.log(e));
   };
 };
 

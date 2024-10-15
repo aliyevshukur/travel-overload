@@ -8,6 +8,7 @@ import { fetchBlogs, getBlogs, isLoading } from "../../store/blogs";
 import {
   getProfilePictureUploadError,
   getProfilePictureUploadLoading,
+  getUserInfo,
   uploadProfilePicture,
 } from "../../store/user";
 import "./style.scss";
@@ -33,12 +34,13 @@ export const UserPage = connect(mapStateToProps)(
   }) => {
     useEffect(() => {
       dispatch(fetchBlogs());
+      // dispatch(getUserInfo());
     }, [dispatch]);
 
     function handleImageChange(imageUrl) {
       dispatch(uploadProfilePicture(imageUrl, user.userId));
     }
-
+    // console.log(`User ${JSON.stringify(user)}`);
     if (profilePictureUploadError) {
       console.log(`Profile picture upload error :${profilePictureUploadError}`);
     }
@@ -60,11 +62,7 @@ export const UserPage = connect(mapStateToProps)(
           <div className='user-page-header'>
             <PageTitle title='Your posts' />
             <div className='picture-wrapper'>
-              <img
-                src={user.profilePicture || user.image}
-                alt=''
-                className='user-picture'
-              />
+              <img src={user.profilePicture} alt='' className='user-picture' />
             </div>
           </div>
           <div className='user-page-blog-list'>
@@ -80,7 +78,7 @@ export const UserPage = connect(mapStateToProps)(
           </div>
         </div>
         <UserPanel
-          profilePicture={user.profilePicture || user.image}
+          profilePicture={user.profilePicture}
           fullName={user.name + " " + user.surname}
           email={user.email}
           userId={user.userId}

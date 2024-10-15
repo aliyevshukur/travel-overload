@@ -113,9 +113,20 @@ export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
 
   function formatBlogData() {
     const date = new Date();
-    const formattedDate = `${date.getDate()}-${
-      date.getMonth() + 1
-    }-${date.getFullYear()}`;
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    if (month < 10) {
+      month = `0${month}`;
+    }
+
+    if (day < 10) {
+      day = `0${day}`;
+    }
+
+    const formattedDate = `${day}-${month}-${year}`;
+    console.log(formattedDate);
 
     const blog = {
       title: fields[0].text,

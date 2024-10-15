@@ -22,11 +22,12 @@ export const Login = connect(mapStateToProps)(({ dispatch, token, user }) => {
   // console.log(`TOKEN: ${JSON.stringify(token)}`);
   const onFormSubmit = (e) => {
     e.preventDefault();
-    // console.log(`User info ${JSON.stringify(userInfo)}`);
+    console.log(`User info ${JSON.stringify(userInfo)}`);
     const url = `${process.env.REACT_APP_API_URL}/auth/login`;
     fetch(url, {
       method: "POST",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userInfo),
@@ -42,7 +43,8 @@ export const Login = connect(mapStateToProps)(({ dispatch, token, user }) => {
         } else {
           setServerMessage(result.message);
         }
-      });
+      })
+      .catch((e) => console.log("Error logging in ", e));
   };
 
   const onChange = (e) => {

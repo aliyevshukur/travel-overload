@@ -58,7 +58,7 @@ const Navigation = ({ token, user, isNavVisible, setIsNavVisible }) => {
     }
   }, [token]); //eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log("User in navigation", user);
+  // console.log("User in navigation", user);
 
   const navItemClickHandler = (id) => {
     setIsNavVisible(false);

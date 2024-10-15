@@ -1,5 +1,7 @@
+const profilePicture = require("../assets/guest.png");
 const SET_TOKEN = "SET_TOKEN";
 const SET_USER = "SET_USER";
+const SET_USER_PROFILE_PICTURE = "SET_USER_PROFILE_PICTURE";
 
 export const MODULE_NAME = "auth";
 
@@ -9,10 +11,10 @@ export const getUser = (state) => state[MODULE_NAME].user;
 const guest = {
   userId: null,
   name: "Guest",
-  surname: null,
+  surname: "",
   email: null,
   password: null,
-  profilePicture: null,
+  profilePicture: profilePicture,
 };
 
 const initialState = {
@@ -31,6 +33,14 @@ export const reducer = (store = initialState, { type, payload }) => {
       return {
         ...store,
         user: payload,
+      };
+    case SET_USER_PROFILE_PICTURE:
+      return {
+        ...store,
+        user: {
+          ...store.user,
+          profilePicture: payload,
+        },
       };
     default:
       return store;
@@ -51,10 +61,17 @@ export const setUser = (payload) => {
   };
 };
 
+export const setUserProfilePicture = (payload) => {
+  return {
+    type: SET_USER_PROFILE_PICTURE,
+    payload: payload,
+  };
+};
+
 //Middlewares
 export const login = ({ token, user }) => {
   return (dispatch) => {
-    console.log(`User in redux ${user}`);
+    // console.log(`User in redux ${user}`);
     dispatch(setToken(token));
     dispatch(setUser(user));
   };
@@ -66,5 +83,11 @@ export const logoutUser = () => {
   return (dispatch) => {
     dispatch(setToken(null));
     dispatch(setUser(guest));
+  };
+};
+
+export const updateUserProfilePicture = (url) => {
+  return (dispatch) => {
+    dispatch(setUserProfilePicture(url));
   };
 };
