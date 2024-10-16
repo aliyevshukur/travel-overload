@@ -6,7 +6,8 @@ import "./styles/reset.scss";
 import { Header } from "./components/Header";
 import Navigation from "./Navigation";
 import { RenderRoutes, ROUTES } from "./routes";
-import { login } from "./store/auth";
+import { login, setToken } from "./store/auth";
+import { fetchUser, getUser } from "./store/user";
 
 const App = ({ dispatch }) => {
   const [isNavVisible, setIsNavVisible] = useState(false);
@@ -14,10 +15,10 @@ const App = ({ dispatch }) => {
   // Login user if token exists in localstorage
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
-    console.log("User exists", user);
+    console.log("User exists");
     if (token) {
-      dispatch(login({ token: token, user: user }));
+      dispatch(fetchUser());
+      dispatch(setToken(token));
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

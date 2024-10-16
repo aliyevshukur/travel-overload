@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import GuestImage from "../assets/guest.png";
 import { CustomSvg } from "../components";
 import { Logo } from "../components/Logo";
-import { getToken, getUser } from "../store/auth";
+import { getToken } from "../store/auth";
+import { getUser } from "../store/user";
 import "./style.scss";
 
 const Navigation = ({ token, user, isNavVisible, setIsNavVisible }) => {

@@ -17,7 +17,7 @@ const mapStateToProps = (state) => ({
 export const Blog = connect(mapStateToProps)(
   ({ blog, blogs, loading, dispatch }) => {
     const { id } = useParams();
-    const { title, author, authorImage, postDate, context = [] } = blog;
+    const { title, author, postDate, context = [] } = blog;
     console.log(`SINGLE BLOG: ${JSON.stringify(blog)}`);
     useEffect(() => {
       dispatch(fetchBlog(id));
@@ -35,7 +35,7 @@ export const Blog = connect(mapStateToProps)(
         </div>
       );
     }
-
+    // console.log(`Author ${JSON.stringify(author)}`);
     return (
       <div className='blog-wrapper'>
         <div className='blog'>
@@ -47,29 +47,38 @@ export const Blog = connect(mapStateToProps)(
             </div>
           </div>
           <div className='blog-content'>
-            {context.slice(2).map((field) => {
+            {context.slice(2).map((field, ind) => {
               if (field.type === "text") {
-                return <div className='blog-content-text'>{field.text}</div>;
+                return (
+                  <div className='blog-content-text' key={ind}>
+                    {field.text}
+                  </div>
+                );
               } else if (field.type === "image") {
                 return (
-                  <img src={field.url} alt='' className='blog-content-image' />
+                  <img
+                    src={field.url}
+                    alt=''
+                    className='blog-content-image'
+                    key={ind}
+                  />
                 );
-              }
+              } else return <></>;
             })}
           </div>
           <CardAuthor
             authorInfo={{
               postDate: postDate,
-              author: author,
-              authorImage: authorImage,
+              author: author.name + " " + author.surname,
+              authorImage: author.profilePicture,
             }}
             className={"blog-card-author"}
           />
         </div>
         <div className='side-panel'>
           <h3>Newly posted blogs</h3>
-          {blogs.map((blog) => (
-            <BlogCard cardInfo={blog} mini={true} />
+          {blogs.map((blog, ind) => (
+            <BlogCard cardInfo={blog} mini={true} key={ind} />
           ))}
         </div>
       </div>

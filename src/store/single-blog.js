@@ -4,6 +4,7 @@ const FETCH_BLOG_SUCCESS = "FETCH_BLOG_SUCCESS";
 const FETCH_BLOG_ERROR = "FETCH_BLOG_ERROR";
 
 export const MODULE_NAME = "BLOG";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const getBlog = (state) => state[MODULE_NAME].blog;
 export const isLoading = (state) => state[MODULE_NAME].loading;
@@ -61,7 +62,7 @@ export const fetchBlogError = (payload) => ({
 export const fetchBlog = (id) => {
   return (dispatch) => {
     dispatch(fetchBlogStart());
-    const url = `https://travl-overload-server.vercel.app/blogs/${id}`;
+    const url = `${API_URL}/blogs/${id}`;
     fetch(url)
       .then(handleErrors)
       .then((res) => res.json())

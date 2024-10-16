@@ -101,6 +101,7 @@ export const fetchBlogs = () => {
       .then(handleErrors)
       .then((res) => res.json())
       .then((result) => {
+        // console.log(`Fetched blogs: ${JSON.stringify(result[0].postDate)}`);
         dispatch(fetchBlogsSuccess(result));
         return result;
       })

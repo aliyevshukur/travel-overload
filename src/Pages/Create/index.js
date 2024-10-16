@@ -3,21 +3,14 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { CustomButton, CustomSvg, CustomUploadWidget } from "../../components";
-import CloudinaryImage from "../../components/CloudinaryImage";
 import { isTabletMode } from "../../store/appState";
 import { postBlog } from "../../store/blogs";
+import { getUser } from "../../store/user";
 import "../Create/style.scss";
-import { DetailsInput } from "./components";
-import ImageField from "./components/ImageField";
 import ModalAdd from "./components/ModalAdd";
 import TextField from "./components/TextField";
 
-const mapStateToProps = (state) => ({
-  isTabletMode: isTabletMode(state),
-});
-
-export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
-  const [isDetails, setDetails] = useState(false);
+const Create = ({ dispatch, isTabletMode, user }) => {
   const [fields, setFields] = useState([
     { id: 0, type: "text", text: "" }, // Title field
     { id: 1, type: "image", url: "" }, // Thumbnail field
@@ -107,35 +100,22 @@ export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
     }
 
     const blog = formatBlogData();
+    console.log(JSON.stringify(blog));
     dispatch(postBlog(blog));
     history.push("/new");
   }
 
   function formatBlogData() {
     const date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    if (month < 10) {
-      month = `0${month}`;
-    }
-
-    if (day < 10) {
-      day = `0${day}`;
-    }
-
-    const formattedDate = `${day}-${month}-${year}`;
-    console.log(formattedDate);
+    const unixTimestamp = date.getTime() / 1000;
 
     const blog = {
       title: fields[0].text,
       context: fields,
       thumbnailImage: fields[1].url,
-      postDate: formattedDate,
-      author: "Henry Roberts",
-      authorImage:
-        "https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      postDate: unixTimestamp,
+      authorId: user.userId,
+      viewCount: 0,
     };
 
     return blog;
@@ -232,4 +212,11 @@ export const Create = connect(mapStateToProps)(({ dispatch, isTabletMode }) => {
       </div>
     </form>
   );
+};
+
+const mapStateToProps = (state) => ({
+  isTabletMode: isTabletMode(state),
+  user: getUser(state),
 });
+
+export default connect(mapStateToProps)(Create);

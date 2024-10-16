@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Eye from "../../assets/eye.svg";
 import Cover from "../../assets/register-cover.jpg";
 import { CustomButton, InputField } from "../../components";
 import { FormMessage } from "../../components/FormMessage";
+import { getToken } from "../../store/auth";
 import {
   getError,
-  getLoading,
   getIsSuccess,
+  getLoading,
   register,
 } from "../../store/register";
 import { validateInput } from "../../utils/validateInput";
 import "./style.scss";
-
 const mapStateToProps = (state) => ({
   serverError: getError(state),
   loading: getLoading(state),
   isSuccess: getIsSuccess(state),
+  token: getToken(state),
 });
 
 export const Register = connect(mapStateToProps)(
-  ({ isSuccess, serverError, loading, dispatch }) => {
+  ({ isSuccess, serverError, loading, dispatch, token }) => {
     const [userInfo, setUserInfo] = useState({
       name: "",
       surname: "",
@@ -35,7 +37,14 @@ export const Register = connect(mapStateToProps)(
     });
 
     const [isModified, setIsModified] = useState(false);
-    console.log(`server message ${isSuccess}`);
+    const history = useHistory();
+
+    useEffect(() => {
+      if (token) {
+        history.push("/new");
+      }
+    }, [token, history]);
+
     const onChange = (e) => {
       setIsModified(true);
       const { name, value } = e.target;

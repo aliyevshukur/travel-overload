@@ -3,16 +3,17 @@ import { connect } from "react-redux";
 import { BlogCard, PageTitle } from "../../components";
 import { Loader } from "../../components/Loader";
 import { getBreakpoints, getWindowWidth } from "../../store/appState";
-import { getUser } from "../../store/auth";
 import { fetchBlogs, getBlogs, isLoading } from "../../store/blogs";
 import {
+  fetchUser,
   getProfilePictureUploadError,
   getProfilePictureUploadLoading,
-  getUserInfo,
+  getUser,
   uploadProfilePicture,
 } from "../../store/user";
 import "./style.scss";
 import UserPanel from "./UserPanel";
+
 const mapStateToProps = (store) => ({
   breakpoints: getBreakpoints(store),
   windowWidth: getWindowWidth(store),
@@ -34,11 +35,19 @@ export const UserPage = connect(mapStateToProps)(
   }) => {
     useEffect(() => {
       dispatch(fetchBlogs());
-      // dispatch(getUserInfo());
     }, [dispatch]);
 
+    useEffect(() => {
+      if (profilePictureUploadError) {
+        console.log(
+          `Profile picture upload error :${profilePictureUploadError}`,
+        );
+        alert(profilePictureUploadError);
+      }
+    }, [profilePictureUploadError]);
+
     function handleImageChange(imageUrl) {
-      dispatch(uploadProfilePicture(imageUrl, user.userId));
+      dispatch(uploadProfilePicture(imageUrl));
     }
     // console.log(`User ${JSON.stringify(user)}`);
     if (profilePictureUploadError) {
@@ -83,6 +92,7 @@ export const UserPage = connect(mapStateToProps)(
           email={user.email}
           userId={user.userId}
           handleImageChange={handleImageChange}
+          profilePictureUploadLoading={profilePictureUploadLoading}
         />
       </div>
     );

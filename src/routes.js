@@ -1,7 +1,8 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
-import { Blog, Create, Login, New, Popular, Register } from "./Pages";
+import { Blog, Login, New, Popular, Register } from "./Pages";
+import Create from "./Pages/Create";
 import Notfound from "./Pages/Notfound";
 import ProtectedRoute from "./Pages/ProtectedRoute";
 import { UserPage } from "./Pages/UserPage";
@@ -11,7 +12,7 @@ export const ROUTES = [
     path: "/",
     key: "ROOT",
     exact: true,
-    component: () => <Redirect to='/new' />,
+    component: () => <Redirect to='/login' />,
   },
   {
     path: "/login",

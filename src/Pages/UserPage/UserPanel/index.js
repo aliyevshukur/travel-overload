@@ -6,8 +6,8 @@ import {
   CustomSvg,
   CustomUploadWidget,
 } from "../../../components";
+import { Loader } from "../../../components/Loader";
 import { logoutUser } from "../../../store/auth";
-import { uploadProfilePicture } from "../../../store/user";
 import "./style.scss";
 
 const UserPanel = ({
@@ -16,20 +16,27 @@ const UserPanel = ({
   profilePicture,
   handleImageChange,
   dispatch,
+  profilePictureUploadLoading,
 }) => {
   return (
     <div className='user-panel'>
       <div className='user-panel-picture-wrapper'>
-        <img
-          src={profilePicture}
-          alt='User profile'
-          className='user-panel-picture'
-        />
-        <CustomUploadWidget
-          handleImageChange={handleImageChange}
-          className='profile-upload-btn'
-          showPreview={false}
-        />
+        {profilePictureUploadLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <img
+              src={profilePicture}
+              alt='User profile'
+              className='user-panel-picture'
+            />
+            <CustomUploadWidget
+              handleImageChange={handleImageChange}
+              className='profile-upload-btn'
+              showPreview={false}
+            />
+          </>
+        )}
       </div>
 
       <h3 className='full-name'>{fullName}</h3>

@@ -11,7 +11,7 @@ const mapStateToProps = (store) => ({
 
 export const BlogCard = connect(mapStateToProps)(
   ({ cardInfo, className = "", mini = false }) => {
-    const { thumbnailImage, title, postDate, author, authorImage } = cardInfo;
+    const { thumbnailImage, title, postDate, author } = cardInfo;
     const { context: contextRaw } = cardInfo;
     let context = contextRaw[2].text;
 
@@ -58,8 +58,8 @@ export const BlogCard = connect(mapStateToProps)(
           <CardAuthor
             authorInfo={{
               postDate,
-              author: author,
-              authorImage: authorImage,
+              author: author?.name + " " + author?.surname,
+              authorImage: author?.profilePicture,
             }}
           />{" "}
         </div>
