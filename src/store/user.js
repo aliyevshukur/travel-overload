@@ -24,7 +24,7 @@ export const guest = {
 };
 
 const initialState = {
-  user: null,
+  user: guest,
   profilePictureUploadloading: false,
   profilePictureUploaderror: null,
   blogsLoading: false,
