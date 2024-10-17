@@ -18,7 +18,7 @@ const Create = ({ dispatch, isTabletMode, user }) => {
   ]);
   const [modalFields, setModalFields] = useState(false);
   const history = useHistory();
-
+  console.log(`User, ${JSON.stringify(user)}`);
   const addTextField = () => {
     setModalFields(false);
     let id = 0;
@@ -114,7 +114,7 @@ const Create = ({ dispatch, isTabletMode, user }) => {
       context: fields,
       thumbnailImage: fields[1].url,
       postDate: unixTimestamp,
-      authorId: user.userId,
+      author: user._id,
       viewCount: 0,
     };
 

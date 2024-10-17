@@ -26,8 +26,8 @@ export const validateInput = (input, value) => {
       if (!value) return "Password is required";
       if (!/^[a-z0-9]+$/i.test(value))
         return "Password must consist of only letters and numbers";
-      if (value.length < 8)
-        return "Password must be at least 8 characters long";
+      if (value.length < 5)
+        return "Password must be at least 5 characters long";
       else return "";
     },
   };

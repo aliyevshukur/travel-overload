@@ -71,8 +71,10 @@
   .change-btn {
     width: 200px;
     height: 35px;
-    background: $primary;
+    padding: 5px 10px;
+    background: $primary-darker;
     color: #000000;
+    font-size: 1.1rem;
   }
 
   .exit-btn {
