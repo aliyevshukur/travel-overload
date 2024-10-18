@@ -21,7 +21,7 @@
     flex-wrap: wrap;
     align-items: flex-start;
     gap: 20px;
-    max-width: 1140px;
+    max-width: 1140px; // Max width must be equal to the width of the cards
 
     @include laptopL {
       max-width: 920px;
@@ -34,8 +34,15 @@
       max-width: 450px;
     }
 
+    @include tabletS {
+      max-width: 350px;
+    }
+
     @include mobileL {
       max-width: 300px;
+    }
+    @include mobileS {
+      max-width: 250px;
     }
   }
 

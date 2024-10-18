@@ -1,10 +1,10 @@
 @import "../../styles/base";
 @import "../../styles/media-queries.scss";
 
-.blog-card {
+.blogcard {
   width: 560px;
   height: 260px;
-  padding: 10px;
+  padding: 0.6rem;
 
   display: flex;
   background-color: white;
@@ -30,25 +30,18 @@
     height: 200px;
   }
 
-  @include tablet {
+  @include tabletS {
+    flex-direction: column;
+    width: 350px;
+    height: auto;
   }
 
   @include mobileL {
     width: 300px;
-    height: 150px;
-    padding: 7px;
-  }
-
-  @include mobileL {
-    width: 300px;
-    height: 150px;
-    padding: 7px;
   }
 
   @include mobileS {
     width: 250px;
-    height: 120px;
-    padding: 7px;
   }
 
   &-mini {
@@ -92,23 +85,24 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 10px 0px 10px 20px;
+    padding: 0.4rem 0rem 0.4rem 1.2rem;
     justify-content: space-between;
     position: relative;
+
+    @include tabletS {
+      padding: 0.4rem;
+      padding-top: 1rem;
+    }
 
     &-mini {
       padding: 5px;
     }
 
-    @include mobileL {
-      padding: 7px;
-    }
-
-    .blog-card-title {
+    &-title {
+      max-height: 2rem;
       font-weight: 600;
-      font-size: 0.9rem;
-      line-height: 1.2rem;
-      margin-bottom: 10px;
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
       position: relative;
       text-wrap: wrap;
 
@@ -118,28 +112,41 @@
       }
     }
 
-    .blog-card-context {
+    &-description {
       max-width: 150ch;
+      max-height: 5rem;
       font-size: 0.6rem;
-      line-height: 0.7rem;
-      margin-bottom: auto;
+      line-height: 0.8rem;
       position: relative;
       flex-grow: 1;
       text-wrap: wrap;
       text-justify: inter-word;
+      overflow: hidden;
+      margin-bottom: 0.8rem;
+    }
 
-      &-bottom {
+    &-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 20px;
+
+      @include tabletS {
+        padding-right: 5px;
+      }
+
+      &-views {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding-right: 20px;
+        font-size: 0.6rem;
+        &-icon {
+          width: 15px;
+          height: 15px;
+          margin-right: 0.2rem;
 
-        &-views {
-          display: flex;
-          img {
-            width: 15px;
-            height: 15px;
-            margin-right: 5px;
+          @include tabletS {
+            width: 12px;
+            height: 12px;
           }
         }
       }

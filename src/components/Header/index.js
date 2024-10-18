@@ -9,16 +9,18 @@ export const Header = ({ isNavVisible, setIsNavVisible }) => {
   };
 
   return (
-    <header className='header'>
-      <Logo />
-      <button
-        className={`burger-button ${isNavVisible ? "active" : ""}`}
-        onClick={handleBurgerClick}
-      >
-        <div />
-        <div />
-        <div />
-      </button>
-    </header>
+    <div className='header-wrapper'>
+      <header className='header'>
+        <Logo />
+        <button
+          className={`burger-button ${isNavVisible ? "active" : ""}`}
+          onClick={handleBurgerClick}
+        >
+          <div />
+          <div />
+          <div />
+        </button>
+      </header>
+    </div>
   );
 };

@@ -96,60 +96,69 @@ const Navigation = ({ token, user, isNavVisible, setIsNavVisible }) => {
       return GuestImage;
     }
   };
+
   return (
-    <div
-      className={`navigation ${isNavVisible ? "active" : ""}`}
-      style={isNavVisible ? { display: "flex" } : {}}
-    >
-      <Logo />
+    <div className={`navigation-wrapper ${isNavVisible ? "active" : ""}`}>
+      {isNavVisible && (
+        <div
+          className='translucent-layer'
+          onClick={() => setIsNavVisible(false)}
+        />
+      )}
+      <div
+        className={`navigation }`}
+        style={isNavVisible ? { display: "flex" } : {}}
+      >
+        <Logo />
 
-      {/* NAV ITEMS */}
-      <div className='nav-items'>
-        {navItems.map((item) => (
-          <div className='nav-item-wrapper' key={item.id}>
-            <Link
-              to={`/${item.id}`}
-              className={pickNavItemClass(item.id)}
-              onClick={() => navItemClickHandler(item.id)}
-            >
-              <CustomSvg
-                name={item.icon}
-                width={"24"}
-                height={"24"}
-                color={pickSVGColor(item.id)}
-                className='nav-item-icon'
-              />
-              {item.name}
-            </Link>
+        {/* NAV ITEMS */}
+        <div className='nav-items'>
+          {navItems.map((item) => (
+            <div className='nav-item-wrapper' key={item.id}>
+              <Link
+                to={`/${item.id}`}
+                className={pickNavItemClass(item.id)}
+                onClick={() => navItemClickHandler(item.id)}
+              >
+                <CustomSvg
+                  name={item.icon}
+                  width={"24"}
+                  height={"24"}
+                  color={pickSVGColor(item.id)}
+                  className='nav-item-icon'
+                />
+                {item.name}
+              </Link>
 
-            {/* Add round border to selected Nav item */}
-            {pathname.split("/")[1] === item.id && (
-              <div className={"selected-border-radius"} />
-            )}
-          </div>
-        ))}
-      </div>
+              {/* Add round border to selected Nav item */}
+              {pathname.split("/")[1] === item.id && (
+                <div className={"selected-border-radius"} />
+              )}
+            </div>
+          ))}
+        </div>
 
-      {/* USER ITEM */}
-      <div className={"user-item-wrapper"}>
-        <Link
-          to={token ? "/user" : "/login"}
-          onClick={() => navItemClickHandler("user")}
-          className={`user-item ${
-            pathname.split("/")[1] === "user" && "user-item-selected"
-          }`}
-        >
-          <div className={"image-wrapper"}>
-            <img src={getUserImage()} className={"user-image"} alt='user' />
-          </div>
-          <p className={"user-name"}>
-            {user ? user.name + " " + user.surname : "Guest"}
-          </p>
-        </Link>
+        {/* USER ITEM */}
+        <div className={"user-item-wrapper"}>
+          <Link
+            to={token ? "/user" : "/login"}
+            onClick={() => navItemClickHandler("user")}
+            className={`user-item ${
+              pathname.split("/")[1] === "user" && "user-item-selected"
+            }`}
+          >
+            <div className={"image-wrapper"}>
+              <img src={getUserImage()} className={"user-image"} alt='user' />
+            </div>
+            <p className={"user-name"}>
+              {user ? user.name + " " + user.surname : "Guest"}
+            </p>
+          </Link>
 
-        {pathname.split("/")[1] === "user" && (
-          <div className={"selected-border-radius"} />
-        )}
+          {pathname.split("/")[1] === "user" && (
+            <div className={"selected-border-radius"} />
+          )}
+        </div>
       </div>
     </div>
   );

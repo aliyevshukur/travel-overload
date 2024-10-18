@@ -1,10 +1,18 @@
+@import "../../../styles/media-queries.scss";
+
 .card-author {
   display: flex;
   align-items: center;
   justify-self: end;
+  height: 30px;
+  max-width: 100px;
+
+  @include tabletS {
+    height: 25px;
+  }
 
   .author-image {
-    width: 30px;
+    height: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 50%;
@@ -12,9 +20,10 @@
   }
 
   .author-content {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
     .author-name {
       font-size: 0.7rem;

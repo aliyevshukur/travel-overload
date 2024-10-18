@@ -36,7 +36,7 @@ export const BlogCard = connect(mapStateToProps)(
 
     return (
       <div
-        className={"blog-card " + (mini ? "blog-card-mini " : "") + className}
+        className={"blogcard " + (mini ? "blogcard-mini " : "") + className}
         onClick={() => {
           history.push(`/blogs/${blog._id}`);
         }}
@@ -45,19 +45,22 @@ export const BlogCard = connect(mapStateToProps)(
         <img
           src={thumbnailImage}
           alt='card'
-          className={"blog-card-image " + (mini && "blog-card-image-mini")}
+          className={"blogcard-image " + (mini && "blogcard-image-mini")}
         />
         <div
-          className={"blog-card-content " + (mini && "blog-card-content-mini")}
+          className={"blogcard-content " + (mini && "blogcard-content-mini")}
         >
-          <h2 className={"blog-card-title " + (mini && "blog-card-title-mini")}>
-            {truncateText(title, 50)}
+          <h2
+            className={
+              "blogcard-content-title " +
+              (mini && "blogcard-content-title-mini")
+            }
+          >
+            {title}
           </h2>
 
-          {!mini && (
-            <p className='blog-card-context'>{truncateText(context, 150)}</p>
-          )}
-          <div className='blog-card-context-bottom'>
+          {!mini && <p className='blogcard-content-description'>{context}</p>}
+          <div className='blogcard-content-bottom'>
             <CardAuthor
               authorInfo={{
                 postDate,
@@ -65,8 +68,12 @@ export const BlogCard = connect(mapStateToProps)(
                 authorImage: author?.profilePicture,
               }}
             />
-            <div className='blog-card-context-bottom-views'>
-              <img src={Eye} alt='eye' />
+            <div className='blogcard-content-bottom-views'>
+              <img
+                src={Eye}
+                alt='eye'
+                className='blogcard-content-bottom-views-icon'
+              />
               <p>{blog.views}</p>
             </div>
           </div>
