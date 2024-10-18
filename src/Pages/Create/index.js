@@ -10,7 +10,7 @@ import "../Create/style.scss";
 import ModalAdd from "./components/ModalAdd";
 import TextField from "./components/TextField";
 
-const Create = ({ dispatch, isTabletMode, user }) => {
+const Create = ({ dispatch, user, isTabletMode }) => {
   const [fields, setFields] = useState([
     { id: 0, type: "text", text: "" }, // Title field
     { id: 1, type: "image", url: "" }, // Thumbnail field
@@ -18,7 +18,7 @@ const Create = ({ dispatch, isTabletMode, user }) => {
   ]);
   const [modalFields, setModalFields] = useState(false);
   const history = useHistory();
-  console.log(`User, ${JSON.stringify(user)}`);
+  // console.log(`User, ${JSON.stringify(user)}`);
   const addTextField = () => {
     setModalFields(false);
     let id = 0;
@@ -100,7 +100,7 @@ const Create = ({ dispatch, isTabletMode, user }) => {
     }
 
     const blog = formatBlogData();
-    console.log(JSON.stringify(blog));
+    // console.log("Formatted blog: " + JSON.stringify(blog));
     dispatch(postBlog(blog));
     history.push("/new");
   }
@@ -115,7 +115,7 @@ const Create = ({ dispatch, isTabletMode, user }) => {
       thumbnailImage: fields[1].url,
       postDate: unixTimestamp,
       author: user._id,
-      viewCount: 0,
+      views: 0,
     };
 
     return blog;

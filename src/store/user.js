@@ -26,7 +26,7 @@ export const MODULE_NAME = "user";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const guest = {
-  userId: null,
+  _id: null,
   name: "Guest",
   surname: "",
   email: null,
