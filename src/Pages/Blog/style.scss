@@ -21,7 +21,7 @@
   background-color: white;
   line-height: 1.5rem;
 
-  .side-panel {
+  .sidepanel {
     width: 20%;
     height: 100vh;
     padding: 10px 20px;
@@ -32,6 +32,11 @@
     overflow-y: auto;
     overflow-x: hidden;
 
+    &-title {
+      align-self: flex-start;
+      margin-bottom: 10px;
+    }
+
     @include desktop {
       display: none;
     }
@@ -41,10 +46,10 @@
     width: 80%;
     border-radius: 0px 50px 50px 0px;
     background-color: $primary-darker;
-    padding: 55px 120px 55px 70px;
     overflow: auto;
     font-family: "Roboto", "sans-serif";
     scrollbar-width: none;
+    padding: 55px 70px;
 
     &:-webkit-scrollbar {
       display: none; /* Safari and Chrome */
@@ -55,7 +60,10 @@
     }
 
     @include tablet {
-      padding: 55px 70px;
+      border-radius: 0px;
+    }
+    @include tabletS {
+      padding: 55px 50px;
     }
 
     &-header {
@@ -63,6 +71,7 @@
 
       @include laptop {
         flex-direction: column;
+        border-bottom: 1px solid $secondary;
       }
 
       &-image {
@@ -73,7 +82,7 @@
         align-self: center;
 
         @include laptop {
-          width: 70%;
+          width: 100%;
           height: auto;
           margin-bottom: 40px;
         }
@@ -83,9 +92,12 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        justify-content: space-between;
-        height: 250px;
+        // height: 250px;
         margin-left: 20px;
+
+        @include laptop {
+          margin-left: 0px;
+        }
 
         &-title {
           font-size: 1.3rem;
@@ -120,7 +132,7 @@
       align-items: flex-start;
 
       &-text {
-        font-size: 17px;
+        font-size: 1rem;
         margin-top: 40px;
       }
 
@@ -131,10 +143,8 @@
       }
     }
 
-    &-card-author {
+    &-author {
       margin-top: 40px;
-      width: 200px;
-      padding: 30px 0px;
     }
   }
 }

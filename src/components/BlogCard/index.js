@@ -68,14 +68,16 @@ export const BlogCard = connect(mapStateToProps)(
                 authorImage: author?.profilePicture,
               }}
             />
-            <div className='blogcard-content-bottom-views'>
-              <img
-                src={Eye}
-                alt='eye'
-                className='blogcard-content-bottom-views-icon'
-              />
-              <p>{blog.views}</p>
-            </div>
+            {!mini && (
+              <div className='blogcard-content-bottom-views'>
+                <img
+                  src={Eye}
+                  alt='eye'
+                  className='blogcard-content-bottom-views-icon'
+                />
+                <p>{blog.views}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

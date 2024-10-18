@@ -32,7 +32,7 @@ export const Blog = connect(mapStateToProps)(
 
     useEffect(() => {
       dispatch(fetchBlog(id));
-      dispatch(fetchBlogs());
+      dispatch(fetchBlogs("newest"));
     }, [dispatch, id]);
 
     if (
@@ -84,17 +84,18 @@ export const Blog = connect(mapStateToProps)(
               } else return <></>;
             })}
           </div>
-          <CardAuthor
-            authorInfo={{
-              postDate: postDate,
-              author: author.name + " " + author.surname,
-              authorImage: author.profilePicture,
-            }}
-            className={"blog-card-author"}
-          />
+          <div className='blog-author'>
+            <CardAuthor
+              authorInfo={{
+                postDate: postDate,
+                author: author.name + " " + author.surname,
+                authorImage: author.profilePicture,
+              }}
+            />
+          </div>
         </div>
-        <div className='side-panel'>
-          <h3>Newly posted blogs</h3>
+        <div className='sidepanel'>
+          <h3 className='sidepanel-title'>Recent posts</h3>
           {blogs.map((blog, ind) => (
             <BlogCard cardInfo={blog} mini={true} key={ind} />
           ))}
