@@ -55,8 +55,8 @@ const initialState = {
 };
 
 export const getUser = (state) => state[MODULE_NAME].user;
-export const getUserBlogs = (store) => store[MODULE_NAME].blogs;
 
+// Profile picture upload
 export const getProfilePictureUploadLoading = (store) =>
   store[MODULE_NAME].profilePictureUploadloading;
 export const getProfilePictureUploadError = (store) =>
@@ -64,6 +64,7 @@ export const getProfilePictureUploadError = (store) =>
 export const getProfilePictureUploadSuccess = (store) =>
   store[MODULE_NAME].profilePictureUploadSuccess;
 
+// Password change
 export const getPasswordChangeLoading = (store) =>
   store[MODULE_NAME].passwordChangeLoading;
 export const getPasswordChangeError = (store) =>
@@ -71,13 +72,19 @@ export const getPasswordChangeError = (store) =>
 export const getPasswordChangeSuccess = (store) =>
   store[MODULE_NAME].passwordChangeSuccess;
 
+// Name change
 export const getNameChangeLoading = (store) =>
   store[MODULE_NAME].nameChangeLoading;
 export const getNameChangeError = (store) => store[MODULE_NAME].nameChangeError;
 export const getNameChangeSuccess = (store) =>
   store[MODULE_NAME].nameChangeSuccess;
 
-// Reducer
+// User blogs
+export const getUserBlogsLoading = (store) => store[MODULE_NAME].blogsLoading;
+export const getUserBlogsError = (store) => store[MODULE_NAME].blogsError;
+export const getUserBlogs = (store) => store[MODULE_NAME].blogs;
+
+// REDUCER
 export const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case SET_USER:
@@ -272,10 +279,10 @@ export const uploadProfilePicture = (profilePictureUrl) => {
   };
 };
 
-export const fetchUserBlogs = (userId) => {
+export const fetchUserBlogs = () => {
   return (dispatch) => {
     dispatch(setUserBlogsStart());
-    fetch(`${API_URL}/user/blogs/`, {
+    fetch(`${API_URL}/user/blogs`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -290,7 +297,7 @@ export const fetchUserBlogs = (userId) => {
           dispatch(setUserBlogsSuccess(result.blogs));
         }
       })
-      .catch((message) => dispatch(setUserBlogsError(message)));
+      .catch((error) => dispatch(setUserBlogsError(error.message)));
   };
 };
 

@@ -1,40 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { BlogCard, PageTitle } from "../../components";
 import { Loader } from "../../components/Loader";
-import { getBreakpoints, getWindowWidth } from "../../store/appState";
-import { fetchBlogs, getBlogs, isLoading } from "../../store/blogs";
 import {
-  fetchUser,
+  fetchUserBlogs,
   getProfilePictureUploadError,
   getProfilePictureUploadLoading,
   getUser,
+  getUserBlogs,
+  getUserBlogsError,
+  getUserBlogsLoading,
   uploadProfilePicture,
 } from "../../store/user";
 import "./style.scss";
 import UserPanel from "./UserPanel";
 
 const mapStateToProps = (store) => ({
-  breakpoints: getBreakpoints(store),
-  windowWidth: getWindowWidth(store),
-  blogs: getBlogs(store),
-  isLoading: isLoading(store),
   user: getUser(store),
+
   profilePictureUploadLoading: getProfilePictureUploadLoading(store),
   profilePictureUploadError: getProfilePictureUploadError(store),
+
+  blogs: getUserBlogs(store),
+  blogsLoading: getUserBlogsLoading(store),
+  blogsError: getUserBlogsError(store),
 });
 
 export const UserPage = connect(mapStateToProps)(
   ({
-    blogs,
-    isLoading,
     dispatch,
     user,
     profilePictureUploadLoading,
     profilePictureUploadError,
+    blogsLoading,
+    blogsError,
+    blogs,
   }) => {
     useEffect(() => {
-      dispatch(fetchBlogs());
+      dispatch(fetchUserBlogs());
     }, [dispatch]);
 
     useEffect(() => {
@@ -45,24 +48,13 @@ export const UserPage = connect(mapStateToProps)(
         alert(profilePictureUploadError);
       }
     }, [profilePictureUploadError]);
-
+    console.log(`User blogs ${JSON.stringify(blogs)}`);
     function handleImageChange(imageUrl) {
       dispatch(uploadProfilePicture(imageUrl));
     }
     // console.log(`User ${JSON.stringify(user)}`);
     if (profilePictureUploadError) {
       console.log(`Profile picture upload error :${profilePictureUploadError}`);
-    }
-    if (isLoading) {
-      return (
-        <div className='user-page-wrapper'>
-          <div className='user-page'>
-            <div className='user-page-blog-list'>
-              <Loader />
-            </div>
-          </div>
-        </div>
-      );
     }
 
     return (
@@ -75,15 +67,23 @@ export const UserPage = connect(mapStateToProps)(
             </div>
           </div>
           <div className='user-page-blog-list'>
-            {blogs.map((item, ind) => {
-              return (
-                <BlogCard
-                  key={ind}
-                  cardInfo={item}
-                  className='user-page-blog-list-item'
-                />
-              );
-            })}
+            {!blogsLoading ? (
+              blogs.length !== 0 ? (
+                blogs.map((item, ind) => {
+                  return (
+                    <BlogCard
+                      key={ind}
+                      cardInfo={item}
+                      className='user-page-blog-list-item'
+                    />
+                  );
+                })
+              ) : (
+                <p>No posts</p>
+              )
+            ) : (
+              <Loader />
+            )}
           </div>
         </div>
         <UserPanel

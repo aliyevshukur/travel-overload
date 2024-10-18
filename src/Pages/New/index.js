@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 
 export const New = connect(mapStateToProps)(({ blogs, loading, dispatch }) => {
   useEffect(() => {
-    dispatch(fetchBlogs());
+    dispatch(fetchBlogs("newest"));
   }, [dispatch]);
   return <BlogList blogs={blogs} loading={loading} title='Latest Blogs' />;
 });

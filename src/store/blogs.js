@@ -2,6 +2,7 @@
 const FETCH_BLOGS_START = "FETCH_BLOGS_START";
 const FETCH_BLOGS_SUCCESS = "FETCH_BLOGS_SUCCESS";
 const FETCH_BLOGS_ERROR = "FETCH_BLOGS_ERROR";
+
 const POST_BLOG_START = "POST_BLOG_START";
 const POST_BLOG_SUCCESS = "POST_BLOG_SUCCESS";
 const POST_BLOG_ERROR = "POST_BLOG_ERROR";
@@ -94,10 +95,18 @@ export const postBlogError = (payload) => ({
 });
 
 // Middlewares
-export const fetchBlogs = () => {
+
+function handleErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+}
+
+export const fetchBlogs = (order) => {
   return (dispatch) => {
     dispatch(fetchBlogsStart());
-    fetch(`${API_URL}/blogs`)
+    fetch(`${API_URL}/blogs/${order}`)
       .then(handleErrors)
       .then((res) => res.json())
       .then((result) => {
@@ -130,9 +139,18 @@ export const postBlog = (blog) => {
   };
 };
 
-function handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-}
+export const increaseView = (id) => {
+  fetch(`${API_URL}/blogs/view/${id}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then(handleErrors)
+    .then((res) => res.json())
+    .then((result) => {
+      console.log(`View count increased: ${result.views}`);
+    })
+    .catch((e) => console.log(e.message));
+};

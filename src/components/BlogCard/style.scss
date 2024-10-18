@@ -127,6 +127,22 @@
       flex-grow: 1;
       text-wrap: wrap;
       text-justify: inter-word;
+
+      &-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 20px;
+
+        &-views {
+          display: flex;
+          img {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+          }
+        }
+      }
     }
   }
 }

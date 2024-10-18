@@ -12,8 +12,8 @@ const mapStateToProps = (state) => ({
 export const Popular = connect(mapStateToProps)(
   ({ blogs, loading, dispatch }) => {
     useEffect(() => {
-      dispatch(fetchBlogs());
+      dispatch(fetchBlogs("popular"));
     }, [dispatch]);
-    return <BlogList blogs={blogs} loading={loading} title="Popular Blogs" />;
-  }
+    return <BlogList blogs={blogs} loading={loading} title='Popular Blogs' />;
+  },
 );
