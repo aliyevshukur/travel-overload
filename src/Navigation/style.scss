@@ -104,6 +104,7 @@
           font-weight: 500;
           transition: 0.2s;
           user-select: none;
+          z-index: 1;
 
           &:hover {
             transform: translate(10px);

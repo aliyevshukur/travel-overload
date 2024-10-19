@@ -12,9 +12,9 @@ const mapStateToProps = (store) => ({
 
 export const BlogCard = connect(mapStateToProps)(
   ({ cardInfo: blog, className = "", mini = false }) => {
-    const { thumbnailImage, title, postDate, author } = blog;
-    const { context: contextRaw } = blog;
-    let context = contextRaw[2].text;
+    const { thumbnailImage, title = "", postDate = "", author = {} } = blog;
+    const { context } = blog;
+    let description = context[2]?.text || "No description";
 
     const history = useHistory();
 
@@ -25,13 +25,6 @@ export const BlogCard = connect(mapStateToProps)(
         backgroundSize: "cover", // Adjusts the size of the image
         backgroundPosition: "center", // Centers the image
       };
-    }
-
-    function truncateText(context, length) {
-      if (context.length > length) {
-        return context.substring(0, length) + "...";
-      }
-      return context;
     }
 
     return (
@@ -59,7 +52,9 @@ export const BlogCard = connect(mapStateToProps)(
             {title}
           </h2>
 
-          {!mini && <p className='blogcard-content-description'>{context}</p>}
+          {!mini && (
+            <p className='blogcard-content-description'>{description}</p>
+          )}
           <div className='blogcard-content-bottom'>
             <CardAuthor
               authorInfo={{

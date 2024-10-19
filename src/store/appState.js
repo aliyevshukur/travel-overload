@@ -11,6 +11,7 @@ const initalState = {
   isTabletMode: window.innerWidth <= 768,
   windowWidth: window.innerWidth,
   breakpoints: {
+    tabletS: 550,
     tablet: 768,
     laptop: 1024,
     laptopM: 1200,

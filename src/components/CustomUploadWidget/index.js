@@ -15,6 +15,7 @@ export function CustomUploadWidget({
   required = false,
   className,
   showPreview = true,
+  buttonText = "Upload image",
 }) {
   //CLOUDINARY
   const cld = initCloudinary();
@@ -69,11 +70,10 @@ export function CustomUploadWidget({
     <CloudinaryScriptContext.Provider value={{ loaded }}>
       <CustomButton
         id='upload_widget'
-        className={`button ${className}`}
+        className={`upload-widget-button ${className}`}
         onClick={initializeCloudinaryWidget}
         disabled={isLoading}
-        title={isLoading ? "Loading..." : "Upload image"}
-        style={{ fontSize: "0.8em" }}
+        title={isLoading ? "Loading..." : buttonText}
       />
 
       {myImage && showPreview && (

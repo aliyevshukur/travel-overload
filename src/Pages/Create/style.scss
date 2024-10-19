@@ -10,11 +10,17 @@ b {
 }
 
 .create {
+  display: flex;
+  flex-direction: column;
   padding: 40px 60px 0px 60px;
   background-color: $primary-darker;
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
+
+  @include mobileL {
+    padding: 40px 30px 0px 30px;
+  }
 
   .create-header {
     width: 100%;
@@ -115,25 +121,10 @@ b {
       }
     }
   }
-  .details {
-    width: 80%;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    .details-one {
-      display: flex;
-      flex-direction: column;
-    }
-    .details-two {
-      display: flex;
-      flex-direction: column;
-      &-item {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-        justify-content: space-between;
-      }
-    }
+
+  .create-post {
+    align-self: flex-end;
+    width: 100px;
+    height: 40px;
   }
 }

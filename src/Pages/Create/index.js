@@ -127,46 +127,40 @@ const Create = ({ dispatch, user, isTabletMode }) => {
       onSubmit={createBlog}
     >
       <div className={"create-header"}>
-        {isTabletMode && (
-          <CustomButton
-            title={"Post"}
-            className={"actions-post"}
-            type={"submit"}
-          />
-        )}
         <h1 className={"title-text"}>Title</h1>
-        <div className='row-wrapper'>
-          <div className={"title"}>
-            <TextField
-              field={fields[0]}
-              isTitle={true}
-              handleTextChange={handleTextChange}
-              className={"title-input"}
-              required={true}
-            />
-          </div>
-          {!isTabletMode && (
-            <CustomButton
-              title={"Post"}
-              className={"actions-post"}
-              type={"submit"}
-            />
-          )}
+        <div className={"title"}>
+          <TextField
+            field={fields[0]}
+            isTitle={true}
+            handleTextChange={handleTextChange}
+            className={"title-input"}
+            required={true}
+          />
+        </div>
+        <h1 className={"title-text"}>Description</h1>
+        <div className={"title"}>
+          <TextField
+            field={fields[2]}
+            isTitle={true}
+            handleTextChange={handleTextChange}
+            className={"title-input"}
+            required={true}
+          />
         </div>
       </div>
-      <h4 className='thumbnail-title'>Please upload thumbnail image</h4>
       <CustomUploadWidget
         handleImageChange={handleImageChange}
         isThumbnail={true}
         id={1}
         required={true}
+        buttonText='Upload thumbnail'
       />
 
       <div className='seperator' />
 
       <div className={"content"} onClick={(e) => clickedAside(e)}>
         <div className={"fields"}>
-          {fields.slice(2).map((field) => {
+          {fields.slice(3).map((field) => {
             if (field.id === 0) {
               return field;
             }
@@ -178,7 +172,6 @@ const Create = ({ dispatch, user, isTabletMode }) => {
                     deleteField={deleteField}
                     handleTextChange={handleTextChange}
                     key={field.id}
-                    required={field.id === 2}
                   />
                 );
               case "image":
@@ -210,6 +203,7 @@ const Create = ({ dispatch, user, isTabletMode }) => {
           </div>
         </div>
       </div>
+      <CustomButton title={"Post"} className={"create-post"} type={"submit"} />
     </form>
   );
 };

@@ -1,9 +1,12 @@
 @import "../../styles/theme";
 
-.button {
-  width: 100px;
+.upload-widget-button {
   background-color: $secondary;
   margin-bottom: 30px;
+  height: 40px;
+  width: 120px;
+  padding: 2px 10px;
+  font-size: 12px;
 }
 
 .image {

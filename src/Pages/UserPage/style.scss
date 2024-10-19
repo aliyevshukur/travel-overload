@@ -9,6 +9,16 @@
   display: flex;
   justify-content: space-between;
 
+  .translucent-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+  }
+
   .user-page {
     width: 100%;
     background-color: $primary-darker;
@@ -29,10 +39,11 @@
       align-items: center;
       margin-bottom: 30px;
 
-      .picture-wrapper {
+      &-button {
         display: none;
         width: 50px;
-        height: 50px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
         border-radius: 25px;
         background: #ffffff;
         border: 2px solid $secondary;

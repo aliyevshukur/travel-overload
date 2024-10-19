@@ -24,6 +24,8 @@ const UserPanel = ({
   dispatch,
   profilePictureUploadLoading,
   nameSuccess,
+  isPanelVisible,
+  setIsPanelVisible,
 }) => {
   const [isNameModalOpen, setNameIsModalOpen] = useState(false);
   const [isPasswordModalOpen, setPasswordIsModalOpen] = useState(false);
@@ -48,7 +50,7 @@ const UserPanel = ({
   };
 
   return (
-    <div className='user-panel'>
+    <div className={`user-panel ${isPanelVisible ? "active" : ""}`}>
       {isNameModalOpen && (
         <ModalWindow
           setIsModalOpen={setNameIsModalOpen}

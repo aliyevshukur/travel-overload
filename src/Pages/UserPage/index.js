@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { BlogCard, PageTitle } from "../../components";
 import { Loader } from "../../components/Loader";
+import { isTabletMode } from "../../store/appState";
 import {
   fetchUserBlogs,
   getProfilePictureUploadError,
@@ -24,6 +25,8 @@ const mapStateToProps = (store) => ({
   blogs: getUserBlogs(store),
   blogsLoading: getUserBlogsLoading(store),
   blogsError: getUserBlogsError(store),
+
+  isTabletMode: isTabletMode(store),
 });
 
 export const UserPage = connect(mapStateToProps)(
@@ -35,7 +38,10 @@ export const UserPage = connect(mapStateToProps)(
     blogsLoading,
     blogsError,
     blogs,
+    isTabletMode,
   }) => {
+    const [isPanelVisible, setIsPanelVisible] = useState(false);
+
     useEffect(() => {
       dispatch(fetchUserBlogs());
     }, [dispatch]);
@@ -59,10 +65,19 @@ export const UserPage = connect(mapStateToProps)(
 
     return (
       <div className='user-page-wrapper'>
+        {isPanelVisible && (
+          <div
+            className='translucent-layer'
+            onClick={() => setIsPanelVisible(false)}
+          />
+        )}
         <div className='user-page'>
           <div className='user-page-header'>
             <PageTitle title='Your posts' />
-            <div className='picture-wrapper'>
+            <div
+              className='user-page-header-button'
+              onClick={() => setIsPanelVisible(!isPanelVisible)}
+            >
               <img src={user.profilePicture} alt='' className='user-picture' />
             </div>
           </div>
@@ -93,6 +108,8 @@ export const UserPage = connect(mapStateToProps)(
           userId={user.userId}
           handleImageChange={handleImageChange}
           profilePictureUploadLoading={profilePictureUploadLoading}
+          isPanelVisible={isPanelVisible}
+          setIsPanelVisible={setIsPanelVisible}
         />
       </div>
     );
