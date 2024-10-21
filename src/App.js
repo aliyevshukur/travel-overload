@@ -15,7 +15,7 @@ const App = ({ dispatch }) => {
   // Login user if token exists in localstorage
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("User exists");
+    // console.log("User exists");
     if (token) {
       dispatch(fetchUser());
       dispatch(setToken(token));

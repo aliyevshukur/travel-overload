@@ -28,7 +28,7 @@ export const Login = connect(mapStateToProps)(({ dispatch, token, user }) => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    console.log(`User info ${JSON.stringify(userInfo)}`);
+    // console.log(`User info ${JSON.stringify(userInfo)}`);
     const url = `${process.env.REACT_APP_API_URL}/auth/login`;
     fetch(url, {
       method: "POST",

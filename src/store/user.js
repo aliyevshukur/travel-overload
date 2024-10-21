@@ -239,16 +239,16 @@ export const passwordChangeError = (payload) => ({
   payload: payload,
 });
 
-export const changeNameStart = () => ({
+export const nameChangeStart = () => ({
   type: NAME_CHANGE_START,
 });
 
-export const changeNameSuccess = (payload) => ({
+export const nameChangeSuccess = (payload) => ({
   type: NAME_CHANGE_SUCCESS,
   payload,
 });
 
-export const changeNameError = (payload) => ({
+export const nameChangeError = (payload) => ({
   type: NAME_CHANGE_ERROR,
   payload: payload,
 });
@@ -303,7 +303,7 @@ export const fetchUserBlogs = () => {
 
 export const fetchUser = () => {
   return (dispatch) => {
-    console.log("New user fetch started");
+    // console.log("New user fetch started");
     fetch(`${API_URL}/user`, {
       method: "GET",
       headers: {
@@ -316,7 +316,7 @@ export const fetchUser = () => {
       .then((res) => res.json())
       .then((result) => {
         if (result.ok) {
-          console.log("Fetched new user info");
+          // console.log("Fetched new user info");
           dispatch(setUser(result.user));
         } else {
           console.log(`Something went wrong ${result.message}`);
@@ -357,7 +357,7 @@ export const changePassword = (newPassword, oldPassword) => {
 
 export const changeName = (name, surname, password) => {
   return (dispatch) => {
-    dispatch(changeNameStart());
+    dispatch(nameChangeStart());
     fetch(`${API_URL}/user/name`, {
       method: "POST",
       headers: {
@@ -371,13 +371,13 @@ export const changeName = (name, surname, password) => {
       .then((res) => res.json())
       .then((result) => {
         if (result.ok) {
-          dispatch(changeNameSuccess(result.message));
+          dispatch(nameChangeSuccess(result.message));
           dispatch(fetchUser());
         } else {
-          dispatch(changeNameError(result.message));
+          dispatch(nameChangeError(result.message));
         }
       })
-      .catch((error) => dispatch(changeNameError(error.message)));
+      .catch((error) => dispatch(nameChangeError(error.message)));
   };
 };
 

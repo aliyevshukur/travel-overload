@@ -9,7 +9,7 @@ const POST_BLOG_ERROR = "POST_BLOG_ERROR";
 
 export const MODULE_NAME = "blogs";
 const API_URL = process.env.REACT_APP_API_URL;
-console.log(`CURRENT API URL ${API_URL}`);
+// console.log(`CURRENT API URL ${API_URL}`);
 
 export const getBlogs = (state) => state[MODULE_NAME].blogs;
 export const isLoading = (state) => state[MODULE_NAME].loading;
@@ -150,7 +150,7 @@ export const increaseView = (id) => {
     .then(handleErrors)
     .then((res) => res.json())
     .then((result) => {
-      console.log(`View count increased: ${result.views}`);
+      // console.log(`View count increased: ${result.views}`);
     })
     .catch((e) => console.log(e.message));
 };

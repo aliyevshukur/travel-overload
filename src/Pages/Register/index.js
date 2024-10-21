@@ -66,9 +66,9 @@ export const Register = connect(mapStateToProps)(
         [inputError.input]: inputError.message,
       });
 
-      console.log(`Error: ${JSON.stringify(inputErrors)}`);
-      console.log(`Server Error: ${JSON.stringify(serverError)}`);
-      console.log(`User Info: ${JSON.stringify(userInfo)}`);
+      // console.log(`Error: ${JSON.stringify(inputErrors)}`);
+      // console.log(`Server Error: ${JSON.stringify(serverError)}`);
+      // console.log(`User Info: ${JSON.stringify(userInfo)}`);
     };
 
     const onFormSubmit = (e) => {
@@ -86,7 +86,7 @@ export const Register = connect(mapStateToProps)(
         password: passwordError.message,
       });
 
-      console.log(JSON.stringify(userInfo));
+      // console.log(JSON.stringify(userInfo));
       const hasInputError = Object.values(inputErrors).some(
         (value) => value !== "",
       );

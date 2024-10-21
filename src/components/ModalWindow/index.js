@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import connect from "react-redux/es/connect/connect";
 import {
+  changePassword,
   getNameChangeError,
   getNameChangeLoading,
   getNameChangeSuccess,
@@ -8,6 +9,8 @@ import {
   getPasswordChangeLoading,
   getPasswordChangeSuccess,
   getUser,
+  nameChangeError,
+  passwordChangeError,
 } from "../../store/user";
 import { validateInput } from "../../utils/validateInput";
 import { CustomButton } from "../CustomButton";
@@ -29,8 +32,8 @@ function ModalWindow({
   passwordLoading,
   passwordSuccess,
 }) {
-  console.log(`Password success ${passwordSuccess}`);
-  console.log(`Password errror ${passwordError}`);
+  // console.log(`Password success ${passwordSuccess}`);
+  // console.log(`Password errror ${passwordError}`);
   const [nameFieldValues, setNameFieldValues] = useState({
     name: "",
     surname: "",
@@ -98,6 +101,14 @@ function ModalWindow({
 
   const closeModal = (e) => {
     if (e.currentTarget === e.target) {
+      if (formType === "name") {
+        dispatch(nameChangeError(null));
+      }
+
+      if (formType === "password") {
+        dispatch(passwordChangeError(null));
+      }
+
       setIsModalOpen(false);
     }
   };
@@ -165,11 +176,11 @@ function ModalWindow({
     //   }`,
     // );
 
-    console.log(
-      `Fetched ${
-        passwordFieldValues.oldPassword + " " + passwordFieldValues.newPassword
-      }`,
-    );
+    // console.log(
+    //   `Fetched ${
+    //     passwordFieldValues.oldPassword + " " + passwordFieldValues.newPassword
+    //   }`,
+    // );
 
     if (formType === "name") {
       onSubmit(
