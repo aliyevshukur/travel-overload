@@ -221,6 +221,7 @@ function ModalWindow({
           <InputField
             key={field.id}
             fieldName={field.name}
+            placeholder={field.placeholder}
             name={field.name}
             type={field.type}
             className={"modalwindow-input"}

@@ -11,6 +11,7 @@ export const InputField = ({
   onChange,
   error = false,
   required = false,
+  placeholder,
 }) => {
   const [fieldType, setFieldType] = useState(type);
   const inputRef = useRef();
@@ -46,7 +47,7 @@ export const InputField = ({
           className={`label ${isFocused && "label-focus"}`}
           htmlFor={fieldName}
         >
-          {fieldName}
+          {placeholder || fieldName}
         </label>
         <input
           type={fieldType ? fieldType : "text"}

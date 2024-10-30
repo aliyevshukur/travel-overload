@@ -19,14 +19,15 @@ html {
 }
 
 .App {
-  height: 100%;
+  // height: 100%;
   position: relative;
   .app-container {
-    min-height: 100%;
-    padding-left: 200px;
+    height: 100%;
+    padding-left: 200px; // Navigation width
     background-color: $primary;
-    @include tablet {
+    @include laptop {
       padding-left: 0;
+      // height: calc(100% - 50px);
     }
   }
 }

@@ -1,70 +1,23 @@
 @import "../../styles/_theme";
 @import "../../styles/media-queries.scss";
+@import "../../styles/login-register.scss";
 
 .login {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-  background-color: $primary-darker;
-
-  @include laptop {
-  }
+  @include page;
 
   .form-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 120px 30px 0px 30px;
-    flex-shrink: 0.5;
+    @include form-wrapper;
 
     .form {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      max-width: 600px;
-
-      .title {
-        margin-bottom: 128px;
-        color: $secondary;
-        text-align: left;
-        font-size: 3.1rem;
-        font-weight: bold;
-        &-span {
-          display: block;
-        }
-      }
-      .action-buttons {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-
-        .google-btn {
-          background-color: white;
-          color: black;
-          border: 2px solid black;
-          line-height: 22px;
-
-          img {
-            width: 24px;
-            height: 24px;
-          }
-        }
-      }
+      @include form;
     }
   }
-  .cover-image-wrapper {
-    height: 100%;
-    margin-left: auto;
 
-    @include laptop {
-      display: none;
-    }
+  .cover-image-wrapper {
+    @include cover-image-wrapper;
 
     .cover-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      @include cover-image;
     }
   }
 }

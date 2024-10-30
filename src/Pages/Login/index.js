@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Cover from "../../assets/cover.jpg";
 import Eye from "../../assets/eye.svg";
 import { CustomButton, InputField } from "../../components";
@@ -85,7 +85,14 @@ export const Login = connect(mapStateToProps)(({ dispatch, token, user }) => {
             onChange={(e) => onChange(e)}
           />
 
-          <CustomButton title='Login' type='submit' />
+          <p className='form-text'>
+            Don't have an account?{" "}
+            <Link className='form-text-link' to='/register'>
+              Sign up
+            </Link>
+          </p>
+
+          <CustomButton title='Login' type='submit' className={"form-button"} />
         </form>
       </div>
 

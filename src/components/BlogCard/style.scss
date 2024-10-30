@@ -2,7 +2,7 @@
 @import "../../styles/media-queries.scss";
 
 .blogcard {
-  width: 560px;
+  width: 650px;
   height: 260px;
   padding: 0.6rem;
 
@@ -15,25 +15,14 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  @include laptopL {
-    width: 450px;
-    height: 200px;
-  }
-
-  @include laptopM {
-    width: 560px;
-    height: 260px;
-  }
-
-  @include laptop {
-    width: 450px;
-    height: 200px;
+  @include tablet {
+    flex-direction: column;
+    width: 500px;
+    height: auto;
   }
 
   @include tabletS {
-    flex-direction: column;
-    width: 350px;
-    height: auto;
+    width: 400px;
   }
 
   @include mobileL {
@@ -89,9 +78,9 @@
     // justify-content: space-between;
     position: relative;
 
-    @include tabletS {
+    @include tablet {
       padding: 0.4rem;
-      padding-top: 1rem;
+      padding-top: 1.3rem;
     }
 
     &-mini {
@@ -101,7 +90,7 @@
     &-title {
       max-height: 2rem;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 1.1rem;
       margin-bottom: 0.8rem;
       position: relative;
       text-wrap: wrap;
@@ -114,10 +103,8 @@
     }
 
     &-description {
-      max-width: 150ch;
-      max-height: 4.9rem;
-      font-size: 0.8rem;
-      line-height: 0.8rem;
+      font-size: 0.9rem;
+      line-height: 1.2rem;
       position: relative;
       flex-grow: 1;
       text-wrap: wrap;

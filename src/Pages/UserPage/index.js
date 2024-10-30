@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { connect } from "react-redux";
 import { BlogCard, PageTitle } from "../../components";
 import { Loader } from "../../components/Loader";
@@ -90,26 +91,30 @@ export const UserPage = connect(mapStateToProps)(
             onClick={() => setIsPanelVisible(false)}
           />
         )}
-        {isNameModalOpen && (
-          <ModalWindow
-            setIsModalOpen={setIsNameModalOpen}
-            formType='name'
-            title='Change your name'
-            onSubmit={(name, surname, password) =>
-              handleNameChange(name, surname, password)
-            }
-          />
-        )}
-        {isPasswordModalOpen && (
-          <ModalWindow
-            setIsModalOpen={setIsPasswordModalOpen}
-            formType='password'
-            title='Change your password'
-            onSubmit={(newPassword, oldPassword) =>
-              handlePassworChange(newPassword, oldPassword)
-            }
-          />
-        )}
+        {isNameModalOpen &&
+          createPortal(
+            <ModalWindow
+              setIsModalOpen={setIsNameModalOpen}
+              formType='name'
+              title='Change your name'
+              onSubmit={(name, surname, password) =>
+                handleNameChange(name, surname, password)
+              }
+            />,
+            document.getElementById("portal"),
+          )}
+        {isPasswordModalOpen &&
+          createPortal(
+            <ModalWindow
+              setIsModalOpen={setIsPasswordModalOpen}
+              formType='password'
+              title='Change your password'
+              onSubmit={(newPassword, oldPassword) =>
+                handlePassworChange(newPassword, oldPassword)
+              }
+            />,
+            document.getElementById("portal"),
+          )}
 
         <div className='user-page'>
           <div className='user-page-header'>

@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
+import back from "../../assets/back.svg";
 import Eye from "../../assets/eye.svg";
-import { BlogCard } from "../../components";
+import { BlogCard, CustomButton, CustomSvg } from "../../components";
 import { CardAuthor } from "../../components/BlogCard/CardAuthor";
 import { Loader } from "../../components/Loader";
 import { fetchBlogs, getBlogs, increaseView } from "../../store/blogs";
@@ -18,6 +22,7 @@ const mapStateToProps = (state) => ({
 export const Blog = connect(mapStateToProps)(
   ({ blog, blogs, loading, dispatch }) => {
     const { id } = useParams();
+    const history = useHistory();
     const {
       title = "",
       author = {},
@@ -49,6 +54,19 @@ export const Blog = connect(mapStateToProps)(
     return (
       <div className='blog-wrapper'>
         <div className='blog'>
+          <CustomButton
+            title='Back'
+            onClick={() => history.goBack()}
+            className={"blog-back-btn"}
+            icon={
+              <CustomSvg
+                name='chervonLeft'
+                width='20'
+                height='20'
+                color='#ffffff'
+              />
+            }
+          />
           <div className='blog-header'>
             <img src={context[1].url} alt='' className={"blog-header-image"} />
             <div className='blog-header-info'>

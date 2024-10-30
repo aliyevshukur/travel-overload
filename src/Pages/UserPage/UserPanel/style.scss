@@ -13,11 +13,14 @@
 
   transition: all 0.3s ease-in-out;
 
-  @include laptop {
+  @include laptopM {
     position: fixed;
     top: 0px;
     right: -300px;
     z-index: 101;
+
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
   }
 
   &.active {

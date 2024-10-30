@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Eye from "../../assets/eye.svg";
 import { isTabletMode } from "../../store/appState";
+import { truncateText } from "../../utils/truncateText";
 import { CardAuthor } from "./CardAuthor";
 import "./style.scss";
 
@@ -53,7 +54,9 @@ export const BlogCard = connect(mapStateToProps)(
           </h2>
 
           {!mini && (
-            <p className='blogcard-content-description'>{description}</p>
+            <p className='blogcard-content-description'>
+              {truncateText(description, 300)}
+            </p>
           )}
           <div className='blogcard-content-bottom'>
             <CardAuthor

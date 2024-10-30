@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Eye from "../../assets/eye.svg";
 import Cover from "../../assets/register-cover.jpg";
 import { CustomButton, InputField } from "../../components";
@@ -152,11 +152,19 @@ export const Register = connect(mapStateToProps)(
               error={inputErrors.password}
               required={true}
             />
+
+            <p className='form-text'>
+              Already have an account?{" "}
+              <Link className='form-text-link' to='/login'>
+                Sign in
+              </Link>
+            </p>
             <CustomButton
-              title='Login'
+              title='Register'
               type='submit'
               loading={loading}
               disabled={!isModified}
+              className={"form-button"}
             />
           </form>
         </div>

@@ -14,7 +14,6 @@
 .blog-wrapper {
   box-sizing: border-box;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   height: 100vh;
   width: 100%;
@@ -49,7 +48,7 @@
     overflow: auto;
     font-family: "Roboto", "sans-serif";
     scrollbar-width: none;
-    padding: 55px 70px;
+    padding: 30px 70px;
 
     &:-webkit-scrollbar {
       display: none; /* Safari and Chrome */
@@ -63,7 +62,15 @@
       border-radius: 0px;
     }
     @include tabletS {
-      padding: 55px 50px;
+      padding: 30px 50px;
+    }
+
+    &-back-btn {
+      width: auto;
+      height: auto;
+      padding: 5px 15px 5px 10px;
+      margin-bottom: 20px;
+      background-color: grey;
     }
 
     &-header {
@@ -146,6 +153,7 @@
 
     &-author {
       margin-top: 40px;
+      display: inline-block;
     }
   }
 }

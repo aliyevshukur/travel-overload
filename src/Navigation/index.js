@@ -62,6 +62,10 @@ const Navigation = ({ token, user, isNavVisible, setIsNavVisible }) => {
   // console.log("User in navigation", user);
 
   const navItemClickHandler = (id) => {
+    if (!token) {
+      return false;
+    }
+
     setIsNavVisible(false);
   };
   const pickNavItemClass = (id) => {
@@ -141,7 +145,7 @@ const Navigation = ({ token, user, isNavVisible, setIsNavVisible }) => {
         {/* USER ITEM */}
         <div className={"user-item-wrapper"}>
           <Link
-            to={token ? "/user" : "/login"}
+            to={`${token ? "/user" : ""}`}
             onClick={() => navItemClickHandler("user")}
             className={`user-item ${
               pathname.split("/")[1] === "user" && "user-item-selected"
