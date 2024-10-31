@@ -45,4 +45,8 @@
     animation: spin 2s linear infinite;
     @include spin;
   }
+
+  &-icon {
+    margin-right: 5px;
+  }
 }

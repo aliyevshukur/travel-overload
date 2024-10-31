@@ -27,13 +27,13 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.7))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.7))(eslint@8.57.1)(jest@27.5.1)(typescript@4.9.5)
       react:
-        specifier: ^16.13.1
+        specifier: ^16.14.0
         version: 16.14.0
       react-dom:
-        specifier: ^16.13.1
+        specifier: ^16.14.0
         version: 16.14.0(react@16.14.0)
       react-redux:
-        specifier: ^7.2.4
+        specifier: ^7.2.9
         version: 7.2.9(react-dom@16.14.0(react@16.14.0))(react@16.14.0)
       react-router-dom:
         specifier: ^5.2.0
@@ -44,9 +44,15 @@ importers:
       react-textarea-autosize:
         specifier: ^8.5.3
         version: 8.5.3(react@16.14.0)
+      react-toastify:
+        specifier: 8.2.0
+        version: 8.2.0(react-dom@16.14.0(react@16.14.0))(react@16.14.0)
+      redux:
+        specifier: ^5.0.1
+        version: 5.0.1
       redux-thunk:
         specifier: ^2.3.0
-        version: 2.4.2(redux@4.2.1)
+        version: 2.4.2(redux@5.0.1)
       sass:
         specifier: ^1.32.0
         version: 1.79.4
@@ -1960,6 +1966,10 @@ packages:
 
   cliui@7.0.4:
     resolution: {integrity: sha512-OcRE68cOsVMXp1Yvonl/fzkQOyjLSu/8bhPDfQt0e0/Eb283TKP20Fs2MqoPsr9SwA595rRCA+QMzYc9nBP+JQ==}
+
+  clsx@1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+    engines: {node: '>=6'}
 
   co@4.6.0:
     resolution: {integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==}
@@ -4676,6 +4686,12 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
 
+  react-toastify@8.2.0:
+    resolution: {integrity: sha512-Pg2Ju7NngAamarFvLwqrFomJ57u/Ay6i6zfLurt/qPynWkAkOthu6vxfqYpJCyNhHRhR4hu7+bySSeWWJu6PAg==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+
   react@16.14.0:
     resolution: {integrity: sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==}
     engines: {node: '>=0.10.0'}
@@ -4713,6 +4729,9 @@ packages:
 
   redux@4.2.1:
     resolution: {integrity: sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==}
+
+  redux@5.0.1:
+    resolution: {integrity: sha512-M9/ELqF6fy8FwmkpnF0S3YKOqMyoWJ4+CS5Efg2ct3oY9daQvd/Pc71FpGZsVsbl3Cpb+IIcjBDUnnyBdQbq4w==}
 
   reflect.getprototypeof@1.0.6:
     resolution: {integrity: sha512-fmfw4XgoDke3kdI6h4xcUz1dG8uaiv5q9gcEwLS4Pnth2kxT+GZ7YehS1JTMGBQmtV7Y4GFGbs2re2NqhdozUg==}
@@ -8194,6 +8213,8 @@ snapshots:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
 
+  clsx@1.2.1: {}
+
   co@4.6.0: {}
 
   coa@2.0.2:
@@ -11441,6 +11462,12 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
+  react-toastify@8.2.0(react-dom@16.14.0(react@16.14.0))(react@16.14.0):
+    dependencies:
+      clsx: 1.2.1
+      react: 16.14.0
+      react-dom: 16.14.0(react@16.14.0)
+
   react@16.14.0:
     dependencies:
       loose-envify: 1.4.0
@@ -11482,13 +11509,15 @@ snapshots:
       indent-string: 4.0.0
       strip-indent: 3.0.0
 
-  redux-thunk@2.4.2(redux@4.2.1):
+  redux-thunk@2.4.2(redux@5.0.1):
     dependencies:
-      redux: 4.2.1
+      redux: 5.0.1
 
   redux@4.2.1:
     dependencies:
       '@babel/runtime': 7.25.7
+
+  redux@5.0.1: {}
 
   reflect.getprototypeof@1.0.6:
     dependencies:

@@ -1,9 +1,8 @@
 @import "../../styles/theme";
-@import "../../styles/base";
 @import "../../styles/media-queries.scss";
 
 .user-page-wrapper {
-  height: 100%;
+  height: 100vh;
   min-height: 100vh;
   overflow: hidden;
   background-color: #ffffff;
@@ -26,12 +25,17 @@
     padding: 40px 50px;
     display: flex;
     flex-direction: column;
-    border-radius: 0 50px 50px 0;
     overflow: scroll;
     scrollbar-width: none;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
 
-    @include laptop {
+    @include laptopM {
       border-radius: 0;
+    }
+
+    @include mobileL {
+      padding: 40px 30px;
     }
 
     &-header {

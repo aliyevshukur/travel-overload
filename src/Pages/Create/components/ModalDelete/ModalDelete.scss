@@ -1,0 +1,59 @@
+@import "../../../../styles/theme";
+
+.modal-delete {
+  padding: 10px;
+  background-color: tomato;
+  border-radius: 15px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: -20px;
+  top: -110px;
+
+  &-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+  }
+  &-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    &-btn {
+      color: black;
+      border: none;
+      border-radius: 5px;
+      background-color: $primary-darker;
+      font-size: 18px;
+      width: 45%;
+      height: 40px;
+    }
+  }
+}
+
+.bottom-center {
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    border: 20px solid rgba(0, 0, 0, 0);
+    border-top: 15px solid tomato;
+  }
+}
+
+.top-right {
+  //   border-top-right-radius: 0px;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: -15px;
+    right: 0%;
+    border: 20px solid rgba(0, 0, 0, 0);
+    border-right: 20px solid tomato;
+  }
+}

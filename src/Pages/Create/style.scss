@@ -12,14 +12,14 @@ b {
 .create {
   display: flex;
   flex-direction: column;
-  padding: 40px 60px 0px 60px;
+  padding: 40px;
   background-color: $primary-darker;
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
 
   @include mobileL {
-    padding: 40px 30px 0px 30px;
+    padding: 40px 30px;
   }
 
   .create-header {
@@ -73,12 +73,20 @@ b {
     flex-direction: column;
     width: 100%;
 
-    .fields {
+    &-fields {
       display: flex;
       flex-direction: column;
       .add-button {
         position: relative;
         align-self: flex-start;
+      }
+
+      &-image {
+        position: relative;
+
+        &-delete {
+          top: 20px;
+        }
       }
     }
 

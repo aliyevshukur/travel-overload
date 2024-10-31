@@ -1,26 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-import back from "../../assets/back.svg";
+import { toast } from "react-toastify";
 import Eye from "../../assets/eye.svg";
-import { BlogCard, CustomButton, CustomSvg } from "../../components";
+import { CustomButton, CustomSvg } from "../../components";
 import { CardAuthor } from "../../components/BlogCard/CardAuthor";
 import { Loader } from "../../components/Loader";
-import { fetchBlogs, getBlogs, increaseView } from "../../store/blogs";
+import {
+  deleteBlog,
+  getDeleteBlogError,
+  getDeleteBlogPending,
+  getDeleteBlogSuccess,
+  increaseView,
+} from "../../store/blogs";
 import { fetchBlog, getBlog, isLoading } from "../../store/single-blog";
+import { getUser } from "../../store/user";
+import ModalDelete from "../Create/components/ModalDelete/ModalDelete";
+import Sidepanel from "./Sidepanel";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
   blog: getBlog(state),
-  blogs: getBlogs(state),
   loading: isLoading(state),
+  user: getUser(state),
+  deleteBlogPending: getDeleteBlogPending(state),
+  deleteBlogError: getDeleteBlogError(state),
+  deleteBlogSuccess: getDeleteBlogSuccess(state),
 });
 
 export const Blog = connect(mapStateToProps)(
-  ({ blog, blogs, loading, dispatch }) => {
+  ({ dispatch, blog, loading, user, deleteBlogPending, deleteBlogError }) => {
     const { id } = useParams();
     const history = useHistory();
     const {
@@ -30,6 +42,7 @@ export const Blog = connect(mapStateToProps)(
       context = [],
       views = 0,
     } = blog;
+    const [deleteModal, setDeleteModal] = useState(false);
 
     useEffect(() => {
       increaseView(id);
@@ -37,87 +50,120 @@ export const Blog = connect(mapStateToProps)(
 
     useEffect(() => {
       dispatch(fetchBlog(id));
-      dispatch(fetchBlogs("newest"));
     }, [dispatch, id]);
 
-    if (
-      loading ||
-      (context.length < 3 && blogs.is) ||
-      Object.keys(blog).length === 0
-    ) {
-      return (
-        <div className='wrapper-loading'>
-          <Loader />
-        </div>
-      );
+    function handleBlogDelete() {
+      dispatch(deleteBlog(id));
+
+      // Show feedback on blog deletion
+      if (deleteBlogError?.message) toast.error(deleteBlogError.message);
+      else toast.success("Successfully deleted blog");
+
+      history.push("/");
     }
+
     return (
       <div className='blog-wrapper'>
         <div className='blog'>
-          <CustomButton
-            title='Back'
-            onClick={() => history.goBack()}
-            className={"blog-back-btn"}
-            icon={
-              <CustomSvg
-                name='chervonLeft'
-                width='20'
-                height='20'
-                color='#ffffff'
-              />
-            }
-          />
-          <div className='blog-header'>
-            <img src={context[1].url} alt='' className={"blog-header-image"} />
-            <div className='blog-header-info'>
-              <h1 className='blog-header-info-title'>{title}</h1>
-              <p className='blog-header-info-description'>{context[2].text}</p>
-              <div className='blog-header-info-views'>
-                <img
-                  src={Eye}
-                  alt='eye'
-                  className='blog-header-info-views-eye'
+          {loading || Object.keys(blog).length === 0 ? (
+            <Loader />
+          ) : (
+            <>
+              <div className='blog-controls'>
+                <CustomButton
+                  title='Back'
+                  onClick={() => history.goBack()}
+                  className={"blog-controls-back"}
+                  loading={deleteBlogPending}
+                  icon={
+                    <CustomSvg
+                      name='chervonLeft'
+                      width='20'
+                      height='20'
+                      color='#ffffff'
+                    />
+                  }
                 />
-                {views}
-              </div>
-            </div>
-          </div>
-          <div className='blog-content'>
-            {context.slice(2).map((field, ind) => {
-              if (field.type === "text") {
-                return (
-                  <div className='blog-content-text' key={ind}>
-                    {field.text}
+                {(user._id === blog.author._id || user.role === "admin") && (
+                  <div className='blog-controls-delete'>
+                    <CustomButton
+                      title=''
+                      onClick={() => setDeleteModal(true)}
+                      className={"blog-controls-delete-btn"}
+                      icon={
+                        <CustomSvg
+                          name='trash'
+                          width='24'
+                          height='24'
+                          color='red'
+                        />
+                      }
+                    />
+                    {deleteModal && (
+                      <ModalDelete
+                        onDelete={handleBlogDelete}
+                        setDeleteModal={setDeleteModal}
+                        className={"blog-controls-delete-modal"}
+                        bubbleTail={"top-right"}
+                        id={id}
+                      />
+                    )}
                   </div>
-                );
-              } else if (field.type === "image") {
-                return (
-                  <img
-                    src={field.url}
-                    alt=''
-                    className='blog-content-image'
-                    key={ind}
-                  />
-                );
-              } else return <></>;
-            })}
-          </div>
-          <div className='blog-author'>
-            <CardAuthor
-              authorInfo={{
-                postDate: postDate,
-                author: author.name + " " + author.surname,
-                authorImage: author.profilePicture,
-              }}
-            />
-          </div>
+                )}
+              </div>
+              <div className='blog-header'>
+                <img
+                  src={context[1].url}
+                  alt=''
+                  className={"blog-header-image"}
+                />
+                <div className='blog-header-info'>
+                  <h1 className='blog-header-info-title'>{title}</h1>
+                  <p className='blog-header-info-description'>
+                    {context[2].text}
+                  </p>
+                  <div className='blog-header-info-views'>
+                    <img
+                      src={Eye}
+                      alt='eye'
+                      className='blog-header-info-views-eye'
+                    />
+                    {views}
+                  </div>
+                </div>
+              </div>
+              <div className='blog-content'>
+                {context.slice(3).map((field, ind) => {
+                  if (field.type === "text") {
+                    return (
+                      <div className='blog-content-text' key={ind}>
+                        {field.text}
+                      </div>
+                    );
+                  } else if (field.type === "image") {
+                    return (
+                      <img
+                        src={field.url}
+                        alt=''
+                        className='blog-content-image'
+                        key={ind}
+                      />
+                    );
+                  } else return <></>;
+                })}
+              </div>
+              <CardAuthor
+                authorInfo={{
+                  postDate: postDate,
+                  author: author.name + " " + author.surname,
+                  authorImage: author.profilePicture,
+                }}
+                className={"blog-author"}
+              />
+            </>
+          )}
         </div>
-        <div className='sidepanel'>
-          <h3 className='sidepanel-title'>Recent posts</h3>
-          {blogs.map((blog, ind) => (
-            <BlogCard cardInfo={blog} mini={true} key={ind} />
-          ))}
-        </div>
+        <Sidepanel />
       </div>
     );
   },

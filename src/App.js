@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.scss";
-import "./styles/reset.scss";
-
 import { Header } from "./components/Header";
 import Navigation from "./Navigation";
 import { RenderRoutes, ROUTES } from "./routes";
 import { login, setToken } from "./store/auth";
 import { fetchUser, getUser } from "./store/user";
+import "./styles/reset.scss";
 
 const App = ({ dispatch }) => {
   const [isNavVisible, setIsNavVisible] = useState(false);
@@ -24,6 +25,18 @@ const App = ({ dispatch }) => {
 
   return (
     <div className='App'>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+      />
       <Header isNavVisible={isNavVisible} setIsNavVisible={setIsNavVisible} />
       <Navigation
         isNavVisible={isNavVisible}

@@ -2,47 +2,18 @@
 @import "../../styles/_base";
 @import "../../styles/media-queries.scss";
 
-.wrapper-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-  background-color: white;
-}
-
 .blog-wrapper {
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   width: 100%;
   background-color: white;
   line-height: 1.5rem;
 
-  .sidepanel {
-    width: 20%;
-    height: 100vh;
-    padding: 10px 20px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    &-title {
-      align-self: flex-start;
-      margin-bottom: 10px;
-    }
-
-    @include desktop {
-      display: none;
-    }
-  }
-
   .blog {
-    width: 80%;
+    width: 100%;
     border-radius: 0px 50px 50px 0px;
     background-color: $primary-darker;
     overflow: auto;
@@ -54,23 +25,45 @@
       display: none; /* Safari and Chrome */
     }
 
-    @include desktop {
+    @include laptopL {
       width: 100%;
     }
 
-    @include tablet {
+    @include laptop {
       border-radius: 0px;
     }
     @include tabletS {
       padding: 30px 50px;
     }
 
-    &-back-btn {
-      width: auto;
-      height: auto;
-      padding: 5px 15px 5px 10px;
-      margin-bottom: 20px;
-      background-color: grey;
+    &-controls {
+      display: flex;
+      justify-content: space-between;
+
+      &-back {
+        width: auto;
+        height: auto;
+        padding: 5px 15px 5px 10px;
+        margin-bottom: 20px;
+        background-color: grey;
+      }
+
+      &-delete {
+        position: relative;
+
+        &-btn {
+          width: auto;
+          height: auto;
+          background-color: transparent;
+        }
+
+        &-modal {
+          width: 300px;
+          top: 50px;
+          right: 50%;
+          left: auto;
+        }
+      }
     }
 
     &-header {
@@ -153,7 +146,8 @@
 
     &-author {
       margin-top: 40px;
-      display: inline-block;
+      max-width: 300px;
+      justify-self: start;
     }
   }
 }

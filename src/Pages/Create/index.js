@@ -7,6 +7,7 @@ import { isTabletMode } from "../../store/appState";
 import { postBlog } from "../../store/blogs";
 import { getUser } from "../../store/user";
 import "../Create/style.scss";
+import DeleteFieldButton from "./components/DeleteFieldButton";
 import ModalAdd from "./components/ModalAdd";
 import TextField from "./components/TextField";
 
@@ -159,7 +160,7 @@ const Create = ({ dispatch, user, isTabletMode }) => {
       <div className='seperator' />
 
       <div className={"content"} onClick={(e) => clickedAside(e)}>
-        <div className={"fields"}>
+        <div className={"content-fields"}>
           {fields.slice(3).map((field) => {
             if (field.id === 0) {
               return field;
@@ -176,11 +177,18 @@ const Create = ({ dispatch, user, isTabletMode }) => {
                 );
               case "image":
                 return (
-                  <CustomUploadWidget
-                    handleImageChange={handleImageChange}
-                    key={field.id}
-                    id={field.id}
-                  />
+                  <div className='content-fields-image'>
+                    <DeleteFieldButton
+                      id={field.id}
+                      onDelete={deleteField}
+                      className='content-fields-image-delete'
+                    />
+                    <CustomUploadWidget
+                      handleImageChange={handleImageChange}
+                      key={field.id}
+                      id={field.id}
+                    />
+                  </div>
                 );
               default:
                 return null;

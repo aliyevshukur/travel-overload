@@ -58,12 +58,12 @@ const UserPanel = ({
         onClick={() => setIsNameModalOpen(true)}
       />
       <CustomButton
-        title='Exit'
-        className='exit-btn'
+        title='Log out'
+        className='logout-btn'
         onClick={() => {
           dispatch(logoutUser());
         }}
-        icon={<CustomSvg name='exit' width='22' height='23' />}
+        icon={<CustomSvg name='exit' width='22' height='22' />}
       />
     </div>
   );

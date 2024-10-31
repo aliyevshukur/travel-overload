@@ -1,25 +1,3 @@
-$tablet: 850px;
-$desktop-small: 1024px;
-$desktop: 1300px;
-
-@mixin tablet {
-  @media only screen and (max-width: $tablet) {
-    @content;
-  }
-}
-
-@mixin desktopSmall {
-  @media only screen and (max-width: $desktop-small) {
-    @content;
-  }
-}
-
-@mixin desktop {
-  @media only screen and (max-width: $desktop) {
-    @content;
-  }
-}
-
 @mixin spin {
   @keyframes spin {
     0% {

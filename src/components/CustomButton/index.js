@@ -24,7 +24,7 @@ export const CustomButton = ({
         <span className='button-loader' />
       ) : (
         <>
-          {icon}
+          <span className='button-icon'>{icon}</span>
           {title}
         </>
       )}
