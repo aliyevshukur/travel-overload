@@ -18,6 +18,7 @@
     resize: none;
     border: 1px solid black;
     border-left: 5px solid $secondary;
+    overflow: hidden;
 
     @include tablet {
       padding: 10px 10px;

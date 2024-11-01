@@ -8,3 +8,7 @@ $success-color: #8fcb88;
 @mixin colorPrimary {
   color: $primary;
 }
+
+@mixin siteFont {
+  font-family: "Montserrat", sans-serif;
+}

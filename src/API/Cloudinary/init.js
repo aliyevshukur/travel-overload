@@ -17,10 +17,10 @@ export function getCloudinaryConfig() {
   const uwConfig = {
     cloudName,
     uploadPreset,
-    clientAllowedFormats: ["jpg, png, jpeg"],
-    maxImageFileSize: 4000000,
+    clientAllowedFormats: ["jpg", "png", "jpeg", "JPEG", "webp", "WEBP"],
+    maxImageFileSize: 5000000,
     multiple: false,
-    showAdvancedOptions: true,
+    showAdvancedOptions: false,
   };
 
   return uwConfig;

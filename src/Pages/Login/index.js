@@ -45,7 +45,7 @@ export const Login = connect(mapStateToProps)(({ dispatch, token, user }) => {
           dispatch(login({ token: result.token, user: result.user }));
           localStorage.setItem("token", result.token);
           localStorage.setItem("user", JSON.stringify(result.user));
-          history.push("/user");
+          history.push("/");
         } else {
           setServerMessage(result.message);
         }

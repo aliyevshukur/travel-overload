@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import { BlogCard, PageTitle } from "../../components";
 import { Loader } from "../../components/Loader";
 import ModalWindow from "../../components/ModalWindow";
-import { isTabletMode } from "../../store/appState";
 import {
   changeName,
   changePassword,
@@ -14,7 +14,6 @@ import {
   getProfilePictureUploadLoading,
   getUser,
   getUserBlogs,
-  getUserBlogsError,
   getUserBlogsLoading,
   uploadProfilePicture,
 } from "../../store/user";
@@ -29,11 +28,8 @@ const mapStateToProps = (store) => ({
 
   blogs: getUserBlogs(store),
   blogsLoading: getUserBlogsLoading(store),
-  blogsError: getUserBlogsError(store),
 
   nameSuccess: getNameChangeSuccess(store),
-
-  isTabletMode: isTabletMode(store),
 });
 
 export const UserPage = connect(mapStateToProps)(
@@ -43,9 +39,7 @@ export const UserPage = connect(mapStateToProps)(
     profilePictureUploadLoading,
     profilePictureUploadError,
     blogsLoading,
-    blogsError,
     blogs,
-    isTabletMode,
     nameSuccess,
   }) => {
     const [isPanelVisible, setIsPanelVisible] = useState(false);
@@ -58,19 +52,12 @@ export const UserPage = connect(mapStateToProps)(
 
     useEffect(() => {
       if (profilePictureUploadError) {
-        // console.log(
-        //   `Profile picture upload error :${profilePictureUploadError}`,
-        // );
-        alert(profilePictureUploadError);
+        toast.error(profilePictureUploadError);
       }
     }, [profilePictureUploadError]);
-    // console.log(`User blogs ${JSON.stringify(blogs)}`);
+
     function handleImageChange(imageUrl) {
       dispatch(uploadProfilePicture(imageUrl));
-    }
-    // console.log(`User ${JSON.stringify(user)}`);
-    if (profilePictureUploadError) {
-      // console.log(`Profile picture upload error :${profilePictureUploadError}`);
     }
 
     const handleNameChange = (name, surname, password) => {
@@ -97,9 +84,7 @@ export const UserPage = connect(mapStateToProps)(
               setIsModalOpen={setIsNameModalOpen}
               formType='name'
               title='Change your name'
-              onSubmit={(name, surname, password) =>
-                handleNameChange(name, surname, password)
-              }
+              onSubmit={handleNameChange}
             />,
             document.getElementById("portal"),
           )}
@@ -109,9 +94,7 @@ export const UserPage = connect(mapStateToProps)(
               setIsModalOpen={setIsPasswordModalOpen}
               formType='password'
               title='Change your password'
-              onSubmit={(newPassword, oldPassword) =>
-                handlePassworChange(newPassword, oldPassword)
-              }
+              onSubmit={handlePassworChange}
             />,
             document.getElementById("portal"),
           )}

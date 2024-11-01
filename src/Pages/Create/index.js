@@ -136,6 +136,7 @@ const Create = ({ dispatch, user, isTabletMode }) => {
             handleTextChange={handleTextChange}
             className={"title-input"}
             required={true}
+            maxlength='100'
           />
         </div>
         <h1 className={"title-text"}>Description</h1>
@@ -146,6 +147,7 @@ const Create = ({ dispatch, user, isTabletMode }) => {
             handleTextChange={handleTextChange}
             className={"title-input"}
             required={true}
+            maxlength='400'
           />
         </div>
       </div>
@@ -154,7 +156,7 @@ const Create = ({ dispatch, user, isTabletMode }) => {
         isThumbnail={true}
         id={1}
         required={true}
-        buttonText='Upload thumbnail'
+        buttonText={fields[1].url ? "Change thumbnail" : "Upload thumbnail"}
       />
 
       <div className='seperator' />
@@ -187,6 +189,7 @@ const Create = ({ dispatch, user, isTabletMode }) => {
                       handleImageChange={handleImageChange}
                       key={field.id}
                       id={field.id}
+                      buttonText={field.url ? "Change image" : "Upload image"}
                     />
                   </div>
                 );

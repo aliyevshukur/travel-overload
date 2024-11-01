@@ -10,6 +10,7 @@ export default function TextField({
   isTitle = false,
   className,
   required = false,
+  maxlength = "20000",
 }) {
   const { id, text } = field;
 
@@ -21,8 +22,9 @@ export default function TextField({
         onChange={(e) => handleTextChange(id, e.target.value)}
         className={`textfield-input`}
         minRows={1}
-        maxRows={2}
+        maxRows={1000}
         required={required}
+        maxlength={maxlength}
       />
 
       {!isTitle && <DeleteFieldButton id={field.id} onDelete={deleteField} />}
